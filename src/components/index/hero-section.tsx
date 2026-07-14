@@ -214,7 +214,7 @@ const HeroSection = () => {
   const controls = useAnimation();
 
   useEffect(() => {
-    controls.start("visible");
+    void controls.start("visible");
   }, [controls]);
 
   return (

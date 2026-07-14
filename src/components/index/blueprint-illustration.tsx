@@ -51,9 +51,9 @@ const BlueprintIllustration = () => {
 
     // Pulse the Register CTA in the navbar
     setTimeout(() => {
-      const btn = document.querySelector(
+      const btn = document.querySelector<HTMLElement>(
         'a[href="/register"]'
-      ) as HTMLElement | null;
+      );
       if (btn) {
         btn.style.transition = "box-shadow 0.4s ease";
         btn.style.boxShadow = `0 0 18px ${GOLD}, 0 0 36px rgba(212,175,106,0.25)`;

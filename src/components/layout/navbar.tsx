@@ -118,6 +118,7 @@ function Navbar() {
                     color="white"
                     fontSize="xl"
                     fontWeight="semibold"
+                    fontFamily="'Satoshi', sans-serif"
                     onClick={(e) => {
                       handleNavClick(e, item.href);
                       onClose();
@@ -151,6 +152,7 @@ function Navbar() {
                       <Button
                         bg="transparent"
                         color="#C9A467"
+                        fontFamily="'Satoshi', sans-serif"
                         border="1px solid #C9A467"
                         _hover={{ bg: "rgba(201,164,103,0.1)" }}
                         w="100%"
@@ -161,6 +163,7 @@ function Navbar() {
                       <Button
                         variant="outline"
                         colorScheme="whiteAlpha"
+                        fontFamily="'Satoshi', sans-serif"
                         w="100%"
                         onClick={() => router.push("/login")}
                         color="white"
@@ -176,7 +179,7 @@ function Navbar() {
           </Drawer>
         </>
       ) : (
-        <Flex flex="1" justify="center" fontFamily="'Inter', sans-serif" gap={8}>
+        <Flex flex="1" justify="center" fontFamily="'Satoshi', sans-serif" gap={8}>
           {navItems.map(({ title, href }, i) => (
             <ChakraLink
               key={i}
@@ -200,6 +203,7 @@ function Navbar() {
                 as={Link}
                 href="/login"
                 variant="outline"
+                fontFamily="'Satoshi', sans-serif"
                 _hover={{ bg: "rgba(245,242,240,0.05)", color: "white" }}
               >
                 Login
@@ -209,6 +213,7 @@ function Navbar() {
                 href="/register"
                 bg="transparent"
                 color="#C9A467"
+                fontFamily="'Satoshi', sans-serif"
                 border="1px solid #C9A467"
                 _hover={{ bg: "rgba(201,164,103,0.1)" }}
               >

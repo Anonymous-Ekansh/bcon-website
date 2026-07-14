@@ -19,7 +19,7 @@ const START_Y = 140;
 
 const CountdownItem = ({ label, value, isSeconds = false }: { label: string; value: string | number; isSeconds?: boolean }) => {
   const formattedValue = String(value).padStart(2, '0');
-  
+
   return (
     <Flex direction="column" align="center" mx={{ base: 2, md: 4 }}>
       <Box h={{ base: "40px", md: "60px", lg: "80px" }} overflow="hidden" position="relative">
@@ -128,7 +128,8 @@ const CountdownVisual = () => {
               <motion.g
                 key={`stair-${i}`}
                 initial={{ y: -40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{
                   duration: 0.3,
                   delay: i * 0.15,
@@ -175,7 +176,8 @@ const CountdownVisual = () => {
             stroke={GOLD}
             strokeWidth="2"
             initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{
               duration: 0.5,
               delay: STAIR_COUNT * 0.15 + 0.2,
@@ -191,7 +193,8 @@ const CountdownVisual = () => {
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH - 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 1} Z`}
             fill="url(#doorGlow)"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{
               duration: 0.8,
               delay: STAIR_COUNT * 0.15 + 0.7,
@@ -202,17 +205,25 @@ const CountdownVisual = () => {
       </Box>
 
       {/* ── Text Section (Below visual) ── */}
-      <Flex direction="column" align="center" mt={0} mb={8} w="100%">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, delay: STAIR_COUNT * 0.15 + 0.9 }}
+        style={{ width: "100%" }}
+      >
+        <Flex direction="column" align="center" mt={0} mb={8} w="100%">
         <Text
           fontFamily="'Fraunces', serif"
           fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-          fontStyle="italic"
           fontWeight="300"
+          letterSpacing="-0.02em"
           color="#F5F2F0"
         >
           Build your door to tomorrow.
         </Text>
-      </Flex>
+        </Flex>
+      </motion.div>
 
       {/* ── Foreground Countdown ── */}
       <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={10}>
@@ -231,16 +242,17 @@ const CountdownVisual = () => {
         href="/register"
         bg={GOLD}
         color="#12081F"
-        fontSize="15px"
-        fontWeight="600"
-        letterSpacing="0.1em"
+        fontFamily="'Bebas Neue', sans-serif"
+        fontSize="22px"
+        fontWeight="400"
+        letterSpacing="0.05em"
         textTransform="uppercase"
         px={12}
         py={7}
         borderRadius="0"
         clipPath="polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))"
-        rightIcon={<FiArrowRight size={20} />}
-        _hover={{ 
+        rightIcon={<FiArrowRight size={22} />}
+        _hover={{
           bg: "#E8C87A",
           transform: "translateY(-3px)",
         }}

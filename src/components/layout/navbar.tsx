@@ -73,15 +73,15 @@ function Navbar() {
   };
 
   return (
+    <Box bg="transparent" w="100%" position="absolute" top="0" left="0" right="0" zIndex="20">
     <Flex
       as="nav"
       alignItems="center"
       justify="space-between"
       maxW="1536px"
       mx="auto"
-      py={6}
+      py={4}
       px={8}
-      zIndex="10"
     >
       {/* Logo Section */}
       <Box
@@ -89,9 +89,9 @@ function Navbar() {
         cursor="pointer"
       >
         <Image
-          alt="BCon X SNU Logo"
-          h={{ base: 12, md: 16 }}
-          src="/images/BCon_X_SNU_Logo.png"
+          alt="Business Conclave × Shiv Nadar University"
+          h={{ base: 10, md: 14 }}
+          src="/images/bcon-x-snu-navbar.png"
         />
       </Box>
 
@@ -108,7 +108,7 @@ function Navbar() {
           />
           <Drawer isOpen={isOpen} placement="top" onClose={onClose} size="full">
             <DrawerOverlay bg="rgba(0, 0, 0, 0.8)" backdropFilter="blur(5px)" />
-            <DrawerContent bg="#292929">
+            <DrawerContent bg="#000000">
               <DrawerCloseButton mt={6} mr={5} color="white" />
               <VStack spacing={8} align="start" mt={12} p={6}>
                 {navItems.map((item, index) => (
@@ -137,7 +137,7 @@ function Navbar() {
                       w="100%"
                     >
                       <HStack>
-                        <Icon as={FaUserCircle} w={6} h={6} color="#FB8329" />
+                        <Icon as={FaUserCircle} w={6} h={6} color="#C9A467" />
                         <Text fontFamily="Satoshi">
                           {session?.user?.name ?? "Guest"}
                         </Text>
@@ -149,9 +149,10 @@ function Navbar() {
                   ) : (
                     <VStack spacing={4} w="100%">
                       <Button
-                        bg="#FB8329"
-                        color="white"
-                        _hover={{ bg: "#E5731B" }}
+                        bg="transparent"
+                        color="#C9A467"
+                        border="1px solid #C9A467"
+                        _hover={{ bg: "rgba(201,164,103,0.1)" }}
                         w="100%"
                         onClick={() => router.push("/register")}
                       >
@@ -175,7 +176,7 @@ function Navbar() {
           </Drawer>
         </>
       ) : (
-        <Flex flex="1" justify="center" fontFamily="Satoshi" gap={8}>
+        <Flex flex="1" justify="center" fontFamily="'Inter', sans-serif" gap={8}>
           {navItems.map(({ title, href }, i) => (
             <ChakraLink
               key={i}
@@ -199,16 +200,17 @@ function Navbar() {
                 as={Link}
                 href="/login"
                 variant="outline"
-                _hover={{ bg: "#2D3748", color: "white" }}
+                _hover={{ bg: "rgba(245,242,240,0.05)", color: "white" }}
               >
                 Login
               </Button>
               <Button
                 as={Link}
                 href="/register"
-                bg="#FB8329"
-                color="white"
-                _hover={{ bg: "#E5731B" }}
+                bg="transparent"
+                color="#C9A467"
+                border="1px solid #C9A467"
+                _hover={{ bg: "rgba(201,164,103,0.1)" }}
               >
                 Register
               </Button>
@@ -222,19 +224,19 @@ function Navbar() {
                 rightIcon={<ChevronDownIcon />}
               >
                 <HStack>
-                  <Icon as={FaUserCircle} w={6} h={6} color="#FB8329" />
+                  <Icon as={FaUserCircle} w={6} h={6} color="#C9A467" />
                   <Text fontFamily="Satoshi">
                     {session?.user?.name ?? "Guest"}
                   </Text>
                 </HStack>
               </MenuButton>
-              <MenuList bg="#2D3748" border="none">
+              <MenuList bg="#3A2159" border="1px solid rgba(201,164,103,0.15)">
                 <MenuItem
                   icon={<ExternalLinkIcon />}
                   as={ChakraLink}
                   href="/dashboard"
                   color="white"
-                  _hover={{ bg: "#4A5568" }}
+                  _hover={{ bg: "rgba(201,164,103,0.1)" }}
                 >
                   Dashboard
                 </MenuItem>
@@ -242,7 +244,7 @@ function Navbar() {
                   icon={<FaSignOutAlt />}
                   onClick={() => signOut()}
                   color="white"
-                  _hover={{ bg: "#4A5568" }}
+                  _hover={{ bg: "rgba(201,164,103,0.1)" }}
                 >
                   Logout
                 </MenuItem>
@@ -252,6 +254,7 @@ function Navbar() {
         </Flex>
       )}
     </Flex>
+    </Box>
   );
 }
 

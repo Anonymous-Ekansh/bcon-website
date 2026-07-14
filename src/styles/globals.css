@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
 @import url('https://fonts.cdnfonts.com/css/satoshi');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
@@ -6,10 +7,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #232323;
-  color: #ffffff;
+  background-color: #2C1B47;
+  color: #F5F2F0;
   /* This hides the horizontal scrollbar */
   /* overflow-x: hidden;  */
 }
@@ -21,4 +22,28 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* ─── Blueprint draw-in animation ─── */
+@keyframes drawLine {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ─── Text clip-path reveal ─── */
+@keyframes clipReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* ─── Eyebrow tracking animation ─── */
+@keyframes trackingIn {
+  from {
+    letter-spacing: 0.3em;
+    opacity: 0;
+  }
+  to {
+    letter-spacing: 0.35em;
+    opacity: 1;
+  }
 }

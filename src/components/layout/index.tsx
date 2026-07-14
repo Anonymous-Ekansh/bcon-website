@@ -16,8 +16,8 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
       <Head>
         <title>
           {title
-            ? `${title} | Business Conclave SNIoE 2024`
-            : "Business Conclave SNIoE 2024"}
+            ? `${title} | Business Conclave SNIoE 2026`
+            : "Business Conclave SNIoE 2026"}
         </title>
       </Head>
 

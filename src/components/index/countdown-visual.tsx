@@ -141,7 +141,7 @@ const CountdownVisual = () => {
                   x={blockX}
                   y={blockY}
                   width={STAIR_WIDTH}
-                  height={STAIR_HEIGHT} // Just a step, not a column to the floor
+                  height={(i + 1) * STAIR_HEIGHT} // Extends to the floor to form a solid bar
                   fill={GOLD}
                   stroke={GOLD_DARK}
                   strokeWidth="1"
@@ -154,23 +154,16 @@ const CountdownVisual = () => {
                   height={2}
                   fill="rgba(255,255,255,0.4)"
                 />
-                {/* Subtle bottom shadow */}
-                <rect
-                  x={blockX}
-                  y={blockY + STAIR_HEIGHT - 2}
-                  width={STAIR_WIDTH}
-                  height={2}
-                  fill="rgba(0,0,0,0.15)"
-                />
+                {/* Subtle bottom shadow removed for bar graph, since it sits on the baseline */}
               </motion.g>
             );
           })}
 
-          {/* 2. Doorway Arch (Draws after stairs) */}
+          {/* 2. Top Rectangular Box (Draws after bars) */}
           <motion.path
             d={`M ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
-                A ${STAIR_WIDTH / 2} ${STAIR_WIDTH / 2} 0 0 1 ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
+                L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT}`}
             fill="none"
             stroke={GOLD}
@@ -185,11 +178,11 @@ const CountdownVisual = () => {
             }}
           />
 
-          {/* 3. Subtle Warm Glow Inside Arch (Fades in last) */}
+          {/* 3. Subtle Warm Glow Inside Box (Fades in last) */}
           <motion.path
             d={`M ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 1}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
-                A ${(STAIR_WIDTH - 2) / 2} ${(STAIR_WIDTH - 2) / 2} 0 0 1 ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH - 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
+                L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH - 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH - 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 1} Z`}
             fill="url(#doorGlow)"
             initial={{ opacity: 0 }}

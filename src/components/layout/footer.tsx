@@ -50,7 +50,7 @@ function Footer() {
   ];
 
   return (
-    <Box bg="#2c2c2c" color="white" py={10} px={{ base: 6, md: 10 }}>
+    <Box bg="transparent" color="white" py={10} px={{ base: 6, md: 10 }}>
       <Flex
         flexDir={{ base: "column", md: "row" }}
         justifyContent="space-between"
@@ -65,6 +65,7 @@ function Footer() {
           flexWrap="wrap"
           justifyContent="center"
           textAlign="center" // Center align links for mobile
+          fontFamily="'Proxima Nova', 'Inter', sans-serif"
         >
           {navItems.map(({ title, href }, i) => (
             <Link
@@ -91,7 +92,7 @@ function Footer() {
               icon={<Icon as={icon} />}
               variant="ghost"
               color="white"
-              _hover={{ bg: "#FB8329", color: "white" }}
+              _hover={{ bg: "#CFAF89", color: "#1A0A29" }}
               size="lg"
             />
           ))}
@@ -100,8 +101,8 @@ function Footer() {
 
       {/* Copyright Section */}
       <Flex justifyContent="center" mt={8} px={{ base: 4, md: 0 }}>
-        <Text fontSize="sm" color="gray.500" textAlign="center">
-          © 2024 Business Conclave, Shiv Nadar University. All Rights Reserved.
+        <Text fontSize="sm" color="gray.500" textAlign="center" fontFamily="'Proxima Nova', 'Inter', sans-serif">
+          © 2026 Business Conclave, Shiv Nadar University. All Rights Reserved.
         </Text>
       </Flex>
     </Box>

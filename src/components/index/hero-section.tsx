@@ -10,7 +10,7 @@ import CountdownVisual from "./countdown-visual";
    floor-plan motif. Lines draw themselves in on mount via stroke-dashoffset.
    ──────────────────────────────────────────────────────────────────────── */
 
-const GOLD = "#C9A467";
+const GOLD = "#CFAF89";
 const PURPLE_WHITE = "rgba(255,255,255,0.04)";
 
 interface BlueprintLineProps {
@@ -223,30 +223,8 @@ const HeroSection = () => {
       w="100vw"
       minH="100vh"
       overflow="hidden"
-      bg="#12081F"
+      bg="transparent"
     >
-      {/* ── Seamless Ambient Glow ── */}
-      <Box
-        position="absolute"
-        top="0"
-        right="0"
-        w="100%"
-        h="100%"
-        background="radial-gradient(circle at 100% 0%, rgba(139, 92, 246, 0.25) 0%, rgba(109, 40, 217, 0.15) 30%, rgba(76, 29, 149, 0.05) 60%, transparent 100%)"
-        pointerEvents="none"
-        zIndex="0"
-      />
-
-      {/* ── Film Grain Noise ── */}
-      <Box
-        position="absolute"
-        inset="0"
-        zIndex="0"
-        opacity="0.05"
-        style={{ mixBlendMode: "overlay" }}
-        backgroundImage="url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E&quot;)"
-      />
-
       <Navbar />
 
       {/* Blueprint grid overlay */}
@@ -267,7 +245,7 @@ const HeroSection = () => {
         pb={{ base: 16, md: 20 }}
         gap={{ base: 12, lg: 8 }}
       >
-        <Flex direction="column" justify="center" flex="1" maxW="600px">
+        <Flex direction="column" justify="center" flex="1" maxW={{ base: "100%", md: "600px", lg: "700px", xl: "800px" }}>
         {/* Eyebrow Image */}
         <Box
           as={motion.div}
@@ -311,28 +289,30 @@ const HeroSection = () => {
           ml={{ base: "-4px", md: "-8px", lg: "-10px", xl: "-12px" }} // Stronger optical alignment adjustment
         >
           <Text
-            fontFamily="'Fraunces', serif"
+            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
             fontSize={{ base: "52px", sm: "68px", md: "96px", lg: "120px", xl: "140px" }}
             fontWeight="300"
             lineHeight="0.9"
-            color="#F5F2F0"
+            color="#FFFFFF"
             letterSpacing="-0.02em"
+            whiteSpace="nowrap"
           >
             Building
           </Text>
           <Text
-            fontFamily="'Fraunces', serif"
+            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
             fontSize={{ base: "52px", sm: "68px", md: "96px", lg: "120px", xl: "140px" }}
             fontWeight="300"
             lineHeight="0.9"
-            color="#F5F2F0"
+            color="#FFFFFF"
             letterSpacing="-0.02em"
+            whiteSpace="nowrap"
           >
             Tomorrow
             <Text
               as="span"
               color={GOLD}
-              fontFamily="'Fraunces', serif"
+              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
               fontWeight="300"
             >
               .
@@ -346,10 +326,10 @@ const HeroSection = () => {
           variants={subtextVariant}
           initial="hidden"
           animate={controls}
-          fontFamily="'Inter', sans-serif"
+          fontFamily="'Proxima Nova', 'Inter', sans-serif"
           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
           fontWeight="300"
-          color="rgba(245, 242, 240, 0.55)"
+          color="rgba(255, 255, 255, 0.7)"
           maxW="520px"
           lineHeight="1.7"
           mb={{ base: 8, md: 10 }}
@@ -368,21 +348,21 @@ const HeroSection = () => {
           gap={4}
         >
           <Text
-            fontFamily="'Fraunces', serif"
+            fontFamily="'Cinzel', serif"
             fontSize={{ base: "28px", md: "36px" }}
-            fontWeight="300"
+            fontWeight="500"
             color={GOLD}
             letterSpacing="0.08em"
           >
             2026
           </Text>
-          <Box w="30px" h="1px" bg="rgba(201,164,103,0.3)" />
+          <Box w="30px" h="1px" bg="rgba(207, 175, 137, 0.5)" />
           <Text
-            fontFamily="'Inter', sans-serif"
+            fontFamily="'Proxima Nova', 'Inter', sans-serif"
             fontSize={{ base: "11px", md: "12px" }}
             fontWeight="500"
             textTransform="uppercase"
-            color="rgba(245, 242, 240, 0.35)"
+            color="rgba(255, 255, 255, 0.6)"
             letterSpacing="0.25em"
           >
             Business Conclave

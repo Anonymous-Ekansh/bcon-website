@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 
 import Navbar from "./navbar";
 import Footer from "./footer";
+import ScrollBackground from "./scroll-background";
 
 interface LayoutProps {
   title: string;
@@ -22,7 +23,9 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
       </Head>
 
       {!childrenHaveNavbar ? <Navbar /> : null}
-      <Box as="main">{children}</Box>
+      <ScrollBackground />
+      <Box className="grain-overlay" />
+      <Box as="main" position="relative" zIndex={1}>{children}</Box>
       <Footer />
     </>
   );

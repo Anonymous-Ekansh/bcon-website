@@ -108,7 +108,7 @@ function Navbar() {
           />
           <Drawer isOpen={isOpen} placement="top" onClose={onClose} size="full">
             <DrawerOverlay bg="rgba(0, 0, 0, 0.8)" backdropFilter="blur(5px)" />
-            <DrawerContent bg="#000000">
+            <DrawerContent bg="#2D1147">
               <DrawerCloseButton mt={6} mr={5} color="white" />
               <VStack spacing={8} align="start" mt={12} p={6}>
                 {navItems.map((item, index) => (
@@ -118,7 +118,7 @@ function Navbar() {
                     color="white"
                     fontSize="xl"
                     fontWeight="semibold"
-                    fontFamily="'Satoshi', sans-serif"
+                    fontFamily="'Proxima Nova', 'Inter', sans-serif"
                     onClick={(e) => {
                       handleNavClick(e, item.href);
                       onClose();
@@ -138,8 +138,8 @@ function Navbar() {
                       w="100%"
                     >
                       <HStack>
-                        <Icon as={FaUserCircle} w={6} h={6} color="#C9A467" />
-                        <Text fontFamily="Satoshi">
+                        <Icon as={FaUserCircle} w={6} h={6} color="#CFAF89" />
+                        <Text fontFamily="'Proxima Nova', 'Inter', sans-serif">
                           {session?.user?.name ?? "Guest"}
                         </Text>
                       </HStack>
@@ -151,10 +151,10 @@ function Navbar() {
                     <VStack spacing={4} w="100%">
                       <Button
                         bg="transparent"
-                        color="#C9A467"
-                        fontFamily="'Satoshi', sans-serif"
-                        border="1px solid #C9A467"
-                        _hover={{ bg: "rgba(201,164,103,0.1)" }}
+                        color="#CFAF89"
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                        border="1px solid #CFAF89"
+                        _hover={{ bg: "rgba(207, 175, 137, 0.1)" }}
                         w="100%"
                         onClick={() => router.push("/register")}
                       >
@@ -163,7 +163,7 @@ function Navbar() {
                       <Button
                         variant="outline"
                         colorScheme="whiteAlpha"
-                        fontFamily="'Satoshi', sans-serif"
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
                         w="100%"
                         onClick={() => router.push("/login")}
                         color="white"
@@ -179,7 +179,7 @@ function Navbar() {
           </Drawer>
         </>
       ) : (
-        <Flex flex="1" justify="center" fontFamily="'Satoshi', sans-serif" gap={8}>
+        <Flex flex="1" justify="center" fontFamily="'Proxima Nova', 'Inter', sans-serif" gap={8}>
           {navItems.map(({ title, href }, i) => (
             <ChakraLink
               key={i}
@@ -203,7 +203,7 @@ function Navbar() {
                 as={Link}
                 href="/login"
                 variant="outline"
-                fontFamily="'Satoshi', sans-serif"
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
                 _hover={{ bg: "rgba(245,242,240,0.05)", color: "white" }}
               >
                 Login
@@ -212,10 +212,10 @@ function Navbar() {
                 as={Link}
                 href="/register"
                 bg="transparent"
-                color="#C9A467"
-                fontFamily="'Satoshi', sans-serif"
-                border="1px solid #C9A467"
-                _hover={{ bg: "rgba(201,164,103,0.1)" }}
+                color="#CFAF89"
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                border="1px solid #CFAF89"
+                _hover={{ bg: "rgba(207, 175, 137, 0.1)" }}
               >
                 Register
               </Button>
@@ -229,19 +229,19 @@ function Navbar() {
                 rightIcon={<ChevronDownIcon />}
               >
                 <HStack>
-                  <Icon as={FaUserCircle} w={6} h={6} color="#C9A467" />
-                  <Text fontFamily="Satoshi">
+                  <Icon as={FaUserCircle} w={6} h={6} color="#CFAF89" />
+                  <Text fontFamily="'Proxima Nova', 'Inter', sans-serif">
                     {session?.user?.name ?? "Guest"}
                   </Text>
                 </HStack>
               </MenuButton>
-              <MenuList bg="#3A2159" border="1px solid rgba(201,164,103,0.15)">
+              <MenuList bg="#2D1147" border="1px solid rgba(207, 175, 137, 0.15)">
                 <MenuItem
                   icon={<ExternalLinkIcon />}
                   as={ChakraLink}
                   href="/dashboard"
                   color="white"
-                  _hover={{ bg: "rgba(201,164,103,0.1)" }}
+                  _hover={{ bg: "rgba(207, 175, 137, 0.1)" }}
                 >
                   Dashboard
                 </MenuItem>
@@ -249,7 +249,7 @@ function Navbar() {
                   icon={<FaSignOutAlt />}
                   onClick={() => signOut()}
                   color="white"
-                  _hover={{ bg: "rgba(201,164,103,0.1)" }}
+                  _hover={{ bg: "rgba(207, 175, 137, 0.1)" }}
                 >
                   Logout
                 </MenuItem>

@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
-const GOLD = "#C9A24B";
+const GOLD = "#CFAF89";
 const GOLD_DARK = "#B08A30";
-const LABEL_COLOR = "#A78BFA"; // muted lavender-grey
+const LABEL_COLOR = "#816493"; // Soft Mauve
 
 const EVENT_DATE = new Date("2026-11-14T00:00:00").getTime(); // 14th Nov, 2026, 12:00 AM
 
@@ -33,10 +33,10 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
               transition={{ duration: 0.2 }}
             >
               <Text
-                fontFamily="'Fraunces', serif"
+                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
                 fontSize={{ base: "32px", md: "48px", lg: "64px" }}
                 fontWeight="300"
-                color="#F5F2F0"
+                color="#FFFFFF"
                 lineHeight="1"
               >
                 {formattedValue}
@@ -45,10 +45,10 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
           </AnimatePresence>
         ) : (
           <Text
-            fontFamily="'Fraunces', serif"
+            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
             fontSize={{ base: "32px", md: "48px", lg: "64px" }}
             fontWeight="300"
-            color="#F5F2F0"
+            color="#FFFFFF"
             lineHeight="1"
           >
             {formattedValue}
@@ -56,7 +56,7 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
         )}
       </Box>
       <Text
-        fontFamily="'Inter', sans-serif"
+        fontFamily="'Proxima Nova', 'Inter', sans-serif"
         fontSize={{ base: "10px", md: "12px" }}
         fontWeight="600"
         color={LABEL_COLOR}
@@ -115,8 +115,8 @@ const CountdownVisual = () => {
         >
           <defs>
             <linearGradient id="doorGlow" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stopColor="#C9A24B" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#C9A24B" stopOpacity="0" />
+              <stop offset="0%" stopColor="#CFAF89" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#CFAF89" stopOpacity="0" />
             </linearGradient>
           </defs>
 
@@ -127,13 +127,13 @@ const CountdownVisual = () => {
             return (
               <motion.g
                 key={`stair-${i}`}
-                initial={{ y: -40, opacity: 0 }}
+                initial={{ y: -80, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{
-                  duration: 0.3,
-                  delay: i * 0.15,
-                  ease: "easeOut",
+                  duration: 0.6,
+                  delay: i * 0.12,
+                  ease: [0.16, 1, 0.3, 1], // Cinematic snap
                 }}
               >
                 {/* Main block */}
@@ -172,9 +172,9 @@ const CountdownVisual = () => {
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
-              duration: 0.5,
-              delay: STAIR_COUNT * 0.15 + 0.2,
-              ease: "easeInOut",
+              duration: 0.8,
+              delay: STAIR_COUNT * 0.12 + 0.2,
+              ease: [0.16, 1, 0.3, 1],
             }}
           />
 
@@ -186,12 +186,16 @@ const CountdownVisual = () => {
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + STAIR_WIDTH - 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 1} Z`}
             fill="url(#doorGlow)"
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            animate={{
+              opacity: [0.3, 1, 0.5, 1], // Pulsating intensity
+            }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
-              duration: 0.8,
-              delay: STAIR_COUNT * 0.15 + 0.7,
-              ease: "easeOut",
+              duration: 2.5,
+              delay: STAIR_COUNT * 0.12 + 0.6,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "mirror"
             }}
           />
         </Box>
@@ -202,16 +206,16 @@ const CountdownVisual = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, delay: STAIR_COUNT * 0.15 + 0.9 }}
+        transition={{ duration: 1.0, delay: STAIR_COUNT * 0.12 + 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{ width: "100%" }}
       >
         <Flex direction="column" align="center" mt={0} mb={8} w="100%">
         <Text
-          fontFamily="'Fraunces', serif"
+          fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
           fontSize={{ base: "20px", md: "24px", lg: "28px" }}
           fontWeight="300"
           letterSpacing="-0.02em"
-          color="#F5F2F0"
+          color="#FFFFFF"
         >
           Build your door to tomorrow.
         </Text>
@@ -221,11 +225,11 @@ const CountdownVisual = () => {
       {/* ── Foreground Countdown ── */}
       <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={10}>
         <CountdownItem label="DAYS" value={timeLeft.days} />
-        <Text fontFamily="'Fraunces', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
         <CountdownItem label="HOURS" value={timeLeft.hours} />
-        <Text fontFamily="'Fraunces', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
         <CountdownItem label="MINUTES" value={timeLeft.minutes} />
-        <Text fontFamily="'Fraunces', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
         <CountdownItem label="SECONDS" value={timeLeft.seconds} isSeconds={true} />
       </Flex>
 
@@ -235,10 +239,10 @@ const CountdownVisual = () => {
         href="/register"
         bg={GOLD}
         color="#12081F"
-        fontFamily="'Bebas Neue', sans-serif"
-        fontSize="22px"
-        fontWeight="400"
-        letterSpacing="0.05em"
+        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+        fontSize="16px"
+        fontWeight="600"
+        letterSpacing="0.12em"
         textTransform="uppercase"
         px={12}
         py={7}
@@ -248,6 +252,7 @@ const CountdownVisual = () => {
         _hover={{
           bg: "#E8C87A",
           transform: "translateY(-3px)",
+          boxShadow: "0px 15px 35px rgba(207, 175, 137, 0.3)"
         }}
         _active={{
           transform: "translateY(0px)",

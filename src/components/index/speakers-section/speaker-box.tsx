@@ -78,16 +78,22 @@ function SpeakerBox({
           style={{ opacity: fadeInOpacity.get() }} // Apply opacity through style
         >
           <Flex flexDir="column" alignItems="center">
-            <Image
-              width={400}
-              height={800}
-              alt={name}
-              src={image}
-              style={{
-                borderRadius: "10px",
-                boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
-              }}
-            />
+            <motion.div
+              whileHover={{ scale: 1.02, rotate: 1, boxShadow: "0px 20px 40px rgba(198, 100, 219, 0.15)" }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{ borderRadius: "10px" }}
+            >
+              <Image
+                width={400}
+                height={800}
+                alt={name}
+                src={image}
+                style={{
+                  borderRadius: "10px",
+                  boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
+                }}
+              />
+            </motion.div>
           </Flex>
         </GridItem>
         <GridItem
@@ -96,13 +102,13 @@ function SpeakerBox({
           animate={{ y: fadeInDown.get() }} // Apply y transform directly
           style={{ opacity: fadeInOpacity.get() }} // Apply opacity through style
         >
-          <Text fontWeight={600} fontSize={[24, 34]} color="#FB8328">
+          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontWeight={300} fontSize={[24, 34]} color="#CFAF89">
             {name}
           </Text>
-          <Text fontWeight={600} fontSize={[16, 18]}>
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={500} fontSize={[16, 18]} color="rgba(255,255,255,0.7)">
             {designation}
           </Text>
-          <Text mt={6}>{description}</Text>
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={300} color="rgba(255,255,255,0.8)" mt={6}>{description}</Text>
         </GridItem>
       </Grid>
 

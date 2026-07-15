@@ -34,9 +34,9 @@ function MobileStackedSpeakerBox({
       // ref={containerRef}
       h="auto"
       templateColumns="1fr"
-      bgColor="#232323"
+      bgColor="rgba(255, 255, 255, 0.05)"
       borderRadius="15px"
-      border="1px solid #474747"
+      border="1px solid rgba(255,255,255,0.1)"
       p={6}
       gap={6}
       mb="1rem" // Reduced margin between cards for tighter stacking
@@ -61,17 +61,18 @@ function MobileStackedSpeakerBox({
       {/* Speaker Details */}
       <GridItem>
         <Text
-          fontWeight={600}
+          fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+          fontWeight={300}
           fontSize="24px"
-          color="#FB8328"
+          color="#CFAF89"
           textAlign="center"
         >
           {name}
         </Text>
-        <Text fontWeight={600} fontSize="16px" textAlign="center" color="white">
+        <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={500} fontSize="16px" textAlign="center" color="rgba(255,255,255,0.7)">
           {designation}
         </Text>
-        <Text mt={4} color="white" textAlign="justify">
+        <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={300} mt={4} color="rgba(255,255,255,0.8)" textAlign="justify">
           {description}
         </Text>
       </GridItem>

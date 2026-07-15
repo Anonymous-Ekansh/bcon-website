@@ -75,12 +75,14 @@ const CompetitionCard: FC<CompetitionCardProps> = ({
     initial="hidden"
     animate={isInView ? "visible" : "hidden"}
     variants={cardVariants}
-    whileHover={{ scale: 1.05 }}
-    transition="0.3s"
+    whileHover={{ scale: 1.02, boxShadow: "0px 20px 40px rgba(186, 39, 206, 0.15)" }}
+    transition="all 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
     overflow="hidden"
     borderRadius="12px"
     boxShadow="lg"
-    bg="#1c1c1c"
+    bg="rgba(255, 255, 255, 0.05)"
+    backdropFilter="blur(10px)"
+    border="1px solid rgba(255,255,255,0.1)"
     maxW="100%"
   >
     <Box position="relative" overflow="hidden" borderRadius="12px">
@@ -103,31 +105,33 @@ const CompetitionCard: FC<CompetitionCardProps> = ({
       borderRadius="12px"
     >
       <Text
-        fontFamily="Satoshi"
+        fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
         fontSize={{ base: "lg", md: "xl" }}
-        color="orange.400"
-        fontWeight="bold"
+        color="#CFAF89"
+        fontWeight="300"
         mb={4}
         textAlign="center"
       >
         {title}
       </Text>
       <Button
-        fontFamily="Satoshi"
-        bg="orange.400"
-        color="white"
-        _hover={{ bg: "orange.500" }}
+        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+        bg="transparent"
+        color="#CFAF89"
+        border="1px solid #CFAF89"
+        _hover={{ bg: "rgba(207, 175, 137, 0.15)", transform: "translateY(-2px)", boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)" }}
+        transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         borderRadius="full"
-        fontWeight="bold"
+        fontWeight="500"
         w="80%"
         onClick={() => window.open(link, "_blank")}
         mb={4}
       >
         {buttonText}
       </Button>
-      <Flex justify="space-between" w="100%" px={4} fontFamily="Satoshi">
-        <Text color="#B5B5B5">{price}</Text>
-        <Text color="#B5B5B5">{date}</Text>
+      <Flex justify="space-between" w="100%" px={4} fontFamily="'Proxima Nova', 'Inter', sans-serif">
+        <Text color="rgba(255, 255, 255, 0.6)">{price}</Text>
+        <Text color="rgba(255, 255, 255, 0.6)">{date}</Text>
       </Flex>
     </Flex>
   </GridItem>
@@ -147,16 +151,16 @@ const CompetitionSection: FC = () => {
   return (
     <Box
       id="competitions"
-      bg="#232323"
+      bg="transparent"
       py={{ base: 8, md: 16 }}
       px={{ base: 4, md: 8 }}
     >
       <Flex direction="column" maxW="60rem" mx="auto" align="center">
         <Text
-          fontFamily="Satoshi"
-          fontSize={{ base: "2xl", md: "4xl" }}
-          color="orange.400"
-          fontWeight="bold"
+          fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+          fontSize={{ base: "3xl", md: "5xl" }}
+          color="#FFFFFF"
+          fontWeight="300"
           textAlign="center"
           mb={{ base: 6, md: 12 }}
         >

@@ -26,22 +26,26 @@ function SpeakersSection() {
   );
 
   return (
-    <>
+    <Box
+      bg="transparent"
+      position="relative"
+    >
       <Flex
         id="speakers"
         ref={container}
         flexDir="column"
         alignItems="center"
         gap={4}
+        pt={20} // Added padding to compensate for background container
       >
         <motion.div
-          style={{ y: fadeInUp, opacity: fadeInOpacity }} // Apply scroll-based animations
+          style={{ y: fadeInUp, opacity: fadeInOpacity }}
         >
-          <Text fontSize="46px" fontWeight={600} color="#B5B5B5" zIndex={10}>
+          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="46px" fontWeight={300} color="#FFFFFF" zIndex={10}>
             Speaker{" "}
             <span
               style={{
-                color: "#FB8328",
+                color: "#CFAF89",
               }}
             >
               lineup
@@ -53,11 +57,13 @@ function SpeakersSection() {
           style={{
             y: subtitleFadeInUp,
             opacity: subtitleFadeInOpacity,
-          }} // Apply scroll-based animations with delay
+          }}
         >
           <Text
+            fontFamily="'Proxima Nova', 'Inter', sans-serif"
             maxW="30rem"
-            fontWeight={500}
+            fontWeight={300}
+            color="rgba(255, 255, 255, 0.7)"
             fontSize={["16px", "18px"]}
             textAlign="center"
             zIndex={2}
@@ -73,7 +79,7 @@ function SpeakersSection() {
       <SpeakersContainer />
 
       <Spacer h="1rem" />
-    </>
+    </Box>
   );
 }
 

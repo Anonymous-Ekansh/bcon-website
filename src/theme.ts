@@ -7,21 +7,22 @@ const config: ThemeConfig = {
 
 const colors = {
   brand: {
-    baseDark: "#2C1B47",
+    baseDark: "#2D1147",
     baseLight: "#3A2159",
-    gold: "#C9A467",
-    goldLight: "#D8B87A",
-    white: "#F5F2F0",
+    gold: "#CFAF89",
+    goldLight: "#E8D8C3",
+    white: "#FFFFFF",
+    softMauve: "#816493",
     isoPurple: "#9B6FCB",
-    gradientStart: "#8A4FC7",
-    gradientMid: "#B98CE0",
-    gradientEnd: "#E8D4F5",
+    gradientStart: "#C664DB", // Orchid Purple
+    gradientMid: "#BA27CE",   // Magenta Purple
+    gradientEnd: "#2D1147",
   },
 };
 
 const fonts = {
   heading: `'Playfair Display', serif`,
-  body: `'Inter', sans-serif`,
+  body: `'Proxima Nova', 'Inter', sans-serif`,
 };
 
 const theme = extendTheme({

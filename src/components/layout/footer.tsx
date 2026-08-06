@@ -8,9 +8,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { title: "About", href: "#about" },
   { title: "Speakers", href: "#speakers" },
   { title: "Events", href: "#events" },
   { title: "Competitions", href: "#competitions" },
+  { title: "Past Conferences", href: "#past-conferences" },
   { title: "Sponsors", href: "#sponsors" },
   { title: "Contact", href: "#contact" },
 ];

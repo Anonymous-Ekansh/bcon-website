@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import type { NextPage, GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import type { Ticket } from "@prisma/client";
 import {
   Heading,
   Text,
@@ -90,10 +91,6 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
     bookingId,
   });
 
-  if (isLoading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error: {error.message}</Text>;
-
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
@@ -101,6 +98,11 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
         <ModalHeader>Booking Details</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          {isLoading ? (
+            <Text>Loading...</Text>
+          ) : error ? (
+            <Text color="red.500">Error: {error.message}</Text>
+          ) : (
           <VStack align="start" spacing={4}>
             <Text>
               <strong>Booking ID:</strong> {bookingDetails?.id}
@@ -129,7 +131,7 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
                 </Tr>
               </Thead>
               <Tbody>
-                {bookingDetails?.Ticket.map((ticket) => (
+                {bookingDetails?.Ticket?.map((ticket: Ticket) => (
                   <Tr key={ticket.id}>
                     <Td>{ticket.name}</Td>
                     <Td>{ticket.email}</Td>
@@ -139,6 +141,7 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
               </Tbody>
             </Table>
           </VStack>
+          )}
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
@@ -243,7 +246,6 @@ const BookingTable: React.FC<BookingTableProps> = ({
 
 // AdminPage Component
 const AdminPage: NextPage<{ authorized: boolean }> = ({ authorized }) => {
-  const { data: session } = useSession();
   const toast = useToast();
 
   const {
@@ -288,6 +290,22 @@ const AdminPage: NextPage<{ authorized: boolean }> = ({ authorized }) => {
           Access Denied
         </Heading>
         <Text>You do not have permission to view this page.</Text>
+      </Container>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Container maxW="container.xl" py={8}>
+        <Text>Loading bookings...</Text>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container maxW="container.xl" py={8}>
+        <Text color="red.500">Error loading bookings: {error.message}</Text>
       </Container>
     );
   }

@@ -38,11 +38,13 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { title: "About", href: "#about" },
   { title: "Speakers", href: "#speakers" },
   { title: "Events", href: "#events" },
   { title: "Competitions", href: "#competitions" },
-  { title: "Sponsors", href: "#sponsors" },
-  { title: "Contact", href: "#contact" },
+  { title: "Past Conferences", href: "past-conferences" },
+  { title: "Sponsors", href: "sponsors" },
+  { title: "Contact", href: "contact-us" },
 ];
 
 function Navbar() {
@@ -56,11 +58,15 @@ function Navbar() {
     href: string
   ) => {
     e.preventDefault();
-    if (pathname === "/") {
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      if (pathname === "/") {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      } else {
+        router.push(`/${href}`);
+      }
     } else {
-      router.push(`/${href}`);
+      router.push(href.startsWith("/") ? href : `/${href}`);
     }
   };
 

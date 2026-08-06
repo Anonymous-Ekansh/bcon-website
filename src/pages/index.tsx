@@ -7,7 +7,6 @@ import EventsSection from "~/components/index/events-section";
 import CompetitionSection from "~/components/index/comp-section";
 import PastConferencesSection from "~/components/index/past-conferences-section";
 import SponsorsSection from "~/components/index/sponsors-section";
-import ContactSection from "~/components/index/contact-section";
 
 function HomePage() {
   return (
@@ -19,7 +18,6 @@ function HomePage() {
       <CompetitionSection />
       <PastConferencesSection />
       <SponsorsSection />
-      <ContactSection />
     </Layout>
   );
 }

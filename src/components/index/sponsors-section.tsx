@@ -9,12 +9,6 @@ const currentSponsors = [
   { name: "Sponsor 4", image: "" },
 ];
 
-const pastSponsors = [
-  { name: "Past Sponsor 1", image: "" },
-  { name: "Past Sponsor 2", image: "" },
-  { name: "Past Sponsor 3", image: "" },
-];
-
 const SponsorsSection: FC = () => {
   return (
     <Box id="sponsors" bg="transparent" position="relative" pt={32} pb={16}>
@@ -99,60 +93,37 @@ const SponsorsSection: FC = () => {
           ))}
         </Grid>
 
-        {/* Past Sponsors Title */}
+        {/* View All Button */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
         >
-          <Text
-            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "24px", md: "32px" }}
-            fontWeight="300"
-            color="rgba(255, 255, 255, 0.6)"
-            mb={10}
-            textAlign="center"
-          >
-            Past Sponsors
-          </Text>
+          <Box>
+            <Box
+              as="a"
+              href="/sponsors"
+              fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              display="inline-block"
+              bg="transparent"
+              color="#CFAF89"
+              border="1px solid #CFAF89"
+              px={8}
+              py={3}
+              borderRadius="full"
+              fontWeight="500"
+              transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+              _hover={{
+                bg: "rgba(207, 175, 137, 0.15)",
+                transform: "translateY(-2px)",
+                boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)",
+              }}
+            >
+              View All Sponsors
+            </Box>
+          </Box>
         </motion.div>
-
-        {/* Past Sponsors Grid */}
-        <Grid
-          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }}
-          gap={8}
-          w="100%"
-          maxW="900px"
-        >
-          {pastSponsors.map((sponsor, i) => (
-            <GridItem key={i}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-              >
-                <Flex
-                  w="100%"
-                  h="100px"
-                  bg="rgba(255, 255, 255, 0.02)"
-                  borderRadius="15px"
-                  border="1px solid rgba(255, 255, 255, 0.05)"
-                  alignItems="center"
-                  justifyContent="center"
-                  filter="grayscale(100%) opacity(40%)"
-                >
-                  {sponsor.image ? (
-                    <Image src={sponsor.image} alt={sponsor.name} maxH="60px" maxW="80%" objectFit="contain" />
-                  ) : (
-                    <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.2)">Logo</Text>
-                  )}
-                </Flex>
-              </motion.div>
-            </GridItem>
-          ))}
-        </Grid>
       </Flex>
     </Box>
   );

@@ -30,7 +30,7 @@ import {
 import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useDoubleTap } from "use-double-tap"; // Import the hook
+// Removed use-double-tap
 
 interface NavItem {
   title: string;
@@ -50,11 +50,6 @@ function Navbar() {
   const pathname = usePathname();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
-
-  // Handle double tap or double click to navigate to /emoji-ping-pong
-  const bind = useDoubleTap(() => {
-    router.push("/emoji-ping-pong");
-  });
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -82,7 +77,6 @@ function Navbar() {
     >
       {/* Logo Section */}
       <Box
-        {...bind} // Attach the double-tap/click handler here
         cursor="pointer"
       >
         <Image

@@ -184,6 +184,38 @@ const PastConferencesSection: FC = () => {
             </GridItem>
           ))}
         </Grid>
+
+        {/* View All Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+        >
+          <Box mt={16}>
+            <Box
+              as="a"
+              href="/past-conferences"
+              fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              display="inline-block"
+              bg="transparent"
+              color="#CFAF89"
+              border="1px solid #CFAF89"
+              px={8}
+              py={3}
+              borderRadius="full"
+              fontWeight="500"
+              transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+              _hover={{
+                bg: "rgba(207, 175, 137, 0.15)",
+                transform: "translateY(-2px)",
+                boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)",
+              }}
+            >
+              View All Past Conferences
+            </Box>
+          </Box>
+        </motion.div>
       </Flex>
     </Box>
   );

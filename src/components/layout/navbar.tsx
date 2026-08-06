@@ -31,7 +31,6 @@ import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useDoubleTap } from "use-double-tap";
 
 interface NavItem {
   title: string;
@@ -43,9 +42,9 @@ const navItems: NavItem[] = [
   { title: "Speakers", href: "#speakers" },
   { title: "Events", href: "#events" },
   { title: "Competitions", href: "#competitions" },
-  { title: "Past Conferences", href: "#past-conferences" },
-  { title: "Sponsors", href: "#sponsors" },
-  { title: "Contact", href: "#contact" },
+  { title: "Past Conferences", href: "past-conferences" },
+  { title: "Sponsors", href: "sponsors" },
+  { title: "Contact", href: "contact-us" },
 ];
 
 function Navbar() {
@@ -56,21 +55,20 @@ function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  // Handle double-tap or double-click to navigate to /emoji-ping-pong
-  const bind = useDoubleTap(() => {
-    router.push("/emoji-ping-pong");
-  });
-
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
     e.preventDefault();
-    if (pathname === "/") {
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      if (pathname === "/") {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      } else {
+        router.push(`/${href}`);
+      }
     } else {
-      router.push(`/${href}`);
+      router.push(href.startsWith("/") ? href : `/${href}`);
     }
   };
 
@@ -86,10 +84,7 @@ function Navbar() {
       px={8}
     >
       {/* Logo Section */}
-      <Box
-        {...bind} // Attach the double-tap/click handler here for both mobile and desktop
-        cursor="pointer"
-      >
+      <Box cursor="pointer">
         <Image
           alt="Business Conclave × Shiv Nadar University"
           h={{ base: 10, md: 14 }}

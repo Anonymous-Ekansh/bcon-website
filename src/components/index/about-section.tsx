@@ -59,7 +59,7 @@ const AboutSection: FC = () => {
               textAlign="center"
               lineHeight="1.8"
             >
-              Business Conclave is Shiv Nadar Institution of Eminence's flagship business and management festival. 
+              Business Conclave is Shiv Nadar Institution of Eminence&apos;s flagship business and management festival. 
               We bring together brilliant minds, industry leaders, and aspiring entrepreneurs to engage in meaningful 
               discussions, challenging competitions, and insightful workshops. Join us to explore new horizons in 
               the ever-evolving landscape of business.

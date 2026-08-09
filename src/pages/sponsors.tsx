@@ -4,14 +4,44 @@ import Layout from "~/components/layout";
 import PageHero from "~/components/page-hero";
 
 const currentSponsors = [
-  { name: "Sponsor 1", image: "" },
-  { name: "Sponsor 2", image: "" },
-  { name: "Sponsor 3", image: "" },
-  { name: "Sponsor 4", image: "" },
-  { name: "Sponsor 5", image: "" },
-  { name: "Sponsor 6", image: "" },
-  { name: "Sponsor 7", image: "" },
-  { name: "Sponsor 8", image: "" },
+  { name: "Foodrik", image: "" },
+  { name: "DNT (Design Build N Transform)", image: "" },
+  { name: "Shiv Nadar Institution of Eminence", image: "" },
+  { name: "Campus Bloggers", image: "" },
+  { name: "Blue Tokai Coffee Roasters", image: "" },
+  { name: "FinLadder", image: "" },
+  { name: "ED Times", image: "" },
+  { name: "The Education Tree", image: "" },
+  { name: "Asian Roots Skin & Hair Clinic", image: "" },
+  { name: "NSE", image: "" },
+  { name: "Bingo!", image: "" },
+  { name: "Xoxoday", image: "" },
+  { name: "DHI (Direct Hair Implantation)", image: "" },
+  { name: "Insight Counselling Services", image: "" },
+  { name: "Nestlé", image: "" },
+  { name: "First Choice", image: "" },
+  { name: "Wealthier", image: "" },
+  { name: "DU Updates", image: "" },
+  { name: "Talerang", image: "" },
+  { name: "Ascend (Harvard Business Review)", image: "" },
+  { name: "Axis Bank", image: "" },
+  { name: "AIC-SNU (Atal Incubation Centre)", image: "" },
+  { name: "Nescafé", image: "" },
+  { name: "Red Bull", image: "" },
+  { name: "Learning While Travelling", image: "" },
+  { name: "Brew House Tea Brewing Co.", image: "" },
+  { name: "Unorthodox Gateau", image: "" },
+  { name: "Zauk (Biryani & More)", image: "" },
+  { name: "Cornitos", image: "" },
+  { name: "Harvard Business Review", image: "" },
+  { name: "Mamagoto", image: "" },
+  { name: "Tutorage", image: "" },
+  { name: "Gree Air Conditioner", image: "" },
+  { name: "Sole Savvy", image: "" },
+  { name: "Essvee Bath Fittings", image: "" },
+  { name: "Krescon", image: "" },
+  { name: "Fresca Juices", image: "" },
+  { name: "Crax", image: "" },
 ];
 
 export default function SponsorsPage() {
@@ -55,7 +85,7 @@ export default function SponsorsPage() {
                     {sponsor.image ? (
                       <Image src={sponsor.image} alt={sponsor.name} maxH="80px" maxW="80%" objectFit="contain" />
                     ) : (
-                      <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.3)">Logo</Text>
+                      <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.5)" fontSize="13px" textAlign="center" px={2}>{sponsor.name}</Text>
                     )}
                   </Flex>
                 </motion.div>

@@ -42,7 +42,7 @@ const navItems: NavItem[] = [
   { title: "Speakers", href: "#speakers" },
   { title: "Events", href: "#events" },
   { title: "Competitions", href: "#competitions" },
-  { title: "Past Conferences", href: "past-conferences" },
+  { title: "Past Speakers", href: "past-speakers" },
   { title: "Sponsors", href: "sponsors" },
   { title: "Contact", href: "contact-us" },
 ];

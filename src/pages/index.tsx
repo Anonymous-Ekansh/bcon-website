@@ -5,7 +5,6 @@ import AboutSection from "~/components/index/about-section";
 import SpeakersSection from "~/components/index/speakers-section";
 import EventsSection from "~/components/index/events-section";
 import CompetitionSection from "~/components/index/comp-section";
-import PastConferencesSection from "~/components/index/past-conferences-section";
 import SponsorsSection from "~/components/index/sponsors-section";
 
 function HomePage() {
@@ -16,7 +15,6 @@ function HomePage() {
       <SpeakersSection />
       <EventsSection />
       <CompetitionSection />
-      <PastConferencesSection />
       <SponsorsSection />
     </Layout>
   );

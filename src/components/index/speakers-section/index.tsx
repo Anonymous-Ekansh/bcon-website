@@ -1,6 +1,7 @@
-import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Text, Button } from "@chakra-ui/react";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 
 import SpeakersContainer from "./speakers-container";
 
@@ -76,7 +77,30 @@ function SpeakersSection() {
 
       <Spacer h={["1rem", "10rem"]} />
 
-      <SpeakersContainer />
+      <SpeakersContainer limit={4} />
+
+      <Flex w="100%" justifyContent="center" mt={12}>
+        <Button
+          as={Link}
+          href="/past-speakers"
+          fontFamily="'Proxima Nova', 'Inter', sans-serif"
+          bg="transparent"
+          color="#CFAF89"
+          border="1px solid #CFAF89"
+          px={8}
+          py={6}
+          borderRadius="full"
+          fontWeight="500"
+          transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+          _hover={{
+            bg: "rgba(207, 175, 137, 0.15)",
+            transform: "translateY(-2px)",
+            boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)",
+          }}
+        >
+          View All Past Speakers
+        </Button>
+      </Flex>
 
       <Spacer h="1rem" />
     </Box>

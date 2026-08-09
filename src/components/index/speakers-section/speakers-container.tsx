@@ -5,8 +5,14 @@ import MobileStackedSpeakerBox from "./mobile-stacked-speaker-box";
 import SpeakerBox from "./speaker-box";
 import speakersData from "./speakers-data";
 
-function SpeakersContainer() {
+interface SpeakersContainerProps {
+  limit?: number;
+}
+
+function SpeakersContainer({ limit }: SpeakersContainerProps = {}) {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+  const displayedSpeakers = limit ? speakersData.slice(0, limit) : speakersData;
 
   return (
     <Flex
@@ -17,7 +23,7 @@ function SpeakersContainer() {
       px={4}
       position="relative"
     >
-      {speakersData.map((speaker, i) => (
+      {displayedSpeakers.map((speaker, i) => (
         <Box
           key={i}
           position="relative"

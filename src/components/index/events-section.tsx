@@ -12,16 +12,10 @@ import { motion } from "framer-motion";
 
 const events = [
   {
-    title: "Keynote Speaker Session",
+    title: "Keynote Address",
     description:
       "Join influential speakers as they share insights on market trends, innovations, and the future of various industries. This session is designed to inspire and educate, providing attendees with a deeper understanding of the ever-evolving business landscape.",
     image: "/images/landing/events/keynote-speaker-session.png",
-  },
-  {
-    title: "Workshops",
-    description:
-      "Hands-on workshops led by experts in the field, focusing on skill-building and practical knowledge. Whether you're looking to hone your leadership skills or gain new technical expertise, our workshops offer something for everyone.",
-    image: "/images/landing/events/workshops.png",
   },
   {
     title: "Offbeat Roundtable",
@@ -34,6 +28,24 @@ const events = [
     description:
       "Experience intimate dialogues with industry veterans under a relaxed, open setting. Canopy Conversations are designed for candid discussions that foster connections and offer unique perspectives on business challenges and opportunities.",
     image: "/images/landing/events/canopy-conversations.png",
+  },
+  {
+    title: "Workshops",
+    description:
+      "Hands-on workshops led by experts in the field, focusing on skill-building and practical knowledge. Whether you're looking to hone your leadership skills or gain new technical expertise, our workshops offer something for everyone.",
+    image: "/images/landing/events/workshops.png",
+  },
+  {
+    title: "Competitions",
+    description:
+      "Showcase your business acumen through school, college, and online competitions. From case studies to pitch challenges, test your skills against the brightest minds and win exciting prizes.",
+    image: "",
+  },
+  {
+    title: "Corporate Gala",
+    description:
+      "An evening of celebration and networking bringing together speakers, sponsors, and attendees for a memorable night of connection, entertainment, and inspiration.",
+    image: "/images/landing/events/corporate-gala.png",
   },
 ];
 

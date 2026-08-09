@@ -13,16 +13,16 @@ import {
   VStack,
   Link as ChakraLink,
   useToast,
-  useMediaQuery,
+  Divider,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { signIn } from "next-auth/react"; // Import signIn from next-auth
-import Layout from "~/components/layout"; // Ensure the correct path
+import { signIn } from "next-auth/react";
+import Layout from "~/components/layout";
+import PageHero from "~/components/page-hero";
 
 const RegisterPage = () => {
   const router = useRouter();
   const toast = useToast();
-  const [isMobile] = useMediaQuery("(max-width: 768px)"); // Add media query hook
 
   const [data, setData] = useState({
     name: "",
@@ -49,7 +49,7 @@ const RegisterPage = () => {
       });
 
       if (result?.ok) {
-        router.push("/dashboard"); // Redirect to dashboard
+        router.push("/dashboard");
       } else {
         toast({
           title: "Login Failed",
@@ -93,7 +93,7 @@ const RegisterPage = () => {
   const registerWithSNUEmail = async () => {
     try {
       const result = await signIn("google", {
-        callbackUrl: "/dashboard", // Redirect to dashboard upon success
+        callbackUrl: "/dashboard",
       });
 
       if (!result?.ok) {
@@ -118,106 +118,159 @@ const RegisterPage = () => {
 
   return (
     <Layout title="Register">
+      <PageHero eyebrow="Join Us" heading="Register" />
       <Flex
         maxW="1200px"
         mx="auto"
-        py={12}
+        pb={24}
+        px={6}
         alignItems="center"
         justifyContent="center"
         direction="column"
+        position="relative"
+        zIndex={10}
       >
-        <Text fontSize="4xl" fontWeight="bold" textAlign="center" mb={8}>
-          Register
-        </Text>
-
         <Flex
           w="100%"
-          maxW="1000px"
-          justifyContent="space-between"
-          flexDir={isMobile ? "column" : "row"} // Stack vertically on mobile
-          gap={isMobile ? 12 : 0} // Add spacing on mobile
+          maxW="900px"
+          direction={{ base: "column", md: "row" }}
+          bg="rgba(255, 255, 255, 0.05)"
+          backdropFilter="blur(15px)"
+          border="1px solid rgba(255,255,255,0.1)"
+          borderRadius="20px"
+          boxShadow="0px 20px 40px rgba(0, 0, 0, 0.4)"
+          overflow="hidden"
         >
           {/* Left Side: Register Form */}
           <Box
             as="form"
             onSubmit={registerUser}
             flex="1"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            px={8}
+            p={{ base: 8, md: 12 }}
           >
-            <VStack spacing={6} w="100%" maxW="400px">
+            <Text
+              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+              fontSize="28px"
+              color="#FFFFFF"
+              mb={6}
+              textAlign="center"
+            >
+              Sign Up
+            </Text>
+            <VStack spacing={5} w="100%">
               <FormControl id="name" isRequired>
-                <FormLabel>Name</FormLabel>
+                <FormLabel fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.8)" fontWeight="300" fontSize="14px">Name</FormLabel>
                 <Input
                   type="text"
                   name="name"
                   value={name}
                   onChange={handleChange}
                   placeholder="John Doe"
+                  bg="rgba(255, 255, 255, 0.03)"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
+                  color="#FFFFFF"
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  _placeholder={{ color: "rgba(255,255,255,0.3)" }}
+                  _focus={{ borderColor: "#CFAF89", boxShadow: "0 0 0 1px #CFAF89" }}
+                  _hover={{ borderColor: "rgba(255,255,255,0.2)" }}
                 />
               </FormControl>
 
               <FormControl id="email" isRequired>
-                <FormLabel>Email</FormLabel>
+                <FormLabel fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.8)" fontWeight="300" fontSize="14px">Email</FormLabel>
                 <Input
                   type="email"
                   name="email"
                   value={email}
                   onChange={handleChange}
                   placeholder="john.doe@company.com"
+                  bg="rgba(255, 255, 255, 0.03)"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
+                  color="#FFFFFF"
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  _placeholder={{ color: "rgba(255,255,255,0.3)" }}
+                  _focus={{ borderColor: "#CFAF89", boxShadow: "0 0 0 1px #CFAF89" }}
+                  _hover={{ borderColor: "rgba(255,255,255,0.2)" }}
                 />
               </FormControl>
 
               <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.8)" fontWeight="300" fontSize="14px">Password</FormLabel>
                 <Input
                   type="password"
                   name="password"
                   value={password}
                   onChange={handleChange}
                   placeholder="•••••••••"
+                  bg="rgba(255, 255, 255, 0.03)"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
+                  color="#FFFFFF"
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  _placeholder={{ color: "rgba(255,255,255,0.3)" }}
+                  _focus={{ borderColor: "#CFAF89", boxShadow: "0 0 0 1px #CFAF89" }}
+                  _hover={{ borderColor: "rgba(255,255,255,0.2)" }}
                 />
               </FormControl>
 
               <Button
                 type="submit"
-                bg="#ED8936"
-                color="white"
-                _hover={{ bg: "#DE6B1F" }}
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                bg="#CFAF89"
+                color="#000000"
+                _hover={{ bg: "#b89a74", transform: "translateY(-2px)", boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.3)" }}
+                transition="all 0.3s"
+                borderRadius="full"
+                fontWeight="500"
                 width="100%"
+                mt={4}
                 isLoading={signupMutation.status === "pending"}
               >
-                Submit
+                Create Account
               </Button>
 
-              <Box textAlign="center">
-                <Text>
-                  Already have an account?{" "}
-                  <ChakraLink as={Link} href="/login" color="orange.400">
-                    Login
-                  </ChakraLink>
-                </Text>
-              </Box>
+              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.6)" fontSize="14px" mt={2} textAlign="center">
+                Already have an account?{" "}
+                <ChakraLink as={Link} href="/login" color="#CFAF89" fontWeight="500" _hover={{ textDecoration: "none", color: "#b89a74" }}>
+                  Login
+                </ChakraLink>
+              </Text>
             </VStack>
           </Box>
 
+          {/* Divider for Desktop / Mobile */}
+          <Flex align="center" justify="center" display={{ base: "none", md: "flex" }}>
+            <Divider orientation="vertical" borderColor="rgba(255,255,255,0.1)" h="70%" />
+          </Flex>
+          <Flex align="center" justify="center" display={{ base: "flex", md: "none" }} w="100%" px={8}>
+            <Divider orientation="horizontal" borderColor="rgba(255,255,255,0.1)" />
+          </Flex>
+
           {/* Right Side: SNU Student Registration */}
-          <Flex flex="1" alignItems="center" justifyContent="center" px={8}>
-            <VStack spacing={6} w="100%" maxW="400px" textAlign="center">
-              <Text fontSize="xl" fontWeight="bold" color="white">
-                SNU Student?{" "}
-                <Text as="span" color="orange.400">
-                  Register with your SNU Email
-                </Text>{" "}
-                for special offers and discounts!
+          <Flex
+            flex="1"
+            alignItems="center"
+            justifyContent="center"
+            p={{ base: 8, md: 12 }}
+            bg="rgba(0, 0, 0, 0.2)"
+          >
+            <VStack spacing={6} w="100%" textAlign="center">
+              <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="24px" color="#FFFFFF">
+                SNU Student?
+              </Text>
+              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="16px" color="rgba(255,255,255,0.7)" fontWeight="300" lineHeight="1.6">
+                Register with your SNU Email for exclusive access, special offers, and discounts!
               </Text>
               <Button
-                bg="#ED8936"
-                color="white"
-                _hover={{ bg: "#DE6B1F" }}
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                bg="transparent"
+                color="#CFAF89"
+                border="1px solid #CFAF89"
+                _hover={{ bg: "rgba(207, 175, 137, 0.15)", transform: "translateY(-2px)", boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)" }}
+                transition="all 0.3s"
+                borderRadius="full"
+                fontWeight="500"
                 size="lg"
+                width="100%"
                 onClick={registerWithSNUEmail}
               >
                 Register with SNU Email

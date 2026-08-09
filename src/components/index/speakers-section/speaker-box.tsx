@@ -85,13 +85,16 @@ function SpeakerBox({
             >
               {image ? (
                 <Image
-                  width={400}
-                  height={800}
+                  width={250}
+                  height={320}
                   alt={name}
                   src={image}
                   style={{
                     borderRadius: "10px",
                     boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
+                    objectFit: "cover",
+                    width: "250px",
+                    height: "320px",
                   }}
                 />
               ) : (

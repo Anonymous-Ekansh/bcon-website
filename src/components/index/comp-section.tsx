@@ -114,21 +114,6 @@ const CompetitionCard: FC<CompetitionCardProps> = ({
       >
         {title}
       </Text>
-      <Button
-        fontFamily="'Proxima Nova', 'Inter', sans-serif"
-        bg="transparent"
-        color="#CFAF89"
-        border="1px solid #CFAF89"
-        _hover={{ bg: "rgba(207, 175, 137, 0.15)", transform: "translateY(-2px)", boxShadow: "0px 4px 15px rgba(207, 175, 137, 0.2)" }}
-        transition="all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
-        borderRadius="full"
-        fontWeight="500"
-        w="80%"
-        onClick={() => window.open(link, "_blank")}
-        mb={4}
-      >
-        {buttonText}
-      </Button>
       <Flex justify="space-between" w="100%" px={4} fontFamily="'Proxima Nova', 'Inter', sans-serif">
         <Text color="rgba(255, 255, 255, 0.6)">{price}</Text>
         <Text color="rgba(255, 255, 255, 0.6)">{date}</Text>
@@ -164,7 +149,7 @@ const CompetitionSection: FC = () => {
           textAlign="center"
           mb={{ base: 6, md: 12 }}
         >
-          Our Competitions
+          Our <span style={{ color: "#CFAF89" }}>Competitions</span>
         </Text>
         <Grid
           ref={gridRef}

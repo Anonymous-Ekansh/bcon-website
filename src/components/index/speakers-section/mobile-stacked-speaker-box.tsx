@@ -46,16 +46,33 @@ function MobileStackedSpeakerBox({
     >
       {/* Speaker Image */}
       <GridItem as={Flex} flexDir="column" alignItems="center">
-        <Image
-          src={image}
-          alt={name}
-          width={200}
-          height={280}
-          style={{
-            borderRadius: "10px",
-            boxShadow: "0px 4px 25px 2px rgba(0, 0, 0, 0.25)",
-          }}
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={name}
+            width={200}
+            height={280}
+            style={{
+              borderRadius: "10px",
+              boxShadow: "0px 4px 25px 2px rgba(0, 0, 0, 0.25)",
+            }}
+          />
+        ) : (
+          <Flex
+            w="200px"
+            h="280px"
+            bg="rgba(207, 175, 137, 0.08)"
+            border="1px solid rgba(207, 175, 137, 0.2)"
+            borderRadius="10px"
+            alignItems="center"
+            justifyContent="center"
+            boxShadow="0px 4px 25px 2px rgba(0, 0, 0, 0.25)"
+          >
+            <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="40px" color="rgba(207, 175, 137, 0.3)" fontWeight="300">
+              {name.split(" ").map(n => n[0]).join("")}
+            </Text>
+          </Flex>
+        )}
       </GridItem>
 
       {/* Speaker Details */}

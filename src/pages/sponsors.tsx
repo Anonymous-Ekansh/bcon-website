@@ -46,7 +46,7 @@ const currentSponsors = [
 
 export default function SponsorsPage() {
   return (
-    <Layout title="Sponsors" childrenHaveNavbar>
+    <Layout title="Sponsors">
       <PageHero eyebrow="Built With" heading="Our Sponsors" />
 
       <Box position="relative" pb={24}>

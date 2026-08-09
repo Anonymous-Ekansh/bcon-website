@@ -140,8 +140,42 @@ const speakers: Speaker[] = [
     description:
       "Sejal Kumar is one of India's most prominent YouTubers, known for her content on fashion, lifestyle, and social issues. With millions of subscribers, she has established herself as a leading digital creator and influencer, using her platform to inspire young audiences and drive meaningful conversations.",
     image: "",
-    // lineImg: "/images/landing/speakers/lines/aryaan_to_button.svg",
-    // lineTransform: "translateX(-30px) translateY(-10px)",
+    lineImg: "/images/landing/speakers/lines/rohit_to_ritesh.svg",
+    lineTransform: "translateX(50px) translateY(5px)",
+  },
+  {
+    name: "Dharam Mentor",
+    designation: "Brand Consultant, Strategist & Designer",
+    description:
+      "Dharam Mentor is a leading brand consultant known for his expertise in crafting compelling brand stories and building strategic frameworks for businesses. With a deep understanding of consumer behavior and market dynamics, Dharam has guided several companies through rebranding efforts, product launches, and market repositioning. His creative approach and strategic mindset have made him a sought-after advisor for organizations looking to elevate their brand presence.",
+    image: "/images/landing/speakers/dharam_mentor.png",
+    lineImg: "/images/landing/speakers/lines/dharam_to_rohit.svg",
+    lineTransform: "translateX(-40px) translateY(15px)",
+  },
+  {
+    name: "Ritesh Arora",
+    designation: "HR Head, RACL Gear Tech Limited",
+    description:
+      "Ritesh Arora, as the HR Head of RACL Gear Tech Limited, has played a pivotal role in shaping the company’s talent strategy and fostering a culture of growth and innovation. With a focus on employee engagement and organizational development, Ritesh has implemented initiatives that enhance productivity and build a resilient workforce. His ability to align human resources with business goals has been instrumental in driving the company’s success in the competitive manufacturing sector.",
+    image: "/images/landing/speakers/ritesh_arora.png",
+    lineImg: "/images/landing/speakers/lines/rohit_to_ritesh.svg",
+    lineTransform: "translateX(50px) translateY(5px)",
+  },
+  {
+    name: "Aakriti Bansal",
+    designation: "Co-Founder, TBC | Ex-Noise, Ex-Loreal",
+    description:
+      "Aakriti Bansal co-founded The Business Company (TBC) and has an extensive background in leading product and marketing strategies at top firms like Noise and L’Oréal. With her in-depth understanding of brand positioning and consumer needs, she’s successfully launched and scaled businesses in highly competitive markets. Aakriti’s expertise in both traditional and digital platforms has helped establish strong customer bases across industries.",
+    image: "/images/landing/speakers/aakriti_bansal.png",
+    lineImg: "/images/landing/speakers/lines/dharam_to_rohit.svg",
+    lineTransform: "translateX(-40px) translateY(15px)",
+  },
+  {
+    name: "Shalabh Chaturvedi",
+    designation: "Managing Director, CNH Industrial",
+    description:
+      "As Managing Director at CNH Industrial, Shalabh Chaturvedi leads the strategic direction of the company, focusing on delivering growth and operational excellence. His leadership spans across various business functions, including sales, product innovation, and business development. Shalabh’s experience in leading large teams and his ability to adapt to dynamic business environments have been key to driving CNH Industrial's market leadership.",
+    image: "/images/landing/speakers/shalabh_chaturvedi.png",
   },
 ];
 

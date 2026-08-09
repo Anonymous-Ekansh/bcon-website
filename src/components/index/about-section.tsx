@@ -73,22 +73,7 @@ const AboutSection: FC = () => {
             >
               Inspiria&apos;s flagship annual business festival — keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
             </Text>
-            <Flex
-              flexDir={{ base: "column", md: "row" }}
-              gap={{ base: 4, md: 8 }}
-              justifyContent="center"
-              mb={6}
-            >
-              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="14px" color="#CFAF89" fontWeight="500" textTransform="uppercase" letterSpacing="0.1em">
-                14th November 2026
-              </Text>
-              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="14px" color="rgba(255,255,255,0.6)" fontWeight="300">
-                Shiv Nadar University, Delhi NCR Campus, Greater Noida
-              </Text>
-              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="14px" color="rgba(255,255,255,0.6)" fontWeight="300">
-                400–500 curated attendees
-              </Text>
-            </Flex>
+
             <Text
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
               fontSize={{ base: "16px", md: "18px" }}

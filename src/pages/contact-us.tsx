@@ -32,7 +32,7 @@ const organizers = [
 
 export default function ContactUsPage() {
   return (
-    <Layout title="Contact Us" childrenHaveNavbar>
+    <Layout title="Contact Us">
       <PageHero eyebrow="Get In Touch" heading="Contact Us" />
       
       <Box position="relative" pb={24}>

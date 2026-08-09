@@ -91,7 +91,7 @@ const SponsorsSection: FC = () => {
           w="100%"
           mb={20}
         >
-          {currentSponsors.map((sponsor, i) => (
+          {currentSponsors.slice(0, 8).map((sponsor, i) => (
             <GridItem key={i}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

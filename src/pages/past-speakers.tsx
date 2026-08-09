@@ -5,7 +5,7 @@ import SpeakersContainer from "~/components/index/speakers-section/speakers-cont
 
 export default function PastSpeakersPage() {
   return (
-    <Layout title="Past Speakers" childrenHaveNavbar>
+    <Layout title="Past Speakers">
       <PageHero eyebrow="Our Journey" heading="Past Speakers" />
       
       <Box position="relative" pb={24}>

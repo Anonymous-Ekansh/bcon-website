@@ -83,16 +83,33 @@ function SpeakerBox({
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               style={{ borderRadius: "10px" }}
             >
-              <Image
-                width={400}
-                height={800}
-                alt={name}
-                src={image}
-                style={{
-                  borderRadius: "10px",
-                  boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
-                }}
-              />
+              {image ? (
+                <Image
+                  width={400}
+                  height={800}
+                  alt={name}
+                  src={image}
+                  style={{
+                    borderRadius: "10px",
+                    boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
+                  }}
+                />
+              ) : (
+                <Flex
+                  w="250px"
+                  h="320px"
+                  bg="rgba(207, 175, 137, 0.08)"
+                  border="1px solid rgba(207, 175, 137, 0.2)"
+                  borderRadius="10px"
+                  alignItems="center"
+                  justifyContent="center"
+                  boxShadow="0px 4px 25px 2px rgba(0,0,0,0.25)"
+                >
+                  <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="48px" color="rgba(207, 175, 137, 0.3)" fontWeight="300">
+                    {name.split(" ").map(n => n[0]).join("")}
+                  </Text>
+                </Flex>
+              )}
             </motion.div>
           </Flex>
         </GridItem>

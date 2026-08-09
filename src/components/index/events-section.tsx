@@ -36,12 +36,6 @@ const events = [
     image: "/images/landing/events/workshops.png",
   },
   {
-    title: "Competitions",
-    description:
-      "Showcase your business acumen through school, college, and online competitions. From case studies to pitch challenges, test your skills against the brightest minds and win exciting prizes.",
-    image: "",
-  },
-  {
     title: "Corporate Gala",
     description:
       "An evening of celebration and networking bringing together speakers, sponsors, and attendees for a memorable night of connection, entertainment, and inspiration.",
@@ -122,7 +116,13 @@ function DesktopEvents() {
                     viewport={{ once: true, amount: 0.3 }}
                   >
                     <Flex align="center" justify="center">
-                      <Image src={image} h="400px" objectFit="cover" />
+                      {image ? (
+                        <Image src={image} h="400px" objectFit="cover" />
+                      ) : (
+                        <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
+                          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
+                        </Flex>
+                      )}
                     </Flex>
                   </motion.div>
                 </GridItem>
@@ -193,7 +193,13 @@ function DesktopEvents() {
                     viewport={{ once: true, amount: 0.3 }}
                   >
                     <Flex align="center" justify="center">
-                      <Image src={image} h="400px" objectFit="cover" />
+                      {image ? (
+                        <Image src={image} h="400px" objectFit="cover" />
+                      ) : (
+                        <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
+                          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
+                        </Flex>
+                      )}
                     </Flex>
                   </motion.div>
                 </GridItem>
@@ -237,14 +243,20 @@ function MobileEvents() {
         {/* Mobile Event Cards */}
         {events.map(({ title, description, image }, i) => (
           <Box key={i} mb={12}>
-            <Image
-              src={image}
-              w="100%"
-              maxW="500px"
-              mx="auto"
-              mb={4}
-              borderRadius="15px"
-            />
+            {image ? (
+              <Image
+                src={image}
+                w="100%"
+                maxW="500px"
+                mx="auto"
+                mb={4}
+                borderRadius="15px"
+              />
+            ) : (
+              <Flex w="100%" maxW="500px" h="200px" mx="auto" mb={4} bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="15px" alignItems="center" justifyContent="center">
+                <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="20px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
+              </Flex>
+            )}
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
               fontSize="28px"

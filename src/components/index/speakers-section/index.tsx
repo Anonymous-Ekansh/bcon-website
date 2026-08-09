@@ -43,13 +43,13 @@ function SpeakersSection() {
           style={{ y: fadeInUp, opacity: fadeInOpacity }}
         >
           <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="46px" fontWeight={300} color="#FFFFFF" zIndex={10}>
-            Speaker{" "}
+            Past{" "}
             <span
               style={{
                 color: "#CFAF89",
               }}
             >
-              lineup
+              Speakers
             </span>
           </Text>
         </motion.div>
@@ -77,7 +77,7 @@ function SpeakersSection() {
 
       <Spacer h={["1rem", "10rem"]} />
 
-      <SpeakersContainer limit={4} />
+      <SpeakersContainer limit={6} />
 
       <Flex w="100%" justifyContent="center" mt={12}>
         <Button

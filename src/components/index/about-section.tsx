@@ -4,7 +4,7 @@ import { type FC } from "react";
 
 const AboutSection: FC = () => {
   return (
-    <Box id="about" bg="transparent" position="relative" pt={32} pb={16}>
+    <Box id="about" bg="transparent" position="relative" pt={{ base: 20, md: 32 }} pb={{ base: 8, md: 16 }}>
       <Flex flexDir="column" alignItems="center" px={{ base: 6, md: 8 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -51,39 +51,82 @@ const AboutSection: FC = () => {
           viewport={{ once: true }}
         >
           <Container maxW="800px" p={0}>
-            <Text
-              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-              fontSize={{ base: "16px", md: "18px" }}
-              fontWeight="300"
-              color="rgba(255, 255, 255, 0.8)"
-              textAlign="center"
-              lineHeight="1.8"
-              mb={6}
+            <Box
+              as={motion.div}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              bg={{ base: "rgba(255, 255, 255, 0.03)", md: "transparent" }}
+              p={{ base: 6, md: 0 }}
+              borderRadius={{ base: "20px", md: "0" }}
+              border={{ base: "1px solid rgba(255, 255, 255, 0.05)", md: "none" }}
+              boxShadow={{ base: "0px 10px 30px rgba(0,0,0,0.2)", md: "none" }}
+              backdropFilter={{ base: "blur(10px)", md: "none" }}
+              mb={{ base: 4, md: 6 }}
             >
-              Inspiria is the student-led business society of SNIoE, extending learning beyond the classroom through national-level competitions, keynote sessions, leadership roundtables and workshops. Its flagship event, Business Conclave, welcomes 600+ students each year alongside industry leaders, entrepreneurs and changemakers.
-            </Text>
-            <Text
-              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-              fontSize={{ base: "16px", md: "18px" }}
-              fontWeight="300"
-              color="rgba(255, 255, 255, 0.8)"
-              textAlign="center"
-              lineHeight="1.8"
-              mb={6}
+              <Text
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontSize={{ base: "15px", md: "18px" }}
+                fontWeight="300"
+                color="rgba(255, 255, 255, 0.8)"
+                textAlign="center"
+                lineHeight="1.8"
+              >
+                Inspiria is the student-led business society of SNIoE, extending learning beyond the classroom through national-level competitions, keynote sessions, leadership roundtables and workshops. Its flagship event, Business Conclave, welcomes 600+ students each year alongside industry leaders, entrepreneurs and changemakers.
+              </Text>
+            </Box>
+            
+            <Box
+              as={motion.div}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              bg={{ base: "rgba(255, 255, 255, 0.03)", md: "transparent" }}
+              p={{ base: 6, md: 0 }}
+              borderRadius={{ base: "20px", md: "0" }}
+              border={{ base: "1px solid rgba(255, 255, 255, 0.05)", md: "none" }}
+              boxShadow={{ base: "0px 10px 30px rgba(0,0,0,0.2)", md: "none" }}
+              backdropFilter={{ base: "blur(10px)", md: "none" }}
+              mb={{ base: 4, md: 6 }}
             >
-              Inspiria&apos;s flagship annual business festival — keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
-            </Text>
+              <Text
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontSize={{ base: "15px", md: "18px" }}
+                fontWeight="300"
+                color="rgba(255, 255, 255, 0.8)"
+                textAlign="center"
+                lineHeight="1.8"
+              >
+                Inspiria&apos;s flagship annual business festival — keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
+              </Text>
+            </Box>
 
-            <Text
-              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-              fontSize={{ base: "16px", md: "18px" }}
-              fontWeight="300"
-              color="rgba(255, 255, 255, 0.8)"
-              textAlign="center"
-              lineHeight="1.8"
+            <Box
+              as={motion.div}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              bg={{ base: "rgba(255, 255, 255, 0.03)", md: "transparent" }}
+              p={{ base: 6, md: 0 }}
+              borderRadius={{ base: "20px", md: "0" }}
+              border={{ base: "1px solid rgba(255, 255, 255, 0.05)", md: "none" }}
+              boxShadow={{ base: "0px 10px 30px rgba(0,0,0,0.2)", md: "none" }}
+              backdropFilter={{ base: "blur(10px)", md: "none" }}
             >
-              <Text as="span" color="#CFAF89" fontWeight="500">Building Tomorrow</Text> — A generation that chooses to create rather than adapt. Embracing innovation, leading with purpose, turning ideas into meaningful action.
-            </Text>
+              <Text
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontSize={{ base: "15px", md: "18px" }}
+                fontWeight="300"
+                color="rgba(255, 255, 255, 0.8)"
+                textAlign="center"
+                lineHeight="1.8"
+              >
+                <Text as="span" color="#CFAF89" fontWeight="500">Building Tomorrow</Text> — A generation that chooses to create rather than adapt. Embracing innovation, leading with purpose, turning ideas into meaningful action.
+              </Text>
+            </Box>
           </Container>
         </motion.div>
       </Flex>

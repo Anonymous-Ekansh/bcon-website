@@ -31,6 +31,7 @@ function Footer() {
           justifyContent="flex-start"
           textAlign="left"
           mb={{ base: 6, md: 0 }}
+          display={{ base: "none", md: "flex" }}
         >
           <Text 
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"

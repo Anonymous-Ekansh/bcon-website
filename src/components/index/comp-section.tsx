@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { type FC, useState } from "react";
+import { type FC, useState, useRef, useEffect } from "react";
 
 // Competition data interface
 interface Competition {
@@ -124,9 +124,33 @@ const CompetitionCard: FC<CompetitionCardProps> = ({
 
 // Competition Section component
 const CompetitionSection: FC = () => {
-  const [] = useState(
-    Array(competitions.length).fill(false)
-  );
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Triple the competitions to create a seamless infinite loop illusion
+  const displayCompetitions = [...competitions, ...competitions, ...competitions];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const singleSetWidth = scrollWidth / 3;
+        
+        if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
+          scrollRef.current.scrollTo({ left: scrollLeft - singleSetWidth, behavior: "auto" });
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              scrollRef.current?.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
+            });
+          });
+        } else {
+          scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
+        }
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const { ref: gridRef, inView: gridInView } = useInView({
     triggerOnce: true,
@@ -147,20 +171,68 @@ const CompetitionSection: FC = () => {
           color="#FFFFFF"
           fontWeight="300"
           textAlign="center"
-          mb={{ base: 6, md: 12 }}
+          mb={{ base: 2, md: 12 }}
         >
           Our <span style={{ color: "#CFAF89" }}>Competitions</span>
         </Text>
+        
+        {/* Mobile Swipe Text */}
+        <Text
+          display={{ base: "block", md: "none" }}
+          fontSize="15px"
+          mb={8}
+          fontFamily="'Proxima Nova', 'Inter', sans-serif"
+          fontWeight="300"
+          color="rgba(255, 255, 255, 0.7)"
+          textAlign="center"
+          letterSpacing="wider"
+          textTransform="uppercase"
+        >
+          ← Swipe to explore →
+        </Text>
+
+        {/* Desktop Grid */}
         <Grid
           ref={gridRef}
-          templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+          templateColumns="repeat(3, 1fr)"
           gap={8}
           w="100%"
+          display={{ base: "none", md: "grid" }}
         >
           {competitions.map((competition, i) => (
             <CompetitionCard key={i} {...competition} isInView={gridInView} />
           ))}
         </Grid>
+
+        {/* Mobile Carousel */}
+        <Flex
+          ref={scrollRef}
+          w="100%"
+          overflowX="auto"
+          display={{ base: "flex", md: "none" }}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => {
+            setTimeout(() => setIsPaused(false), 4000);
+          }}
+          sx={{
+            scrollSnapType: "x mandatory",
+            "&::-webkit-scrollbar": { display: "none" },
+            scrollbarWidth: "none",
+          }}
+          gap={5}
+          pb={8}
+        >
+          {displayCompetitions.map((competition, i) => (
+            <Box
+              key={i}
+              minW="85vw"
+              maxW="85vw"
+              scrollSnapAlign="center"
+            >
+              <CompetitionCard {...competition} isInView={true} />
+            </Box>
+          ))}
+        </Flex>
       </Flex>
     </Box>
   );

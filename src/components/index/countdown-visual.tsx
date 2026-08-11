@@ -103,9 +103,9 @@ const CountdownVisual = () => {
   if (!isMounted) return null;
 
   return (
-    <Flex direction="column" align="center" justify="center" w="100%" maxW="600px" mx="auto" minH="400px" position="relative">
+    <Flex direction="column" align="center" justify="center" w="100%" maxW="600px" mx="auto" minH={{ base: "auto", md: "400px" }} position="relative">
       {/* ── Visual: Steps to Tomorrow ── */}
-      <Box mb={8} position="relative" w="240px" h="180px">
+      <Box mb={8} mt={{ base: -6, md: -8 }} position="relative" w="240px" h="180px">
         <Box
           as="svg"
           w="100%"

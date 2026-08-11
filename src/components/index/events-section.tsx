@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -213,14 +213,46 @@ function DesktopEvents() {
 }
 
 function MobileEvents() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Triple the events to create a seamless infinite loop illusion
+  const displayEvents = [...events, ...events, ...events];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const singleSetWidth = scrollWidth / 3;
+        
+        // If we've scrolled into the third set, silently jump back to the second set
+        if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
+          scrollRef.current.scrollTo({ left: scrollLeft - singleSetWidth, behavior: "auto" });
+          
+          // Wait a frame for the jump to render, then smooth scroll to next
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              scrollRef.current?.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
+            });
+          });
+        } else {
+          // Scroll by roughly one card width (85vw + gap)
+          scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
+        }
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
   return (
-    <Box id="events" mt="8rem" px={6} bg="transparent">
-      <Flex flexDir="column" align="center" maxW="1000px" mx="auto" py={16}>
+    <Box id="events" mt={{ base: "4rem", md: "8rem" }} bg="transparent" overflow="hidden">
+      <Flex flexDir="column" align="center" pt={{ base: 8, md: 16 }}>
         {/* Title */}
         <Text
           fontSize="4xl"
           fontWeight="300"
-          mb={4}
+          mb={2}
           fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
           color="#FFFFFF"
         >
@@ -229,49 +261,79 @@ function MobileEvents() {
 
         {/* Subtitle */}
         <Text
-          fontSize="18px"
-          maxWidth="600px"
+          fontSize="15px"
           mb={8}
           fontFamily="'Proxima Nova', 'Inter', sans-serif"
           fontWeight="300"
           color="rgba(255, 255, 255, 0.7)"
           textAlign="center"
+          letterSpacing="wider"
+          textTransform="uppercase"
         >
-          The heart and soul of Business Conclave.
+          ← Swipe to explore →
         </Text>
 
-        {/* Mobile Event Cards */}
-        {events.map(({ title, description, image }, i) => (
-          <Box key={i} mb={12}>
-            {image ? (
-              <Image
-                src={image}
-                w="100%"
-                maxW="500px"
-                mx="auto"
-                mb={4}
-                borderRadius="15px"
-              />
-            ) : (
-              <Flex w="100%" maxW="500px" h="200px" mx="auto" mb={4} bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="15px" alignItems="center" justifyContent="center">
-                <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="20px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
-              </Flex>
-            )}
-            <Text
-              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-              fontSize="28px"
-              fontWeight="300"
-              mb={2}
-              color="#CFAF89"
-              textAlign="center"
+        {/* Mobile Horizontal Carousel */}
+        <Flex
+          ref={scrollRef}
+          w="100%"
+          overflowX="auto"
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => {
+            // Resume auto-play after 4 seconds of inactivity
+            setTimeout(() => setIsPaused(false), 4000);
+          }}
+          sx={{
+            scrollSnapType: "x mandatory",
+            "&::-webkit-scrollbar": { display: "none" },
+            scrollbarWidth: "none",
+          }}
+          px={6}
+          pb={10}
+          gap={5}
+        >
+          {displayEvents.map(({ title, description, image }, i) => (
+            <Box
+              key={i}
+              minW="85vw"
+              maxW="85vw"
+              scrollSnapAlign="center"
+              bg="rgba(255, 255, 255, 0.03)"
+              border="1px solid rgba(255, 255, 255, 0.1)"
+              borderRadius="24px"
+              p={5}
+              boxShadow="0px 20px 40px rgba(0,0,0,0.4)"
+              backdropFilter="blur(15px)"
             >
-              {title}
-            </Text>
-            <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="16px" fontWeight="300" color="rgba(255, 255, 255, 0.8)" textAlign="justify">
-              {description}
-            </Text>
-          </Box>
-        ))}
+              {image ? (
+                <Image
+                  src={image}
+                  w="100%"
+                  h="220px"
+                  objectFit="cover"
+                  mb={5}
+                  borderRadius="16px"
+                />
+              ) : (
+                <Flex w="100%" h="220px" mb={5} bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="16px" alignItems="center" justifyContent="center">
+                  <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="20px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
+                </Flex>
+              )}
+              <Text
+                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+                fontSize="24px"
+                fontWeight="300"
+                mb={3}
+                color="#CFAF89"
+              >
+                {title}
+              </Text>
+              <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="14px" fontWeight="300" color="rgba(255, 255, 255, 0.75)" lineHeight="1.6">
+                {description}
+              </Text>
+            </Box>
+          ))}
+        </Flex>
       </Flex>
     </Box>
   );

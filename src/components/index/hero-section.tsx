@@ -241,7 +241,7 @@ const HeroSection = () => {
         maxW="1440px"
         mx="auto"
         px={{ base: 6, md: 12, lg: 20 }}
-        pt={{ base: "7rem", md: "6rem" }}
+        pt={{ base: "5rem", md: "6rem" }}
         pb={{ base: 16, md: 20 }}
         gap={{ base: 12, lg: 8 }}
       >
@@ -253,16 +253,15 @@ const HeroSection = () => {
           initial="hidden"
           animate={controls}
           mb={{ base: 6, md: 8 }}
-          alignSelf="flex-start"
+          alignSelf={{ base: "center", lg: "flex-start" }}
         >
           <Image 
             src="/images/snioe-inspiria.png" 
             alt="SNIoE &times; Inspiria Presents" 
-            h={{ base: "80px", md: "120px", lg: "150px", xl: "180px" }}
+            h={{ base: "50px", md: "120px", lg: "150px", xl: "180px" }}
             maxW="100%"
             objectFit="contain"
-            objectPosition="left center"
-            ml={{ base: "-8px", md: "-12px", lg: "-16px", xl: "-20px" }}
+            objectPosition={{ base: "center", lg: "left center" }}
           />
         </Box>
 
@@ -276,7 +275,8 @@ const HeroSection = () => {
           h="1px"
           bg={GOLD}
           mb={{ base: 6, md: 8 }}
-          transformOrigin="left"
+          mx={{ base: "auto", lg: 0 }}
+          transformOrigin={{ base: "center", lg: "left" }}
         />
 
         {/* Headline */}
@@ -286,11 +286,12 @@ const HeroSection = () => {
           initial="hidden"
           animate={controls}
           mb={{ base: 4, md: 6 }}
-          ml={{ base: "-4px", md: "-8px", lg: "-10px", xl: "-12px" }} // Stronger optical alignment adjustment
+          ml={{ base: "0", lg: "-10px", xl: "-12px" }}
+          textAlign={{ base: "center", lg: "left" }}
         >
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "52px", sm: "68px", md: "96px", lg: "120px", xl: "140px" }}
+            fontSize={{ base: "42px", sm: "56px", md: "96px", lg: "120px", xl: "140px" }}
             fontWeight="300"
             lineHeight="0.9"
             color="#FFFFFF"
@@ -301,7 +302,7 @@ const HeroSection = () => {
           </Text>
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "52px", sm: "68px", md: "96px", lg: "120px", xl: "140px" }}
+            fontSize={{ base: "42px", sm: "56px", md: "96px", lg: "120px", xl: "140px" }}
             fontWeight="300"
             lineHeight="0.9"
             color="#FFFFFF"
@@ -333,6 +334,8 @@ const HeroSection = () => {
           maxW="520px"
           lineHeight="1.7"
           mb={{ base: 8, md: 10 }}
+          textAlign={{ base: "center", lg: "left" }}
+          mx={{ base: "auto", lg: 0 }}
         >
           Where visionaries, industry leaders, and aspiring entrepreneurs
           converge to draft the blueprints of what comes next.
@@ -345,7 +348,9 @@ const HeroSection = () => {
           initial="hidden"
           animate={controls}
           align="center"
+          justifyContent={{ base: "center", lg: "flex-start" }}
           gap={4}
+          display={{ base: "none", md: "flex" }}
         >
           <Text
             fontFamily="'Cinzel', serif"
@@ -373,6 +378,41 @@ const HeroSection = () => {
         <Box flex="1" w="100%" display="flex" justifyContent="center">
           <CountdownVisual />
         </Box>
+        
+        {/* Mobile Scroll Indicator */}
+        <Flex
+          display={{ base: "flex", lg: "none" }}
+          position="absolute"
+          bottom={{ base: "0.5rem", md: "4rem" }}
+          left="0"
+          w="100%"
+          justifyContent="center"
+          as={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 10, 0] }}
+          transition={{ 
+            opacity: { delay: 2.5, duration: 1 }, 
+            y: { repeat: Infinity, duration: 2, ease: "easeInOut" } 
+          } as any}
+          pointerEvents="none"
+        >
+          <Flex flexDir="column" alignItems="center" gap={2}>
+            <Text 
+              color="rgba(255, 255, 255, 0.4)" 
+              fontSize="10px" 
+              textTransform="uppercase" 
+              letterSpacing="0.2em"
+              fontFamily="'Proxima Nova', 'Inter', sans-serif"
+            >
+              Scroll to explore
+            </Text>
+            <Box 
+              w="1px" 
+              h="20px" 
+              bg="linear-gradient(to bottom, rgba(207, 175, 137, 0.5), transparent)"
+            />
+          </Flex>
+        </Flex>
       </Flex>
 
       {/* Bottom edge — thin gold hairline */}

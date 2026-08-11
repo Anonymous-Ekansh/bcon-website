@@ -9,7 +9,7 @@ export default function PastSpeakersPage() {
       <PageHero eyebrow="Our Journey" heading="Past Speakers" />
       
       <Box position="relative" pb={24}>
-        <SpeakersContainer />
+        <SpeakersContainer useCarouselOnMobile={false} />
       </Box>
     </Layout>
   );

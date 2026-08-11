@@ -23,11 +23,11 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import {
-  HamburgerIcon,
   ChevronDownIcon,
   ExternalLinkIcon,
 } from "@chakra-ui/icons";
 import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -95,12 +95,14 @@ function Navbar() {
         <>
           <IconButton
             aria-label="Open Menu"
-            icon={<HamburgerIcon />}
+            icon={<Icon as={FiMenu} boxSize={7} />}
             onClick={onOpen}
-            size="lg"
+            size="md"
             variant="ghost"
             position="relative"
             zIndex="20"
+            color="white"
+            _hover={{ bg: "rgba(255,255,255,0.1)" }}
           />
           <Drawer isOpen={isOpen} placement="top" onClose={onClose} size="full">
             <DrawerOverlay bg="rgba(0, 0, 0, 0.8)" backdropFilter="blur(5px)" />

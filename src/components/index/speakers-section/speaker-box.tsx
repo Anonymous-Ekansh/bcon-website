@@ -67,9 +67,13 @@ function SpeakerBox({
         templateColumns={["1fr", idx === "even" ? "1fr 2fr" : "2fr 1fr"]}
         templateRows={["auto", "1fr"]}
         zIndex={10}
-        gap={[10, 20]}
-        mb={["5rem", 0]}
+        gap={[6, 20]}
+        mb={["2rem", 0]}
         position="relative"
+        bg={["rgba(255, 255, 255, 0.03)", "transparent"]}
+        p={[6, 0]}
+        borderRadius={["15px", "0"]}
+        border={["1px solid rgba(255,255,255,0.05)", "none"]}
       >
         <GridItem
           as={motion.div}
@@ -93,13 +97,16 @@ function SpeakerBox({
                     borderRadius: "10px",
                     boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
                     objectFit: "cover",
-                    width: "250px",
-                    height: "320px",
+                    width: "100%",
+                    maxWidth: "250px",
+                    height: "auto",
+                    aspectRatio: "250/320",
                   }}
                 />
               ) : (
                 <Flex
                   w="250px"
+                  maxW="100%"
                   h="320px"
                   bg="rgba(207, 175, 137, 0.08)"
                   border="1px solid rgba(207, 175, 137, 0.2)"
@@ -122,13 +129,13 @@ function SpeakerBox({
           animate={{ y: fadeInDown.get() }} // Apply y transform directly
           style={{ opacity: fadeInOpacity.get() }} // Apply opacity through style
         >
-          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontWeight={300} fontSize={[24, 34]} color="#CFAF89">
+          <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontWeight={300} fontSize={[24, 34]} color="#CFAF89" textAlign={["center", "left"]}>
             {name}
           </Text>
-          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={500} fontSize={[16, 18]} color="rgba(255,255,255,0.7)">
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={500} fontSize={[16, 18]} color="rgba(255,255,255,0.7)" textAlign={["center", "left"]}>
             {designation}
           </Text>
-          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={300} color="rgba(255,255,255,0.8)" mt={6}>{description}</Text>
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={300} color="rgba(255,255,255,0.8)" mt={6} textAlign={["center", "left"]}>{description}</Text>
         </GridItem>
       </Grid>
 
@@ -136,12 +143,14 @@ function SpeakerBox({
       {svgContent ? (
         <Flex
           as={motion.div}
-          display={["none", "flex"]}
+          display="flex"
           w="100%"
           justifyContent="center"
           position="relative"
-          transform={lineTransform}
+          transform={{ base: `${lineTransform ? lineTransform : ""} scale(0.5)`, md: lineTransform }}
           zIndex={2}
+          mt={["-2rem", "0"]}
+          mb={["-2rem", "0"]}
           dangerouslySetInnerHTML={{
             __html: svgContent.replace(
               "<path",

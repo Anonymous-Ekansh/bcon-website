@@ -5,28 +5,24 @@ import PageHero from "~/components/page-hero";
 
 const organizers = [
   {
-    name: "John Doe",
+    name: "Vaanya",
     role: "Convener",
-    email: "john.doe@example.com",
-    phone: "+91 98765 43210",
+    phone: "+91 85100 13355",
   },
   {
-    name: "Jane Smith",
+    name: "Adhiraj Singh",
     role: "Co-Convener",
-    email: "jane.smith@example.com",
-    phone: "+91 98765 43211",
+    phone: "+91 99539 06182",
   },
   {
-    name: "Alex Johnson",
+    name: "Adityavardhan",
     role: "Head of Operations",
-    email: "alex.j@example.com",
-    phone: "+91 98765 43212",
+    phone: "+91 98118 23301",
   },
   {
-    name: "Sarah Williams",
+    name: "Arsh",
     role: "Head of Marketing",
-    email: "sarah.w@example.com",
-    phone: "+91 98765 43213",
+    phone: "+91 97735 52877",
   },
 ];
 
@@ -83,16 +79,7 @@ export default function ContactUsPage() {
                     </Text>
                     
                     <Flex flexDir="column" gap={2}>
-                      <Text
-                        as="a"
-                        href={`mailto:${person.email}`}
-                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                        fontSize="14px"
-                        color="rgba(255,255,255,0.7)"
-                        _hover={{ color: "white", textDecoration: "underline" }}
-                      >
-                        {person.email}
-                      </Text>
+
                       <Text
                         as="a"
                         href={`tel:${person.phone}`}

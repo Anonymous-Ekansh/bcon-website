@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Box } from "@chakra-ui/react";
+import { usePathname } from "next/navigation";
 
 import Navbar from "./navbar";
 import Footer from "./footer";
@@ -12,6 +13,9 @@ interface LayoutProps {
 }
 
 function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
+  const pathname = usePathname();
+  const isShortPage = pathname ? ["/login", "/register", "/contact-us"].includes(pathname) : false;
+
   return (
     <>
       <Head>
@@ -23,9 +27,21 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
       </Head>
 
       {!childrenHaveNavbar ? <Navbar /> : null}
-      <ScrollBackground />
+      
+      {!isShortPage && <ScrollBackground />}
       <Box className="grain-overlay" />
-      <Box as="main" position="relative" zIndex={1}>{children}</Box>
+      
+      {/* On short pages, we apply a static gradient to the main container so it physically scrolls with the document */}
+      <Box 
+        as="main" 
+        position="relative" 
+        zIndex={1} 
+        minH="100vh"
+        bg={isShortPage ? "linear-gradient(to bottom, #4A1E75 0%, #2D1147 40%, #1A0A29 100%)" : "transparent"}
+      >
+        {children}
+      </Box>
+      
       <Footer />
     </>
   );

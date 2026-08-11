@@ -1,45 +1,7 @@
-import { Box, Flex, Text, IconButton, Link, Icon } from "@chakra-ui/react";
+import { Box, Flex, Text, IconButton, Icon } from "@chakra-ui/react";
 import { FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import { useRouter, usePathname } from "next/navigation"; // Import hooks
-
-interface NavItem {
-  title: string;
-  href: string;
-}
-
-const navItems: NavItem[] = [
-  { title: "About", href: "#about" },
-  { title: "Speakers", href: "#speakers" },
-  { title: "Events", href: "#events" },
-  { title: "Competitions", href: "#competitions" },
-  { title: "Past Speakers", href: "past-speakers" },
-  { title: "Sponsors", href: "sponsors" },
-  { title: "Contact", href: "contact-us" },
-];
 
 function Footer() {
-  const router = useRouter();
-  const pathname = usePathname(); // Get the current path
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    e.preventDefault();
-    if (href.startsWith("#")) {
-      if (pathname === "/") {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      } else {
-        router.push(`/${href}`);
-      }
-    } else {
-      router.push(href.startsWith("/") ? href : `/${href}`);
-    }
-  };
-
   const socialMedia = [
     {
       icon: FaInstagram,
@@ -59,34 +21,30 @@ function Footer() {
       <Flex
         flexDir={{ base: "column", md: "row" }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ base: "flex-start", md: "center" }}
         maxW="1200px"
         mx="auto"
-        px={{ base: 4, md: 10 }} // Added horizontal padding for mobile
+        px={{ base: 4, md: 10 }}
       >
-        {/* Links Section */}
+        {/* Tagline Section */}
         <Flex
-          gap={10}
-          flexWrap="wrap"
-          justifyContent="center"
-          textAlign="center" // Center align links for mobile
-          fontFamily="'Proxima Nova', 'Inter', sans-serif"
+          justifyContent="flex-start"
+          textAlign="left"
+          mb={{ base: 6, md: 0 }}
         >
-          {navItems.map(({ title, href }, i) => (
-            <Link
-              key={i}
-              href={href}
-              color="white"
-              _hover={{ textDecoration: "underline" }}
-              onClick={(e) => handleNavClick(e, href)} // Handle nav click
-            >
-              {title}
-            </Link>
-          ))}
+          <Text 
+            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+            fontSize={{ base: "lg", md: "xl" }}
+            color="#FFFFFF"
+            letterSpacing="0.05em"
+            opacity={0.9}
+          >
+            Building Tomorrow<Text as="span" color="#CFAF89">.</Text>
+          </Text>
         </Flex>
 
         {/* Social Media Section */}
-        <Flex gap={6} mt={{ base: 6, md: 0 }} justifyContent="center">
+        <Flex gap={6} justifyContent={{ base: "flex-start", md: "flex-end" }} w={{ base: "100%", md: "auto" }}>
           {socialMedia.map(({ icon, href, label }, i) => (
             <IconButton
               key={i}

@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -13,10 +12,6 @@ import { prisma } from "~/server/db";
 
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Email from "next-auth/providers/email";
-import { Prisma } from "@prisma/client";
-import { error } from "console";
-
 console.log({ env });
 
 /**
@@ -118,6 +113,7 @@ export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   // Add the following options for sign-out
   events: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     signOut: async ({ session, token }) => {
       // You can perform any cleanup or logging here
       console.log("User signed out:", token.sub);

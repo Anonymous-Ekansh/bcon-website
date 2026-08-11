@@ -1,14 +1,11 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { prisma } from "~/server/db";
-import type { Booking, User } from "@prisma/client";
 import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { type MailAttachment } from "~/server/mail";
 import {
-  sendMail,
   sendTicketApprovalMail,
   sendTicketRejectionMail,
 } from "~/server/mail";

@@ -1,7 +1,6 @@
 // src/server/trpc/router/auth.ts
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure} from "../trpc";
-import { PrismaClient } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { prisma } from "~/server/db";
 
@@ -62,6 +61,7 @@ export const authRouter = createTRPCRouter({
         });
       }
       // Don't return the password hash
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: _, ...userWithoutPassword } = user;
       return { success: true, user: userWithoutPassword };
     }),

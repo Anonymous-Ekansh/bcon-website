@@ -32,7 +32,6 @@ function SpeakerBox({
   image,
   lineImg,
   lineTransform,
-  bgIcon,
   idx,
 }: SpeakerBoxProps) {
   const containerRef = useRef(null);
@@ -146,8 +145,7 @@ function SpeakerBox({
           display="flex"
           w="100%"
           justifyContent="center"
-          position="relative"
-          transform={{ base: `${lineTransform ? lineTransform : ""} scale(0.5)`, md: lineTransform }}
+          transform={{ base: `${lineTransform ?? ""} scale(0.5)`, md: lineTransform }}
           zIndex={2}
           mt={["-2rem", "0"]}
           mb={["-2rem", "0"]}

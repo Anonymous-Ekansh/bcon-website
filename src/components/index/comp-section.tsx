@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   Text,
-  Button,
   Image,
   Grid,
   GridItem,
@@ -65,9 +64,7 @@ const CompetitionCard: FC<CompetitionCardProps> = ({
   title,
   date,
   price,
-  buttonText,
   image,
-  link,
   isInView,
 }) => (
   <GridItem

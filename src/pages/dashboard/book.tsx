@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import {
   Box,
   Flex,
@@ -19,7 +19,6 @@ import {
 import { CheckCircleIcon } from "@chakra-ui/icons";
 
 import Layout from "~/components/layout";
-import { useSession } from "next-auth/react";
 
 // Define a safer type for discounts using `Record`
 interface Ticket {
@@ -55,8 +54,6 @@ const availableTickets: Ticket[] = [
 ];
 
 const DashboardPage = () => {
-  const { data: session } = useSession();
-
   return (
     <Layout title="Dashboard">
       <Box maxW="1200px" mx="auto" my={8}>

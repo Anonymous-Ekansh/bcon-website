@@ -105,7 +105,8 @@ const RegisterPage = () => {
           isClosable: true,
         });
       }
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
       toast({
         title: "Registration Error",
         description: "Something went wrong with SNU registration.",

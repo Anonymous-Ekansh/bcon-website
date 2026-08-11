@@ -1,8 +1,5 @@
 import nodemailer from "nodemailer";
 import { env } from "~/env";
-import type { Booking, Ticket} from "@prisma/client";
-import { prisma } from "~/server/db";
-import axios from "axios";
 export type MailAttachment = {
   filename: string,
   content: Buffer,

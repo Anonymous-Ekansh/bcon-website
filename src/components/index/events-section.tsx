@@ -117,7 +117,7 @@ function DesktopEvents() {
                   >
                     <Flex align="center" justify="center">
                       {image ? (
-                        <Image src={image} h="400px" objectFit="cover" />
+                        <Image src={image} alt={title} h="400px" objectFit="cover" />
                       ) : (
                         <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
                           <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
@@ -194,7 +194,7 @@ function DesktopEvents() {
                   >
                     <Flex align="center" justify="center">
                       {image ? (
-                        <Image src={image} h="400px" objectFit="cover" />
+                        <Image src={image} alt={title} h="400px" objectFit="cover" />
                       ) : (
                         <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
                           <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
@@ -308,6 +308,7 @@ function MobileEvents() {
               {image ? (
                 <Image
                   src={image}
+                  alt={title}
                   w="100%"
                   h="220px"
                   objectFit="cover"

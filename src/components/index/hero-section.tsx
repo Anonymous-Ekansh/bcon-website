@@ -393,7 +393,7 @@ const HeroSection = () => {
           transition={{ 
             opacity: { delay: 2.5, duration: 1 }, 
             y: { repeat: Infinity, duration: 2, ease: "easeInOut" } 
-          } as any}
+          } as unknown as string}
           pointerEvents="none"
         >
           <Flex flexDir="column" alignItems="center" gap={2}>

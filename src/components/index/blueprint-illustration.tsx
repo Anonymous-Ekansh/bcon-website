@@ -5,8 +5,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── Palette ──────────────────────────────────────────────────────── */
 const GOLD = "#D4AF6A";
-const GOLD_LIGHT = "#E8D4A0";
-const VOID_BG = "#180B2A";
 const SHADOW_CLR = "#2C1A4C";
 
 const P = { top: "#F0EAF7", left: "#C9B8DE", right: "#A78FC7" };

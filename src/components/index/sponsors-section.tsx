@@ -3,44 +3,42 @@ import { motion } from "framer-motion";
 import { type FC } from "react";
 
 const currentSponsors = [
-  { name: "Foodrik", image: "" },
-  { name: "DNT (Design Build N Transform)", image: "" },
-  { name: "Shiv Nadar Institution of Eminence", image: "" },
-  { name: "Campus Bloggers", image: "" },
-  { name: "Blue Tokai Coffee Roasters", image: "" },
-  { name: "FinLadder", image: "" },
-  { name: "ED Times", image: "" },
-  { name: "The Education Tree", image: "" },
-  { name: "Asian Roots Skin & Hair Clinic", image: "" },
-  { name: "NSE", image: "" },
-  { name: "Bingo!", image: "" },
-  { name: "Xoxoday", image: "" },
-  { name: "DHI (Direct Hair Implantation)", image: "" },
-  { name: "Insight Counselling Services", image: "" },
-  { name: "Nestlé", image: "" },
-  { name: "First Choice", image: "" },
-  { name: "Wealthier", image: "" },
-  { name: "DU Updates", image: "" },
-  { name: "Talerang", image: "" },
-  { name: "Ascend (Harvard Business Review)", image: "" },
-  { name: "Axis Bank", image: "" },
-  { name: "AIC-SNU (Atal Incubation Centre)", image: "" },
-  { name: "Nescafé", image: "" },
-  { name: "Red Bull", image: "" },
-  { name: "Learning While Travelling", image: "" },
-  { name: "Brew House Tea Brewing Co.", image: "" },
-  { name: "Unorthodox Gateau", image: "" },
-  { name: "Zauk (Biryani & More)", image: "" },
-  { name: "Cornitos", image: "" },
-  { name: "Harvard Business Review", image: "" },
-  { name: "Mamagoto", image: "" },
-  { name: "Tutorage", image: "" },
-  { name: "Gree Air Conditioner", image: "" },
-  { name: "Sole Savvy", image: "" },
-  { name: "Essvee Bath Fittings", image: "" },
-  { name: "Krescon", image: "" },
-  { name: "Fresca Juices", image: "" },
-  { name: "Crax", image: "" },
+  { name: "Foodrik", image: "/images/sponsors/foodrik.png" },
+  { name: "DNT (Design Build N Transform)", image: "/images/sponsors/DNT.png" },
+  { name: "Shiv Nadar Institution of Eminence", image: "/images/sponsors/shiv-nadar.png" },
+  { name: "Campus Bloggers", image: "/images/sponsors/campus-bloggers.png" },
+  { name: "Blue Tokai Coffee Roasters", image: "/images/sponsors/blue-tokai.png" },
+  { name: "FinLadder", image: "/images/sponsors/finLadder.png" },
+  { name: "ED Times", image: "/images/sponsors/EDTimes.png" },
+  { name: "The Education Tree", image: "/images/sponsors/TheEducationTree.png" },
+  { name: "Asian Roots Skin & Hair Clinic", image: "/images/sponsors/asian-roots.png" },
+  { name: "NSE", image: "/images/sponsors/NSE.png" },
+  { name: "Bingo!", image: "/images/sponsors/bingo.png" },
+  { name: "Xoxoday", image: "/images/sponsors/xoxoday.png" },
+  { name: "DHI (Direct Hair Implantation)", image: "/images/sponsors/DHI.png" },
+  { name: "Insight Counselling Services", image: "/images/sponsors/insight.png" },
+  { name: "Nestlé", image: "/images/sponsors/nestle.png" },
+  { name: "First Choice", image: "/images/sponsors/firstchoice.png" },
+  { name: "DU Updates", image: "/images/sponsors/DU-Updates.png" },
+  { name: "Talerang", image: "/images/sponsors/talerang.png" },
+  { name: "Ascend (Harvard Business Review)", image: "/images/sponsors/ascend.png" },
+  { name: "Axis Bank", image: "/images/sponsors/axisbank.png" },
+  { name: "AIC-SNU (Atal Incubation Centre)", image: "/images/sponsors/aic-snu.png" },
+  { name: "Nescafé", image: "/images/sponsors/nescafe.png" },
+  { name: "Red Bull", image: "/images/sponsors/red-bull.svg" },
+  { name: "Learning While Travelling", image: "/images/sponsors/learning-while-travelling.png" },
+  { name: "Brew House Tea Brewing Co.", image: "/images/sponsors/brew-house.png" },
+  { name: "Unorthodox Gateau", image: "/images/sponsors/unorthodox-gateau.png" },
+  { name: "Zauk (Biryani & More)", image: "/images/sponsors/zauk.png" },
+  { name: "Cornitos", image: "/images/sponsors/cornitos.png" },
+  { name: "Harvard Business Review", image: "/images/sponsors/harvard-business-review.png" },
+  { name: "Mamagoto", image: "/images/sponsors/mamagoto.png" },
+  { name: "Tutorage", image: "/images/sponsors/tutorage.png" },
+  { name: "Gree Air Conditioner", image: "/images/sponsors/gree.png" },
+  { name: "Sole Savvy", image: "/images/sponsors/sole-savvy.png" },
+  { name: "Essvee Bath Fittings", image: "/images/sponsors/essvee.png" },
+  { name: "Fresca Juices", image: "/images/sponsors/fresca-juices.png" },
+  { name: "Crax", image: "/images/sponsors/crax.png" },
 ];
 
 const SponsorsSection: FC = () => {
@@ -99,25 +97,25 @@ const SponsorsSection: FC = () => {
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: true }}
               >
-                <Flex
-                  w="100%"
-                  h="120px"
-                  bg="rgba(255, 255, 255, 0.05)"
-                  borderRadius="15px"
-                  border="1px solid rgba(255, 255, 255, 0.1)"
-                  alignItems="center"
-                  justifyContent="center"
-                  transition="all 0.4s ease"
-                  filter="grayscale(100%) opacity(70%)"
-                  _hover={{
-                    filter: "grayscale(0%) opacity(100%)",
-                    borderColor: "rgba(207, 175, 137, 0.5)",
-                    bg: "rgba(255, 255, 255, 0.07)",
-                    transform: "translateY(-5px)",
-                  }}
-                >
+                  <Flex
+                    w="100%"
+                    h="120px"
+                    p={4}
+                    bg="rgba(255, 255, 255, 0.9)"
+                    borderRadius="15px"
+                    border="1px solid rgba(255, 255, 255, 0.1)"
+                    alignItems="center"
+                    justifyContent="center"
+                    transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    _hover={{
+                      transform: "scale(1.05) translateY(-5px)",
+                      bg: "rgba(255, 255, 255, 1)",
+                      filter: "drop-shadow(0 15px 25px rgba(207, 175, 137, 0.3))",
+                      zIndex: 10,
+                    }}
+                  >
                   {sponsor.image ? (
-                    <Image src={sponsor.image} alt={sponsor.name} maxH="80px" maxW="80%" objectFit="contain" />
+                    <Image src={sponsor.image} alt={sponsor.name} h="80px" w="80%" objectFit="contain" />
                   ) : (
                     <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.5)" fontSize="13px" textAlign="center" px={2}>{sponsor.name}</Text>
                   )}

@@ -124,12 +124,8 @@ const DashboardPage = () => {
             {availableTickets.map((ticket) => (
               <GridItem
                 key={ticket.id}
-                bg={
-                  ticket.id === "1" || ticket.id === "2"
-                    ? "gray.700"
-                    : "gray.800"
-                }
-                opacity={ticket.id === "1" || ticket.id === "2" ? 0.5 : 1}
+                bg="gray.800"
+                opacity={1}
                 p={4}
                 borderRadius="md"
                 shadow="md"
@@ -147,7 +143,6 @@ const DashboardPage = () => {
                   color="white"
                   _hover={{ bg: "orange.500" }}
                   onClick={() => addToCart(ticket)}
-                  disabled={ticket.id !== "3"}
                 >
                   Add to Cart
                 </Button>

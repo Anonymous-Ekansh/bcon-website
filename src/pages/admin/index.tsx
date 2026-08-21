@@ -35,13 +35,8 @@ import {
 
 // Define the admin email list
 const ADMIN_EMAILS = [
-  "sk970@snu.edu.in",
-  "us997@snu.edu.in",
-  "ak915@snu.edu.in",
-  "ks261@snu.edu.in",
-  "aa475@snu.edu.in",
-  "rk684@snu.edu.in",
-  "dk109@snu.edu.in",
+  "rj910@snu.edu.in",
+  "ej@snu.edu.in",
 ];
 
 // Define types for User and Booking
@@ -78,11 +73,11 @@ interface BookingDetailsModalProps {
 }
 
 // BookingDetailsModal Component
-const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
+const BookingDetailsModal = ({
   isOpen,
   onClose,
   bookingId,
-}) => {
+}: BookingDetailsModalProps) => {
   const {
     data: bookingDetails,
     isLoading,
@@ -103,44 +98,44 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
           ) : error ? (
             <Text color="red.500">Error: {error.message}</Text>
           ) : (
-          <VStack align="start" spacing={4}>
-            <Text>
-              <strong>Booking ID:</strong> {bookingDetails?.id}
-            </Text>
-            <Text>
-              <strong>User:</strong> {bookingDetails?.User?.name ?? "N/A"}
-            </Text>
-            <Text>
-              <strong>Email:</strong> {bookingDetails?.User?.email ?? "N/A"}
-            </Text>
-            <Text>
-              <strong>Transaction ID:</strong>{" "}
-              {bookingDetails?.transactionId ?? "N/A"}
-            </Text>
-            <Text>
-              <strong>Status:</strong> {bookingDetails?.status}
-            </Text>
+            <VStack align="start" spacing={4}>
+              <Text>
+                <strong>Booking ID:</strong> {bookingDetails?.id}
+              </Text>
+              <Text>
+                <strong>User:</strong> {bookingDetails?.User?.name ?? "N/A"}
+              </Text>
+              <Text>
+                <strong>Email:</strong> {bookingDetails?.User?.email ?? "N/A"}
+              </Text>
+              <Text>
+                <strong>Transaction ID:</strong>{" "}
+                {bookingDetails?.transactionId ?? "N/A"}
+              </Text>
+              <Text>
+                <strong>Status:</strong> {bookingDetails?.status}
+              </Text>
 
-            <Heading size="md">Tickets</Heading>
-            <Table variant="simple" size="sm">
-              <Thead>
-                <Tr>
-                  <Th>Name</Th>
-                  <Th>Email</Th>
-                  <Th>Phone</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {bookingDetails?.Ticket?.map((ticket: Ticket) => (
-                  <Tr key={ticket.id}>
-                    <Td>{ticket.name}</Td>
-                    <Td>{ticket.email}</Td>
-                    <Td>{ticket.phone}</Td>
+              <Heading size="md">Tickets</Heading>
+              <Table variant="simple" size="sm">
+                <Thead>
+                  <Tr>
+                    <Th>Name</Th>
+                    <Th>Email</Th>
+                    <Th>Phone</Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </VStack>
+                </Thead>
+                <Tbody>
+                  {bookingDetails?.Ticket?.map((ticket: Ticket) => (
+                    <Tr key={ticket.id}>
+                      <Td>{ticket.name}</Td>
+                      <Td>{ticket.email}</Td>
+                      <Td>{ticket.phone}</Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </VStack>
           )}
         </ModalBody>
         <ModalFooter>
@@ -154,11 +149,11 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
 };
 
 // BookingTable Component
-const BookingTable: React.FC<BookingTableProps> = ({
+const BookingTable = ({
   bookings,
   status,
   onUpdateBooking,
-}) => {
+}: BookingTableProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
     null
@@ -193,8 +188,8 @@ const BookingTable: React.FC<BookingTableProps> = ({
                     status === "pending"
                       ? "yellow"
                       : status === "approved"
-                      ? "green"
-                      : "red"
+                        ? "green"
+                        : "red"
                   }
                 >
                   {status}
@@ -265,7 +260,7 @@ const AdminPage: NextPage<{ authorized: boolean }> = ({ authorized }) => {
         isClosable: true,
       });
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast({
         title: "Error updating booking.",
         description: error.message,
@@ -360,7 +355,7 @@ const AdminPage: NextPage<{ authorized: boolean }> = ({ authorized }) => {
 };
 
 // Server-side session validation
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
   const authorized =

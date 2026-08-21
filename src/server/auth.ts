@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials: Record<"email" | "password", string> | undefined) {
         if (!credentials?.email || !credentials.password) {
           return null;
         }
@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
+    session: ({ session, token }: { session: any; token: any }) => {
       console.log("Session Callback - Input:", { session, token });
       const updatedSession = {
         ...session,
@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
       console.log("Session Callback - Output:", updatedSession);
       return updatedSession;
     },
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user }: { token: any; user: any }) => {
       console.log("JWT Callback - Input:", { token, user });
       if (user) {
         token.id = user.id;
@@ -114,7 +114,7 @@ export const authOptions: NextAuthOptions = {
   // Add the following options for sign-out
   events: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    signOut: async ({ session, token }) => {
+    signOut: async ({ session, token }: { session?: any; token?: any }) => {
       // You can perform any cleanup or logging here
       console.log("User signed out:", token.sub);
     },

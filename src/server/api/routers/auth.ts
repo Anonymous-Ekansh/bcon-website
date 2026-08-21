@@ -25,7 +25,6 @@ export const authRouter = createTRPCRouter({
         throw new Error("Email already exists");
       }
 
-
       const user = await prisma.user.create({
         data: {
           name,
@@ -35,35 +34,6 @@ export const authRouter = createTRPCRouter({
       });
 
       return user;
-    }),
-
-    login: publicProcedure
-    .input(z.object({
-      email: z.string().email(),
-      password: z.string(),
-    }))
-    .mutation(async ({ ctx, input }) => {
-      const { email, password } = input;
-      const user = await ctx.prisma.user.findUnique({
-        where: { email },
-      });
-      if (!user) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: "No user found with this email",
-        });
-      }
-     
-      if (password != user.password) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: "Invalid password",
-        });
-      }
-      // Don't return the password hash
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password: _, ...userWithoutPassword } = user;
-      return { success: true, user: userWithoutPassword };
     }),
 });
 // function compare(password: string, password1: string | null) {

@@ -163,8 +163,7 @@ export const adminBookingRouter = createTRPCRouter({
 
                 const imageBuffer = Buffer.from(response.data); // This should now be safe
                 const docBuffer = readPdfAsBuffer(
-                  // "/Users/unnatdluffy/Desktop/bcon/bcon-website/src/server/api/routers/itenerary.pdf"
-                  "/home/ubuntu/code/bcon-website/src/server/api/routers/itenerary.pdf"
+                  path.join(process.cwd(), "src/server/api/routers/itenerary.pdf")
                 );
                 const attachments: MailAttachment[] = [
                   {

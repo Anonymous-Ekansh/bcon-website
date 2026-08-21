@@ -1,5 +1,6 @@
 import { useSession, getSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import Link from "next/link";
 import { type GetServerSideProps } from "next";
 import {
   Flex,
@@ -12,6 +13,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import Layout from "~/components/layout";
 import { truncate } from "lodash";
@@ -80,9 +82,12 @@ function DashboardPage() {
               </Text>
               .
             </Heading>
-            <Text fontSize={{ base: "md", md: "lg" }} color="gray.400">
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.400" mb={4}>
               Book tickets for BCon 2024 and manage your bookings here.
             </Text>
+            <Button as={Link} href="/book-ticket" bg="orange.400" color="white" _hover={{ bg: "orange.500" }}>
+              Buy Tickets
+            </Button>
           </Box>
         </Flex>
 

@@ -1,7 +1,6 @@
 // src/server/trpc/router/auth.ts
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure} from "../trpc";
-import { TRPCError } from "@trpc/server";
 import { prisma } from "~/server/db";
 
 

@@ -45,7 +45,7 @@ function Footer() {
         </Flex>
 
         {/* Social Media Section */}
-        <Flex gap={6} justifyContent={{ base: "flex-start", md: "flex-end" }} w={{ base: "100%", md: "auto" }}>
+        <Flex gap={6} justifyContent={{ base: "center", md: "flex-end" }} w={{ base: "100%", md: "auto" }}>
           {socialMedia.map(({ icon, href, label }, i) => (
             <IconButton
               key={i}

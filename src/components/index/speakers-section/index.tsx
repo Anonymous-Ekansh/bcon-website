@@ -62,12 +62,15 @@ function SpeakersSection() {
         >
           <Text
             fontFamily="'Proxima Nova', 'Inter', sans-serif"
-            maxW="30rem"
+            maxW="34rem"
             fontWeight={300}
             color="rgba(255, 255, 255, 0.7)"
             fontSize={["16px", "18px"]}
             textAlign="center"
             zIndex={2}
+            px={6}
+            mt={4}
+            mb={6}
           >
             Visionaries and industry leaders who make the magic in today&apos;s
             business landscape possible.

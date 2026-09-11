@@ -63,6 +63,24 @@ const speakers: Speaker[] = [
     lineTransform: "translateX(-40px) translateY(15px)",
   },
   {
+    name: "Adhish Rane",
+    designation: "Facilitator and Coach, Google",
+    description:
+      "Adhish Rane is a Facilitator and Coach with Google’s Global Commercial Enablement Team, working across APAC and EMEA. He focuses on developing people through learning, communication, and capability-building initiatives, bringing experience in facilitation and professional development to help individuals and teams perform more effectively.",
+    image: "/images/landing/speakers/adhish-rane.jpeg",
+    lineImg: "/images/landing/speakers/lines/rohit_to_ritesh.svg",
+    lineTransform: "translateX(50px) translateY(5px)",
+  },
+  {
+    name: "Rajesh Chopra",
+    designation: "Senior Vice President, Mastercard",
+    description:
+      "Rajesh Chopra is Senior Vice President and Head of Services, South Asia, at Mastercard. With extensive experience across financial services, business strategy, analytics, and technology, he brings deep industry expertise and leadership perspective, helping organizations leverage data, innovation, and digital solutions to drive meaningful business growth.",
+    image: "/images/landing/speakers/rajesh_chopra.webp",
+    lineImg: "/images/landing/speakers/lines/dharam_to_rohit.svg",
+    lineTransform: "translateX(-40px) translateY(15px)",
+  },
+  {
     name: "Aryaan Misra & Aishwarya Singh",
     designation: "Founders, Desi Studios & Desi Crime",
     description:

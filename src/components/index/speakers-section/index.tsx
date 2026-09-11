@@ -80,7 +80,7 @@ function SpeakersSection() {
 
       <Spacer h={["1rem", "10rem"]} />
 
-      <SpeakersContainer limit={6} />
+      <SpeakersContainer limit={8} />
 
       <Flex w="100%" justifyContent="center" mt={12}>
         <Button

@@ -39,9 +39,11 @@
     "nodemailer": "^6.9.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-globe.gl": "^2.38.0",
     "react-icons": "^5.3.0",
     "react-intersection-observer": "^9.13.1",
     "superjson": "^2.2.1",
+    "three": "^0.186.0",
     "zod": "^3.23.3"
   },
   "devDependencies": {

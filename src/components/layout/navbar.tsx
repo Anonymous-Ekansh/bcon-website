@@ -148,26 +148,17 @@ function Navbar() {
                   ) : (
                     <VStack spacing={4} w="100%">
                       <Button
+                        as="a"
+                        href="https://forms.rishabhj.in/bcon"
+                        target="_blank"
                         bg="transparent"
                         color="#CFAF89"
                         fontFamily="'Proxima Nova', 'Inter', sans-serif"
                         border="1px solid #CFAF89"
                         _hover={{ bg: "rgba(207, 175, 137, 0.1)" }}
                         w="100%"
-                        onClick={() => router.push("/register")}
                       >
                         Register
-                      </Button>
-                      <Button
-                        variant="outline"
-                        colorScheme="whiteAlpha"
-                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                        w="100%"
-                        onClick={() => router.push("/login")}
-                        color="white"
-                        _hover={{ bg: "#2D3748" }}
-                      >
-                        Login
                       </Button>
                     </VStack>
                   )}
@@ -198,17 +189,9 @@ function Navbar() {
           {!loading && !session && (
             <>
               <Button
-                as={Link}
-                href="/login"
-                variant="outline"
-                fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                _hover={{ bg: "rgba(245,242,240,0.05)", color: "white" }}
-              >
-                Login
-              </Button>
-              <Button
-                as={Link}
-                href="/register"
+                as="a"
+                href="https://forms.rishabhj.in/bcon"
+                target="_blank"
                 bg="transparent"
                 color="#CFAF89"
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"

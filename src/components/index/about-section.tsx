@@ -99,7 +99,7 @@ const AboutSection: FC = () => {
                 textAlign="center"
                 lineHeight="1.8"
               >
-                Inspiria&apos;s flagship annual business festival — keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
+                Inspiria&apos;s flagship annual business festival - keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
               </Text>
             </Box>
 
@@ -124,7 +124,7 @@ const AboutSection: FC = () => {
                 textAlign="center"
                 lineHeight="1.8"
               >
-                <Text as="span" color="#CFAF89" fontWeight="500">Building Tomorrow</Text> — A generation that chooses to create rather than adapt. Embracing innovation, leading with purpose, turning ideas into meaningful action.
+                <Text as="span" color="#CFAF89" fontWeight="500">Building Tomorrow</Text> - A generation that chooses to create rather than adapt. Embracing innovation, leading with purpose, turning ideas into meaningful action.
               </Text>
             </Box>
           </Container>

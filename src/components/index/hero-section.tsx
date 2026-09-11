@@ -53,7 +53,7 @@ const BlueprintGrid = () => (
     pointerEvents="none"
     zIndex="1"
   >
-    {/* Background coordinate grid — very faint */}
+    {/* Background coordinate grid - very faint */}
     {[180, 360, 540, 720, 900, 1080, 1260].map((x, i) => (
       <BlueprintLine
         key={`v-${i}`}
@@ -75,7 +75,7 @@ const BlueprintGrid = () => (
       />
     ))}
 
-    {/* Architectural floor-plan motif — right side */}
+    {/* Architectural floor-plan motif - right side */}
     {/* Outer structure */}
     <BlueprintLine
       d="M 920 280 L 1280 280 L 1280 680 L 920 680 Z"
@@ -119,7 +119,7 @@ const BlueprintGrid = () => (
       duration={1.8}
       opacity={0.15}
     />
-    {/* Dimension line — bottom */}
+    {/* Dimension line - bottom */}
     <BlueprintLine
       d="M 920 720 L 1280 720"
       delay={2.0}
@@ -265,7 +265,7 @@ const HeroSection = () => {
           />
         </Box>
 
-        {/* Gold divider — thin architectural hairline */}
+        {/* Gold divider - thin architectural hairline */}
         <Box
           as={motion.div}
           variants={dividerVariant}
@@ -361,7 +361,12 @@ const HeroSection = () => {
           >
             2026
           </Text>
-          <Box w="30px" h="1px" bg="rgba(207, 175, 137, 0.5)" />
+          <Text
+            fontSize={{ base: "14px", md: "16px" }}
+            color="rgba(207, 175, 137, 0.8)"
+          >
+            -
+          </Text>
           <Text
             fontFamily="'Proxima Nova', 'Inter', sans-serif"
             fontSize={{ base: "11px", md: "12px" }}
@@ -415,7 +420,7 @@ const HeroSection = () => {
         </Flex>
       </Flex>
 
-      {/* Bottom edge — thin gold hairline */}
+      {/* Bottom edge - thin gold hairline */}
       <Box
         position="absolute"
         bottom="0"

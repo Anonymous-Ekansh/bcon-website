@@ -48,6 +48,10 @@ const currentSponsors = [
   { name: "Essvee Bath Fittings", image: "/images/sponsors/essvee.png", colSpan: 1, rowSpan: 1 },
   { name: "Fresca Juices", image: "/images/sponsors/fresca-juices.png", colSpan: 2, rowSpan: 1 },
   { name: "Crax", image: "/images/sponsors/crax.png", colSpan: 1, rowSpan: 1 },
+  { name: "AMD", image: "/images/sponsors/AMD.jpg", colSpan: 1, rowSpan: 1 },
+  { name: "Oddy", image: "/images/sponsors/Oddy.jpg", colSpan: 1, rowSpan: 1 },
+  { name: "CocaCola", image: "/images/sponsors/cocacola.jpeg", colSpan: 1, rowSpan: 1 },
+  { name: "Taaza", image: "/images/sponsors/Taaza.jpg", colSpan: 1, rowSpan: 1 },
 ];
 
 export default function SponsorsPage() {

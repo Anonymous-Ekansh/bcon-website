@@ -70,7 +70,7 @@ const BlueprintIllustration = () => {
       if (!el) return;
       const r = el.getBoundingClientRect();
 
-      // Target zone — centre of the dashed outline in SVG-space:
+      // Target zone - centre of the dashed outline in SVG-space:
       // SVG (300, 260) → fraction (0.50, 0.52) of viewBox 600×500
       const tx = r.width * 0.5;
       const ty = r.height * 0.52;
@@ -282,7 +282,7 @@ const BlueprintIllustration = () => {
               color="rgba(245,242,240,0.3)"
               mt={1}
             >
-              Drag it into place — or tap it.
+              Drag it into place - or tap it.
             </Text>
           </Box>
         )}

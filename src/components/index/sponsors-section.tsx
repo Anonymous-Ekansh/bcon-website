@@ -39,6 +39,10 @@ const currentSponsors = [
   { name: "Essvee Bath Fittings", image: "/images/sponsors/essvee.png" },
   { name: "Fresca Juices", image: "/images/sponsors/fresca-juices.png" },
   { name: "Crax", image: "/images/sponsors/crax.png" },
+  { name: "AMD", image: "/images/sponsors/AMD.jpg" },
+  { name: "Oddy", image: "/images/sponsors/Oddy.jpg" },
+  { name: "CocaCola", image: "/images/sponsors/cocacola.jpeg" },
+  { name: "Taaza", image: "/images/sponsors/Taaza.jpg" },
 ];
 
 const SponsorsSection: FC = () => {

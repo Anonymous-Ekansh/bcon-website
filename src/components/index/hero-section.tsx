@@ -258,7 +258,7 @@ const HeroSection = () => {
           <Image 
             src="/images/snioe-inspiria.png" 
             alt="SNIoE &times; Inspiria Presents" 
-            h={{ base: "80px", md: "120px", lg: "150px", xl: "180px" }}
+            h={{ base: "100px", md: "120px", lg: "150px", xl: "180px" }}
             maxW="100%"
             objectFit="contain"
             objectPosition={{ base: "center", lg: "left center" }}

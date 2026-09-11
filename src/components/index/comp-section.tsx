@@ -170,7 +170,7 @@ const CompetitionSection: FC = () => {
           textAlign="center"
           mb={{ base: 2, md: 12 }}
         >
-          Our <span style={{ color: "#CFAF89" }}>Competitions</span>
+          Our Past <span style={{ color: "#CFAF89" }}>Competitions</span>
         </Text>
         
         {/* Mobile Swipe Text */}
@@ -230,6 +230,20 @@ const CompetitionSection: FC = () => {
             </Box>
           ))}
         </Flex>
+
+
+        {/* Coming Soon Text */}
+        <Text
+          mt={{ base: 10, md: 16 }}
+          fontFamily="'Cinzel', serif"
+          fontSize={{ base: "20px", md: "28px" }}
+          color="#CFAF89"
+          fontWeight="400"
+          textAlign="center"
+          letterSpacing="0.05em"
+        >
+          Coming soon ... Stay Tuned
+        </Text>
       </Flex>
     </Box>
   );

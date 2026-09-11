@@ -1,28 +1,33 @@
-import { Box, Flex, Text, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Layout from "~/components/layout";
 import PageHero from "~/components/page-hero";
 
 const organizers = [
   {
-    name: "Vaanya",
-    role: "Convener",
+    name: "Arsh Baruah",
+    role: "Chairperson",
+    phone: "+91 97735 52877",
+  },
+  {
+    name: "Vaanya Khosla",
+    role: "Co Chairperson",
     phone: "+91 85100 13355",
   },
   {
-    name: "Adhiraj Singh",
-    role: "Co-Convener",
-    phone: "+91 99539 06182",
-  },
-  {
     name: "Adityavardhan",
-    role: "Head of Operations",
+    role: "Managing Director",
     phone: "+91 98118 23301",
   },
   {
-    name: "Arsh",
-    role: "Head of Marketing",
-    phone: "+91 97735 52877",
+    name: "Shaurya Dani",
+    role: "Executive Director",
+    phone: "+91 98116 77965",
+  },
+  {
+    name: "Adhiraj Singh",
+    role: "Senior Director",
+    phone: "+91 99539 06182",
   },
 ];
 
@@ -34,13 +39,21 @@ export default function ContactUsPage() {
       <Box position="relative" pb={24}>
         <Flex flexDir="column" alignItems="center" px={{ base: 6, md: 8 }} maxW="1200px" mx="auto">
           {/* Contact Cards Grid */}
-          <Grid
-            templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
+          <Flex
+            flexWrap="wrap"
+            justifyContent="center"
             gap={6}
             w="100%"
           >
             {organizers.map((person, i) => (
-              <GridItem key={i}>
+              <Box 
+                key={i}
+                w={{ 
+                  base: "100%", 
+                  md: "calc((100% - 24px) / 2)", 
+                  lg: "calc((100% - 72px) / 4)" 
+                }}
+              >
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -93,9 +106,9 @@ export default function ContactUsPage() {
                     </Flex>
                   </Flex>
                 </motion.div>
-              </GridItem>
+              </Box>
             ))}
-          </Grid>
+          </Flex>
         </Flex>
       </Box>
     </Layout>

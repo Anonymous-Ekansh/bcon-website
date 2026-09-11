@@ -3,6 +3,8 @@ export interface Sponsor {
   image: string;
   colSpan?: number;
   rowSpan?: number;
+  designation?: string;
+  description?: string;
 }
 
 export const sponsors: Sponsor[] = [

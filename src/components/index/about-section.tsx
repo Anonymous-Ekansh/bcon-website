@@ -1,6 +1,7 @@
-import { Box, Flex, Text, Container } from "@chakra-ui/react";
+import { Box, Flex, Text, Container, Grid, GridItem } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { type FC } from "react";
+import FAQSection from "./faq-section";
 
 const AboutSection: FC = () => {
   return (
@@ -44,12 +45,14 @@ const AboutSection: FC = () => {
           </Text>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-        >
+        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={12} maxW="1200px" w="100%">
+          <GridItem>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+            >
           <Container maxW="800px" p={0}>
             <Box
               as={motion.div}
@@ -70,7 +73,7 @@ const AboutSection: FC = () => {
                 fontSize={{ base: "15px", md: "18px" }}
                 fontWeight="300"
                 color="rgba(255, 255, 255, 0.8)"
-                textAlign="center"
+                textAlign={{ base: "center", lg: "right" }}
                 lineHeight="1.8"
               >
                 Inspiria is the student-led business society of SNIoE, extending learning beyond the classroom through national-level competitions, keynote sessions, leadership roundtables and workshops. Its flagship event, Business Conclave, welcomes 600+ students each year alongside industry leaders, entrepreneurs and changemakers.
@@ -96,7 +99,7 @@ const AboutSection: FC = () => {
                 fontSize={{ base: "15px", md: "18px" }}
                 fontWeight="300"
                 color="rgba(255, 255, 255, 0.8)"
-                textAlign="center"
+                textAlign={{ base: "center", lg: "right" }}
                 lineHeight="1.8"
               >
                 Inspiria&apos;s flagship annual business festival - keynotes, panel discussions and interactive sessions with industry leaders shaping the future of business.
@@ -121,14 +124,20 @@ const AboutSection: FC = () => {
                 fontSize={{ base: "15px", md: "18px" }}
                 fontWeight="300"
                 color="rgba(255, 255, 255, 0.8)"
-                textAlign="center"
+                textAlign={{ base: "center", lg: "right" }}
                 lineHeight="1.8"
               >
                 <Text as="span" color="#CFAF89" fontWeight="500">Building Tomorrow</Text> - A generation that chooses to create rather than adapt. Embracing innovation, leading with purpose, turning ideas into meaningful action.
               </Text>
             </Box>
           </Container>
-        </motion.div>
+            </motion.div>
+          </GridItem>
+          
+          <GridItem display={{ base: "none", lg: "block" }}>
+            <FAQSection />
+          </GridItem>
+        </Grid>
       </Flex>
     </Box>
   );

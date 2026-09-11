@@ -30,7 +30,6 @@ import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
 
 interface NavItem {
   title: string;

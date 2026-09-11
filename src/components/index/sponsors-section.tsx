@@ -1,8 +1,6 @@
-import { Box, Flex, Text, Grid, GridItem, Image } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { type FC } from "react";
-
-import { sponsors as currentSponsors } from "~/data/sponsors";
 import SponsorGlobe from "./sponsor-globe";
 
 

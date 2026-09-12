@@ -10,12 +10,12 @@ const organizers = [
     phone: "+91 97735 52877",
   },
   {
-    name: "Vaanya Khosla",
+    name: "Vaanya Bansal",
     role: "Co Chairperson",
     phone: "+91 85100 13355",
   },
   {
-    name: "Adityavardhan",
+    name: "Adityavardhan Sood",
     role: "Managing Director",
     phone: "+91 98118 23301",
   },
@@ -75,7 +75,8 @@ export default function ContactUsPage() {
                   >
                     <Text
                       fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                      fontSize="24px"
+                      fontSize={person.name.length > 15 ? { base: "22px", md: "20px", lg: "17px", xl: "20px" } : "24px"}
+                      whiteSpace="nowrap"
                       color="#CFAF89"
                       mb={2}
                     >

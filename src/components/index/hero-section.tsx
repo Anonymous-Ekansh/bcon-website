@@ -49,7 +49,7 @@ const BlueprintGrid = () => (
     w="100%"
     h="100%"
     viewBox="0 0 1440 900"
-    preserveAspectRatio="xMidYMid slice"
+    preserveAspectRatio="xMaxYMid slice"
     pointerEvents="none"
     zIndex="1"
   >

@@ -1,10 +1,22 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Grid, GridItem, Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { type FC } from "react";
-import SponsorGlobe from "./sponsor-globe";
-
-
+import { sponsors as currentSponsors } from "~/data/sponsors";
 const SponsorsSection: FC = () => {
+  const homeSponsorNames = [
+    "AMD",
+    "CocaCola",
+    "Brew House Tea Brewing Co.",
+    "Nescafé",
+    "Nestlé",
+    "NSE",
+    "Shiv Nadar Institution of Eminence",
+    "Red Bull",
+  ];
+  const homeSponsors = homeSponsorNames
+    .map((name) => currentSponsors.find((s) => s.name === name))
+    .filter(Boolean) as typeof currentSponsors;
+
   return (
     <Box id="sponsors" bg="transparent" position="relative" pt={32} pb={16}>
       <Flex flexDir="column" alignItems="center" px={{ base: 6, md: 8 }} maxW="1200px" mx="auto">
@@ -45,10 +57,55 @@ const SponsorsSection: FC = () => {
           </Text>
         </motion.div>
 
-        {/* 3D Sponsor Globe */}
-        <Box w="100%" mb={20}>
-          <SponsorGlobe />
-        </Box>
+        {/* Current Sponsors Grid */}
+        <Grid
+          templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+          gap={8}
+          w="100%"
+          mb={20}
+        >
+          {homeSponsors.map((sponsor, i) => (
+            <GridItem key={i}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+              >
+                  <Flex
+                    w="100%"
+                    h={{ base: "80px", md: "100px" }}
+                    p={{ base: 2, md: 3 }}
+                    bg="rgba(255, 255, 255, 0.9)"
+                    borderRadius="15px"
+                    border="1px solid rgba(255, 255, 255, 0.1)"
+                    alignItems="center"
+                    justifyContent="center"
+                    transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    _hover={{
+                      transform: "scale(1.05) translateY(-5px)",
+                      bg: "rgba(255, 255, 255, 1)",
+                      filter: "drop-shadow(0 15px 25px rgba(207, 175, 137, 0.3))",
+                      zIndex: 10,
+                    }}
+                  >
+                  {sponsor.image ? (
+                    <Image 
+                      src={sponsor.image} 
+                      alt={sponsor.name} 
+                      h="100%" 
+                      w="100%" 
+                      objectFit="contain" 
+                      transform={sponsor.scale ? `scale(${sponsor.scale})` : "none"}
+                    />
+                  ) : (
+                    <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.5)" fontSize="13px" textAlign="center" px={2}>{sponsor.name}</Text>
+                  )}
+                </Flex>
+              </motion.div>
+            </GridItem>
+          ))}
+        </Grid>
 
         {/* View All Button */}
         <motion.div

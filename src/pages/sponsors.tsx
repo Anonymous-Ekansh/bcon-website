@@ -31,7 +31,7 @@ export default function SponsorsPage() {
                   <Flex
                     w="100%"
                     h="100%"
-                    p={4}
+                    p={{ base: 2, md: 3 }}
                     bg="rgba(255, 255, 255, 0.9)"
                     borderRadius="15px"
                     border="1px solid rgba(255, 255, 255, 0.1)"
@@ -49,9 +49,10 @@ export default function SponsorsPage() {
                       <Image 
                         src={sponsor.image} 
                         alt={sponsor.name} 
-                        h={sponsor.rowSpan === 2 ? { base: "140px", md: "240px" } : { base: "70px", md: "110px" }} 
+                        h={sponsor.rowSpan === 2 ? { base: "120px", md: "200px" } : { base: "60px", md: "85px" }} 
                         w="100%" 
                         objectFit="contain"
+                        transform={sponsor.scale ? `scale(${sponsor.scale})` : "none"}
                       />
                     ) : (
                       <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.5)" fontSize="13px" textAlign="center" px={2}>{sponsor.name}</Text>

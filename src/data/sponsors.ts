@@ -5,16 +5,17 @@ export interface Sponsor {
   rowSpan?: number;
   designation?: string;
   description?: string;
+  scale?: number;
 }
 
 export const sponsors: Sponsor[] = [
   { name: "Foodrik", image: "/images/sponsors/foodrik.png", colSpan: 1, rowSpan: 1 },
   { name: "DNT (Design Build N Transform)", image: "/images/sponsors/DNT.png", colSpan: 1, rowSpan: 1 },
-  { name: "Shiv Nadar Institution of Eminence", image: "/images/sponsors/shiv-nadar.png", colSpan: 2, rowSpan: 1 },
+  { name: "Shiv Nadar Institution of Eminence", image: "/images/sponsors/shiv-nadar.png", colSpan: 2, rowSpan: 1, scale: 2.5 },
   { name: "Campus Bloggers", image: "/images/sponsors/campus-bloggers.png", colSpan: 1, rowSpan: 1 },
   { name: "Blue Tokai Coffee Roasters", image: "/images/sponsors/blue-tokai.png", colSpan: 1, rowSpan: 1 },
 
-  { name: "FinLadder", image: "/images/sponsors/finLadder.png", colSpan: 2, rowSpan: 1 },
+  { name: "FinLadder", image: "/images/sponsors/finLadder.png", colSpan: 2, rowSpan: 1, scale: 2.5 },
   { name: "ED Times", image: "/images/sponsors/EDTimes.png", colSpan: 1, rowSpan: 1 },
   { name: "The Education Tree", image: "/images/sponsors/TheEducationTree.png", colSpan: 1, rowSpan: 1 },
   { name: "Asian Roots Skin & Hair Clinic", image: "/images/sponsors/asian-roots.png", colSpan: 2, rowSpan: 1 },
@@ -30,10 +31,10 @@ export const sponsors: Sponsor[] = [
   { name: "Axis Bank", image: "/images/sponsors/axisbank.png", colSpan: 2, rowSpan: 2 },
   
   { name: "DU Updates", image: "/images/sponsors/DU-Updates.png", colSpan: 1, rowSpan: 1 },
-  { name: "Talerang", image: "/images/sponsors/talerang.png", colSpan: 1, rowSpan: 1 },
-  { name: "Ascend (Harvard Business Review)", image: "/images/sponsors/ascend.png", colSpan: 2, rowSpan: 1 },
+  { name: "Talerang", image: "/images/sponsors/talerang.png", colSpan: 1, rowSpan: 1, scale: 2 },
+  { name: "Ascend (Harvard Business Review)", image: "/images/sponsors/ascend.png", colSpan: 2, rowSpan: 1, scale: 2 },
 
-  { name: "AIC-SNU (Atal Incubation Centre)", image: "/images/sponsors/aic-snu.png", colSpan: 2, rowSpan: 1 },
+  { name: "AIC-SNU (Atal Incubation Centre)", image: "/images/sponsors/aic-snu.png", colSpan: 2, rowSpan: 1, scale: 2.5 },
   { name: "Nescafé", image: "/images/sponsors/nescafe.png", colSpan: 2, rowSpan: 1 },
   { name: "Red Bull", image: "/images/sponsors/red-bull.svg", colSpan: 2, rowSpan: 1 },
 

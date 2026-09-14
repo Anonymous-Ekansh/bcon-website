@@ -57,9 +57,9 @@ export default function SponsorGlobe() {
     wrapper.addEventListener("touchstart", blockTouchPinch, { capture: true, passive: true });
 
     return () => {
-      wrapper.removeEventListener("wheel", blockWheel, { capture: true } as any);
-      wrapper.removeEventListener("touchmove", blockTouchPinch, { capture: true } as any);
-      wrapper.removeEventListener("touchstart", blockTouchPinch, { capture: true } as any);
+      wrapper.removeEventListener("wheel", blockWheel, { capture: true });
+      wrapper.removeEventListener("touchmove", blockTouchPinch, { capture: true });
+      wrapper.removeEventListener("touchstart", blockTouchPinch, { capture: true });
     };
   }, []);
 

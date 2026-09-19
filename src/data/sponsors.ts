@@ -55,6 +55,6 @@ export const sponsors: Sponsor[] = [
   { name: "Crax", image: "/images/sponsors/crax.png", colSpan: 1, rowSpan: 1 },
   { name: "AMD", image: "/images/sponsors/AMD.jpg", colSpan: 1, rowSpan: 1 },
   { name: "Oddy", image: "/images/sponsors/Oddy.jpg", colSpan: 1, rowSpan: 1 },
-  { name: "CocaCola", image: "/images/sponsors/cocacola.jpeg", colSpan: 1, rowSpan: 1 },
-  { name: "Taaza", image: "/images/sponsors/Taaza.jpg", colSpan: 1, rowSpan: 1 },
+  { name: "CocaCola", image: "/images/sponsors/cocacola.avif", colSpan: 1, rowSpan: 1 },
+  { name: "Taazaatech", image: "/images/sponsors/taazaatech.png", colSpan: 1, rowSpan: 1 },
 ];

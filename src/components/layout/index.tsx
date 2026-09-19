@@ -24,6 +24,12 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
             ? `${title} | Business Conclave SNIoE 2026`
             : "Business Conclave SNIoE 2026"}
         </title>
+        <link rel="icon" href="/logo.png" />
+        <meta property="og:title" content={title ? `${title} | Business Conclave SNIoE 2026` : "Business Conclave SNIoE 2026"} />
+        <meta property="og:description" content="Business Conclave SNIoE 2026" />
+        <meta property="og:image" content="/logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/logo.png" />
       </Head>
 
       {!childrenHaveNavbar ? <Navbar /> : null}

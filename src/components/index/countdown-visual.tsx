@@ -9,7 +9,7 @@ const GOLD = "#CFAF89";
 const GOLD_DARK = "#B08A30";
 const LABEL_COLOR = "#816493"; // Soft Mauve
 
-const EVENT_DATE = new Date("2026-11-14T10:00:00").getTime(); // 14th Nov, 2026, 12:00 AM
+const EVENT_DATE = new Date("2026-11-14T10:00:00").getTime(); // 14th Nov, 2026, 10:00 AM
 
 const STAIR_COUNT = 5;
 const STAIR_WIDTH = 40;

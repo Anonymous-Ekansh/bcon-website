@@ -5,8 +5,6 @@ import dynamic from "next/dynamic";
 import { Box, Flex, Text, IconButton, Image } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { sponsors, type Sponsor } from "~/data/sponsors";
-
-// Dynamically import Globe to avoid SSR issues with Three.js
 const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
 const distributePoints = (numPoints: number) => {
@@ -14,7 +12,6 @@ const distributePoints = (numPoints: number) => {
   const phi = Math.PI * (3 - Math.sqrt(5));
   
   for (let i = 0; i < numPoints; i++) {
-    // y goes from 0.8 to -0.8 to avoid the extreme North and South poles (the "edges")
     const y = 0.8 - (i / Math.max(1, numPoints - 1)) * 1.6;
     const radius = Math.sqrt(1 - y * y);
     const theta = phi * i;
@@ -39,9 +36,6 @@ export default function SponsorGlobe() {
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
-
-    // Stop wheel and pinch events in the capture phase so OrbitControls never sees them.
-    // This allows the browser to natively scroll the page without the globe zooming or blocking the scroll.
     const blockWheel = (e: WheelEvent) => {
       e.stopPropagation();
     };
@@ -64,7 +58,6 @@ export default function SponsorGlobe() {
   }, []);
 
   useEffect(() => {
-    // Only take top 30 sponsors to not overcrowd the globe, or take all
     const activeSponsors = sponsors.slice(0, 40);
     const coords = distributePoints(activeSponsors.length);
     const data = activeSponsors.map((sponsor, i) => ({
@@ -76,7 +69,6 @@ export default function SponsorGlobe() {
   }, []);
 
   useEffect(() => {
-    // Globe controls might not be immediately available on mount
     const initControls = () => {
       if (globeRef.current && typeof globeRef.current.controls === 'function') {
         const controls = globeRef.current.controls();
@@ -86,21 +78,16 @@ export default function SponsorGlobe() {
           controls.enableRotate = true; // Allow manual dragging
           controls.enableZoom = false; // Disable zooming
           controls.enablePan = false; // Disable panning
-          
-          // Mathematically lock the zoom distance as a fail-safe
           if (globeRef.current.camera && typeof globeRef.current.camera === 'function') {
             const cam = globeRef.current.camera();
             if (cam && cam.position) {
               const dist = cam.position.length();
-              // If distance is already calculated, lock it. Otherwise lock to a reasonable default.
               const lockDist = dist > 10 ? dist : 250;
               controls.minDistance = lockDist;
               controls.maxDistance = lockDist;
             }
           }
         }
-
-        // Apply a golden/yellowish tint to the earth map
         if (typeof globeRef.current.globeMaterial === 'function') {
           const material = globeRef.current.globeMaterial();
           if (material && material.color) {
@@ -119,7 +106,6 @@ export default function SponsorGlobe() {
 
   return (
     <Box position="relative" w={{ base: "100%", md: "600px" }} maxW="600px" mx="auto">
-      {/* Subtle radial gradient vignette behind the globe */}
       <Box
         position="absolute"
         top="50%"
@@ -248,8 +234,6 @@ export default function SponsorGlobe() {
           )}
         </Flex>
       )}
-
-      {/* Instructional Text */}
       <Flex position="absolute" bottom={{ base: "-20px", md: "0" }} left="50%" transform="translateX(-50%)" align="center" gap={2} pointerEvents="none" zIndex={2}>
         <Box as="svg" w="12px" h="12px" viewBox="0 0 24 24" fill="none" stroke="rgba(207,175,137,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 9l4-4 4 4" />

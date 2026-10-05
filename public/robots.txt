@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bcon.rishabhj.in
+
+# Sitemaps
+Sitemap: https://bcon.rishabhj.in/sitemap.xml

@@ -33,8 +33,8 @@ const faqData = [
     answer: (
       <>
         For any queries, email{" "}
-        <Link href="mailto:inspiria@snu.edu.in" color="#CFAF89" _hover={{ color: "white" }}>
-          inspiria@snu.edu.in
+        <Link href="mailto:inspiria.scs@snu.edu.in" color="#CFAF89" _hover={{ color: "white" }}>
+          inspiria.scs@snu.edu.in
         </Link>{" "}
         or DM Inspiria on Instagram{" "}
         <Link href="https://www.instagram.com/snioebusinessconclave/" isExternal color="#CFAF89" _hover={{ color: "white" }}>

@@ -7,6 +7,7 @@ import {
   Grid,
   GridItem,
   useMediaQuery,
+  Skeleton,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
@@ -56,7 +57,6 @@ function DesktopEvents() {
   return (
     <Box id="events" mt="15rem" ref={containerRef} bg="transparent">
       <Flex flexDir="column" align="center" maxW="1000px" mx="auto" py={16}>
-        {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,8 +73,6 @@ function DesktopEvents() {
             Our <span style={{ color: "#CFAF89" }}>events</span>
           </Text>
         </motion.div>
-
-        {/* Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -93,17 +91,15 @@ function DesktopEvents() {
             The heart and soul of Business Conclave.
           </Text>
         </motion.div>
-
-        {/* Desktop Event Cards */}
         {events.map(({ title, description, image }, i) => (
           <Grid
             key={i}
             templateColumns={{
               base: "1fr",
-              md: i % 2 === 0 ? "1fr 2fr" : "2fr 1fr",
+              md: i % 2 === 0 ? "1.2fr 1.8fr" : "1.8fr 1.2fr",
             }}
-            gap={6}
-            mb={8}
+            gap={16}
+            mb={24}
             alignItems="center"
           >
             {i % 2 === 0 ? (
@@ -115,11 +111,14 @@ function DesktopEvents() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     viewport={{ once: true, amount: 0.3 }}
                   >
-                    <Flex align="center" justify="center">
+                    <Flex as={motion.div} whileHover={{ scale: 1.02, boxShadow: "0px 10px 40px rgba(207, 175, 137, 0.25)" }} transition="all 0.4s ease" align="center" justify="center" position="relative" w="100%" h="450px" borderRadius="24px" overflow="hidden" boxShadow="2xl">
                       {image ? (
-                        <Image src={image} alt={title} h="400px" objectFit="cover" />
+                        <>
+                          <Image fallback={<Skeleton w="100%" h="100%" startColor="rgba(255,255,255,0.05)" endColor="rgba(255,255,255,0.15)" />} src={image} alt={title} w="100%" h="100%" objectFit="cover" transition="transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)" _hover={{ transform: "scale(1.05)" }} />
+                          <Box position="absolute" inset={0} border="1px solid rgba(255,255,255,0.1)" borderRadius="24px" pointerEvents="none" transition="all 0.4s" _groupHover={{ borderColor: "rgba(207,175,137,0.5)" }} />
+                        </>
                       ) : (
-                        <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
+                        <Flex w="100%" h="100%" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="24px" alignItems="center" justifyContent="center">
                           <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
                         </Flex>
                       )}
@@ -192,11 +191,14 @@ function DesktopEvents() {
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     viewport={{ once: true, amount: 0.3 }}
                   >
-                    <Flex align="center" justify="center">
+                    <Flex as={motion.div} whileHover={{ scale: 1.02, boxShadow: "0px 10px 40px rgba(207, 175, 137, 0.25)" }} transition="all 0.4s ease" align="center" justify="center" position="relative" w="100%" h="450px" borderRadius="24px" overflow="hidden" boxShadow="2xl">
                       {image ? (
-                        <Image src={image} alt={title} h="400px" objectFit="cover" />
+                        <>
+                          <Image fallback={<Skeleton w="100%" h="100%" startColor="rgba(255,255,255,0.05)" endColor="rgba(255,255,255,0.15)" />} src={image} alt={title} w="100%" h="100%" objectFit="cover" transition="transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)" _hover={{ transform: "scale(1.05)" }} />
+                          <Box position="absolute" inset={0} border="1px solid rgba(255,255,255,0.1)" borderRadius="24px" pointerEvents="none" transition="all 0.4s" _groupHover={{ borderColor: "rgba(207,175,137,0.5)" }} />
+                        </>
                       ) : (
-                        <Flex w="100%" h="400px" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="10px" alignItems="center" justifyContent="center">
+                        <Flex w="100%" h="100%" bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="24px" alignItems="center" justifyContent="center">
                           <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="28px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
                         </Flex>
                       )}
@@ -215,8 +217,6 @@ function DesktopEvents() {
 function MobileEvents() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-
-  // Triple the events to create a seamless infinite loop illusion
   const displayEvents = [...events, ...events, ...events];
 
   useEffect(() => {
@@ -225,19 +225,14 @@ function MobileEvents() {
       if (scrollRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
         const singleSetWidth = scrollWidth / 3;
-        
-        // If we've scrolled into the third set, silently jump back to the second set
         if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
           scrollRef.current.scrollTo({ left: scrollLeft - singleSetWidth, behavior: "auto" });
-          
-          // Wait a frame for the jump to render, then smooth scroll to next
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               scrollRef.current?.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
             });
           });
         } else {
-          // Scroll by roughly one card width (85vw + gap)
           scrollRef.current.scrollBy({ left: clientWidth * 0.85, behavior: "smooth" });
         }
       }
@@ -248,7 +243,6 @@ function MobileEvents() {
   return (
     <Box id="events" mt={{ base: "4rem", md: "8rem" }} bg="transparent" overflow="hidden">
       <Flex flexDir="column" align="center" pt={{ base: 8, md: 16 }}>
-        {/* Title */}
         <Text
           fontSize="4xl"
           fontWeight="300"
@@ -258,8 +252,6 @@ function MobileEvents() {
         >
           Our <span style={{ color: "#CFAF89" }}>events</span>
         </Text>
-
-        {/* Subtitle */}
         <Text
           fontSize="15px"
           mb={8}
@@ -272,15 +264,12 @@ function MobileEvents() {
         >
           ← Swipe to explore →
         </Text>
-
-        {/* Mobile Horizontal Carousel */}
         <Flex
           ref={scrollRef}
           w="100%"
           overflowX="auto"
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => {
-            // Resume auto-play after 4 seconds of inactivity
             setTimeout(() => setIsPaused(false), 4000);
           }}
           sx={{
@@ -306,17 +295,19 @@ function MobileEvents() {
               backdropFilter="blur(15px)"
             >
               {image ? (
-                <Image
-                  src={image}
-                  alt={title}
-                  w="100%"
-                  h="220px"
-                  objectFit="cover"
-                  mb={5}
-                  borderRadius="16px"
-                />
+                <Box position="relative" w="100%" h="250px" mb={5} borderRadius="16px" overflow="hidden">
+                  <Image
+                    fallback={<Skeleton w="100%" h="100%" startColor="rgba(255,255,255,0.05)" endColor="rgba(255,255,255,0.15)" />}
+                    src={image}
+                    alt={title}
+                    w="100%"
+                    h="100%"
+                    objectFit="cover"
+                  />
+                  <Box position="absolute" inset={0} border="1px solid rgba(255,255,255,0.1)" borderRadius="16px" pointerEvents="none" />
+                </Box>
               ) : (
-                <Flex w="100%" h="220px" mb={5} bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="16px" alignItems="center" justifyContent="center">
+                <Flex w="100%" h="250px" mb={5} bg="rgba(207, 175, 137, 0.06)" border="1px solid rgba(207, 175, 137, 0.15)" borderRadius="16px" alignItems="center" justifyContent="center">
                   <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize="20px" color="rgba(207, 175, 137, 0.2)" fontWeight="300">{title}</Text>
                 </Flex>
               )}

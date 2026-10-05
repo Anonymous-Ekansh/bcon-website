@@ -9,7 +9,7 @@ const GOLD = "#CFAF89";
 const GOLD_DARK = "#B08A30";
 const LABEL_COLOR = "#816493"; // Soft Mauve
 
-const EVENT_DATE = new Date("2026-11-14T00:00:00").getTime(); // 14th Nov, 2026, 12:00 AM
+const EVENT_DATE = new Date("2026-11-14T10:00:00").getTime(); // 14th Nov, 2026, 12:00 AM
 
 const STAIR_COUNT = 5;
 const STAIR_WIDTH = 40;
@@ -104,7 +104,6 @@ const CountdownVisual = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" w="100%" maxW="600px" mx="auto" minH={{ base: "auto", md: "400px" }} position="relative">
-      {/* ── Visual: Steps to Tomorrow ── */}
       <Box mb={8} mt={{ base: -6, md: -8 }} position="relative" w="240px" h="180px">
         <Box
           as="svg"
@@ -119,8 +118,6 @@ const CountdownVisual = () => {
               <stop offset="100%" stopColor="#CFAF89" stopOpacity="0" />
             </linearGradient>
           </defs>
-
-          {/* 1. Staggered Stairs (Floating Architectural Blocks) */}
           {Array.from({ length: STAIR_COUNT }).map((_, i) => {
             const blockX = START_X + i * STAIR_WIDTH;
             const blockY = START_Y - i * STAIR_HEIGHT;
@@ -136,7 +133,6 @@ const CountdownVisual = () => {
                   ease: [0.16, 1, 0.3, 1], // Cinematic snap
                 }}
               >
-                {/* Main block */}
                 <rect
                   x={blockX}
                   y={blockY}
@@ -146,7 +142,6 @@ const CountdownVisual = () => {
                   stroke={GOLD_DARK}
                   strokeWidth="1"
                 />
-                {/* Subtle top highlight */}
                 <rect
                   x={blockX}
                   y={blockY}
@@ -154,12 +149,9 @@ const CountdownVisual = () => {
                   height={2}
                   fill="rgba(255,255,255,0.4)"
                 />
-                {/* Subtle bottom shadow removed for bar graph, since it sits on the baseline */}
               </motion.g>
             );
           })}
-
-          {/* 2. Top Rectangular Box (Draws after bars) */}
           <motion.path
             d={`M ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
@@ -177,8 +169,6 @@ const CountdownVisual = () => {
               ease: [0.16, 1, 0.3, 1],
             }}
           />
-
-          {/* 3. Subtle Warm Glow Inside Box (Fades in last) */}
           <motion.path
             d={`M ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 1}
                 L ${START_X + (STAIR_COUNT - 1) * STAIR_WIDTH + 1} ${START_Y - (STAIR_COUNT - 1) * STAIR_HEIGHT - 45}
@@ -200,8 +190,6 @@ const CountdownVisual = () => {
           />
         </Box>
       </Box>
-
-      {/* ── Text Section (Below visual) ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -210,19 +198,17 @@ const CountdownVisual = () => {
         style={{ width: "100%" }}
       >
         <Flex direction="column" align="center" mt={0} mb={8} w="100%">
-        <Text
-          fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-          fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-          fontWeight="300"
-          letterSpacing="-0.02em"
-          color="#FFFFFF"
-        >
-          Build your door to tomorrow.
-        </Text>
+          <Text
+            fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+            fontSize={{ base: "20px", md: "24px", lg: "28px" }}
+            fontWeight="300"
+            letterSpacing="-0.02em"
+            color="#FFFFFF"
+          >
+            Build your door to tomorrow.
+          </Text>
         </Flex>
       </motion.div>
-
-      {/* ── Foreground Countdown ── */}
       <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={10}>
         <CountdownItem label="DAYS" value={timeLeft.days} />
         <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
@@ -232,8 +218,6 @@ const CountdownVisual = () => {
         <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
         <CountdownItem label="SECONDS" value={timeLeft.seconds} isSeconds={true} />
       </Flex>
-
-      {/* ── Premium CTA Button (Below countdown) ── */}
       <Button
         as={Link}
         href="/register"

@@ -53,7 +53,6 @@ const BlueprintGrid = () => (
     pointerEvents="none"
     zIndex="1"
   >
-    {/* Background coordinate grid - very faint */}
     {[180, 360, 540, 720, 900, 1080, 1260].map((x, i) => (
       <BlueprintLine
         key={`v-${i}`}
@@ -74,9 +73,6 @@ const BlueprintGrid = () => (
         strokeWidth={0.5}
       />
     ))}
-
-    {/* Architectural floor-plan motif - right side */}
-    {/* Outer structure */}
     <BlueprintLine
       d="M 920 280 L 1280 280 L 1280 680 L 920 680 Z"
       delay={0.4}
@@ -84,7 +80,6 @@ const BlueprintGrid = () => (
       opacity={0.18}
       strokeWidth={0.7}
     />
-    {/* Inner rooms */}
     <BlueprintLine
       d="M 1060 280 L 1060 680"
       delay={0.9}
@@ -97,7 +92,6 @@ const BlueprintGrid = () => (
       duration={1.6}
       opacity={0.14}
     />
-    {/* Doorway cuts */}
     <BlueprintLine
       d="M 1060 420 L 1060 500"
       delay={1.3}
@@ -112,14 +106,12 @@ const BlueprintGrid = () => (
       opacity={0.22}
       strokeWidth={2}
     />
-    {/* Staircase */}
     <BlueprintLine
       d="M 1140 500 L 1140 520 L 1160 520 L 1160 540 L 1180 540 L 1180 560 L 1200 560 L 1200 580 L 1220 580 L 1220 600"
       delay={1.5}
       duration={1.8}
       opacity={0.15}
     />
-    {/* Dimension line - bottom */}
     <BlueprintLine
       d="M 920 720 L 1280 720"
       delay={2.0}
@@ -127,7 +119,6 @@ const BlueprintGrid = () => (
       opacity={0.10}
       strokeWidth={0.3}
     />
-    {/* Dimension ticks */}
     <BlueprintLine
       d="M 920 715 L 920 725"
       delay={2.2}
@@ -140,8 +131,6 @@ const BlueprintGrid = () => (
       duration={0.3}
       opacity={0.12}
     />
-
-    {/* Cross-hair accent top-left */}
     <BlueprintLine
       d="M 80 80 L 80 140"
       delay={0.3}
@@ -154,8 +143,6 @@ const BlueprintGrid = () => (
       duration={0.8}
       opacity={0.12}
     />
-
-    {/* Diagonal section cut */}
     <BlueprintLine
       d="M 920 680 L 840 780"
       delay={2.0}
@@ -226,11 +213,7 @@ const HeroSection = () => {
       bg="transparent"
     >
       <Navbar />
-
-      {/* Blueprint grid overlay */}
       <BlueprintGrid />
-
-      {/* ── Hero content: asymmetric grid ── */}
       <Flex
         direction={{ base: "column", lg: "row" }}
         align="center"
@@ -246,7 +229,6 @@ const HeroSection = () => {
         gap={{ base: 12, lg: 8 }}
       >
         <Flex direction="column" justify="center" flex="1" maxW={{ base: "100%", md: "600px", lg: "700px", xl: "800px" }}>
-        {/* Eyebrow Image */}
         <Box
           as={motion.div}
           variants={eyebrowVariant}
@@ -264,8 +246,6 @@ const HeroSection = () => {
             objectPosition={{ base: "center", lg: "left center" }}
           />
         </Box>
-
-        {/* Gold divider - thin architectural hairline */}
         <Box
           as={motion.div}
           variants={dividerVariant}
@@ -278,8 +258,6 @@ const HeroSection = () => {
           mx={{ base: "auto", lg: 0 }}
           transformOrigin={{ base: "center", lg: "left" }}
         />
-
-        {/* Headline */}
         <Box
           as={motion.div}
           variants={headlineVariant}
@@ -320,8 +298,6 @@ const HeroSection = () => {
             </Text>
           </Text>
         </Box>
-
-        {/* Sub-headline */}
         <Text
           as={motion.p}
           variants={subtextVariant}
@@ -340,8 +316,6 @@ const HeroSection = () => {
           Where visionaries, industry leaders, and aspiring entrepreneurs
           converge to draft the blueprints of what comes next.
         </Text>
-
-        {/* Year + Event marker */}
         <Flex
           as={motion.div}
           variants={yearVariant}
@@ -383,8 +357,6 @@ const HeroSection = () => {
         <Box flex="1" w="100%" display="flex" justifyContent="center">
           <CountdownVisual />
         </Box>
-        
-        {/* Mobile Scroll Indicator */}
         <Flex
           display={{ base: "flex", lg: "none" }}
           position="absolute"
@@ -419,8 +391,6 @@ const HeroSection = () => {
           </Flex>
         </Flex>
       </Flex>
-
-      {/* Bottom edge - thin gold hairline */}
       <Box
         position="absolute"
         bottom="0"

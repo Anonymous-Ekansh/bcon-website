@@ -46,8 +46,6 @@ const BlueprintIllustration = () => {
     localStorage.setItem("archway-counter", String(next));
 
     setTimeout(() => setShowMsg(true), 420);
-
-    // Pulse the Register CTA in the navbar
     setTimeout(() => {
       const btn = document.querySelector<HTMLElement>(
         'a[href="/register"]'
@@ -69,9 +67,6 @@ const BlueprintIllustration = () => {
       const el = containerRef.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
-
-      // Target zone - centre of the dashed outline in SVG-space:
-      // SVG (300, 260) → fraction (0.50, 0.52) of viewBox 600×500
       const tx = r.width * 0.5;
       const ty = r.height * 0.52;
       const threshold = r.width * 0.14;
@@ -92,7 +87,6 @@ const BlueprintIllustration = () => {
   /* ────────────────────────────────────────────────────────────────── */
   return (
     <Box ref={containerRef} position="relative" w="100%" maxW="550px" mx="auto">
-      {/* ── Scene SVG ── */}
       <Box
         as="svg"
         viewBox="0 0 600 500"
@@ -102,7 +96,6 @@ const BlueprintIllustration = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Gold dot-grid texture */}
           <pattern
             id="bpDotGrid"
             width="32"
@@ -111,17 +104,11 @@ const BlueprintIllustration = () => {
           >
             <circle cx="16" cy="16" r="0.7" fill={GOLD} opacity="0.2" />
           </pattern>
-
-          {/* Figure torso gradient */}
           <linearGradient id="figTorso" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#B98CE0" />
             <stop offset="100%" stopColor="#6B449F" />
           </linearGradient>
         </defs>
-
-        {/* Transparent background */ }
-
-        {/* ── Ambient shadows ── */}
         <ellipse
           cx="180"
           cy="418"
@@ -138,8 +125,6 @@ const BlueprintIllustration = () => {
           fill={SHADOW_CLR}
           opacity="0.22"
         />
-
-        {/* ── Lower platform (left / near) ── */}
         <polygon
           points="60,320 180,260 300,320 180,380"
           fill={P.top}
@@ -152,8 +137,6 @@ const BlueprintIllustration = () => {
           points="180,380 180,405 300,345 300,320"
           fill={P.right}
         />
-
-        {/* ── Upper platform (right / far) ── */}
         <polygon
           points="300,200 420,140 540,200 420,260"
           fill={P.top}
@@ -166,10 +149,6 @@ const BlueprintIllustration = () => {
           points="420,260 420,285 540,225 540,200"
           fill={P.right}
         />
-
-        {/* Figures removed as requested */}
-
-        {/* ── Dashed block outline (drop target) ── */}
         {!isPlaced && (
           <path
             d="M 275,320 L 275,260 L 325,260 L 325,320"
@@ -180,8 +159,6 @@ const BlueprintIllustration = () => {
             opacity="0.55"
           />
         )}
-
-        {/* ── Placed white block (solid white, snap-in animation) ── */}
         {isPlaced && (
           <motion.g
             initial={
@@ -202,17 +179,14 @@ const BlueprintIllustration = () => {
             }
             style={{ transformOrigin: "300px 290px" }}
           >
-            {/* Front face */}
             <path
               d="M 275,320 L 275,260 L 325,260 L 325,320 Z"
               fill="#FFFFFF"
             />
-            {/* Right side face */}
             <path
               d="M 325,260 L 325,320 L 340,328 L 340,268 Z"
               fill="#EAEAEA"
             />
-            {/* Top face */}
             <path
               d="M 275,260 L 325,260 L 340,268 L 290,268 Z"
               fill="#F5F5F5"
@@ -220,8 +194,6 @@ const BlueprintIllustration = () => {
           </motion.g>
         )}
       </Box>
-
-      {/* ── Floating draggable block (HTML overlay) ── */}
       {!isPlaced && (
         <motion.div
           animate={!isDragging ? { y: [0, -4, 0] } : {}}
@@ -253,18 +225,13 @@ const BlueprintIllustration = () => {
               xmlns="http://www.w3.org/2000/svg"
               style={{ width: "100%", display: "block" }}
             >
-              {/* Front face */}
               <path d="M 0,60 L 0,0 L 50,0 L 50,60 Z" fill="#FFFFFF" />
-              {/* Right side face */}
               <path d="M 50,0 L 50,60 L 65,68 L 65,8 Z" fill="#EAEAEA" />
-              {/* Top face */}
               <path d="M 0,0 L 50,0 L 65,8 L 15,8 Z" fill="#F5F5F5" />
             </svg>
           </motion.div>
         </motion.div>
       )}
-
-      {/* ── Copy below graphic ── */}
       <Box mt={4} textAlign="center" minH="50px">
         {!isPlaced && !showMsg && (
           <Box>

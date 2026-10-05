@@ -4,21 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const ScrollBackground = () => {
   const { scrollYProgress } = useScroll();
-
-  // Layer 1: Dark Purple (Base, always present)
-  // Layer 2: Soft Mauve (Peaks around 0.25 - Speakers)
   const mauveOpacity = useTransform(scrollYProgress, [0, 0.1, 0.35, 0.5], [0, 1, 1, 0]);
-  
-  // Layer 3: Orchid (Peaks around 0.5 - Events)
   const orchidOpacity = useTransform(scrollYProgress, [0.35, 0.5, 0.65, 0.8], [0, 1, 1, 0]);
-
-  // Layer 4: Magenta (Peaks around 0.75 - Competitions)
   const magentaOpacity = useTransform(scrollYProgress, [0.65, 0.75, 0.85, 0.95], [0, 1, 1, 0]);
-
-  // Layer 5: Near Black (Peaks at 1 - Footer)
   const darkOpacity = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
-
-  // Ambient Hero Glow (Fades out as we scroll down)
   const heroGlowOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
@@ -31,7 +20,6 @@ const ScrollBackground = () => {
       pointerEvents="none"
       bg="#2D1147" // Base layer
     >
-      {/* Hero Glow */}
       <motion.div
         style={{
           position: "absolute",
@@ -40,8 +28,6 @@ const ScrollBackground = () => {
           opacity: heroGlowOpacity
         }}
       />
-      
-      {/* Soft Mauve Layer */}
       <motion.div
         style={{
           position: "absolute",
@@ -50,8 +36,6 @@ const ScrollBackground = () => {
           opacity: mauveOpacity
         }}
       />
-
-      {/* Orchid Layer */}
       <motion.div
         style={{
           position: "absolute",
@@ -60,8 +44,6 @@ const ScrollBackground = () => {
           opacity: orchidOpacity
         }}
       />
-
-      {/* Magenta Layer */}
       <motion.div
         style={{
           position: "absolute",
@@ -70,8 +52,6 @@ const ScrollBackground = () => {
           opacity: magentaOpacity
         }}
       />
-
-      {/* Footer Deep Dark Layer */}
       <motion.div
         style={{
           position: "absolute",

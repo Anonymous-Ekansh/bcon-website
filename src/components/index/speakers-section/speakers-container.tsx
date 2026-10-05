@@ -1,4 +1,3 @@
-// speakers-container.tsx
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 import SpeakerBox from "./speaker-box";
@@ -43,10 +42,7 @@ function SpeakersContainer({ limit, useCarouselOnMobile = true }: SpeakersContai
 
   return (
     <>
-      {/* Desktop View */}
       {desktopView}
-
-      {/* Mobile Swipe View */}
       <Box display={{ base: "block", md: "none" }} w="100%" overflow="hidden" py={8}>
         <Text
           fontSize="15px"

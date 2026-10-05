@@ -5,12 +5,11 @@ import {
   Image,
   Grid,
   GridItem,
+  Skeleton,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { type FC, useState, useRef, useEffect } from "react";
-
-// Competition data interface
 interface Competition {
   title: string;
   date: string;
@@ -19,12 +18,10 @@ interface Competition {
   image: string;
   link: string;
 }
-
-// Competitions array
 const competitions: Competition[] = [
   {
     title: "BizQuest: The Ultimate Business Simulation",
-    date: "9 November 2024",
+    date: "14 November 2026",
     price: "FREE",
     buttonText: "Apply Now",
     image: "/images/landing/competitions/bizquest.png",
@@ -32,7 +29,7 @@ const competitions: Competition[] = [
   },
   {
     title: "Brand Masters: Rebranding Challenge",
-    date: "7 November 2024",
+    date: "13 November 2026",
     price: "FREE",
     buttonText: "Apply Now",
     image: "/images/landing/competitions/brandmasters.jpg",
@@ -40,91 +37,108 @@ const competitions: Competition[] = [
   },
   {
     title: "Pitch Perfect: Business Idea Challenge",
-    date: "9 November 2024",
+    date: "14 November 2026",
     price: "FREE",
     buttonText: "Apply Now",
     image: "/images/landing/competitions/pitchperfect.png",
     link: "https://unstop.com/competitions/pitch-perfect-business-idea-challenge-the-business-conclave-2024-shiv-nadar-university-snu-greater-noida-1177413",
   },
 ];
-
-// Animation variants
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
-
-// Define props type for CompetitionCard
 interface CompetitionCardProps extends Competition {
   isInView: boolean;
 }
 
-// Competition Card component
 const CompetitionCard: FC<CompetitionCardProps> = ({
   title,
   date,
   price,
   image,
+  link,
   isInView,
 }) => (
   <GridItem
-    as={motion.div}
+    as={motion.a}
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer"
     initial="hidden"
     animate={isInView ? "visible" : "hidden"}
     variants={cardVariants}
-    whileHover={{ scale: 1.02, boxShadow: "0px 20px 40px rgba(186, 39, 206, 0.15)" }}
+    whileHover={{ y: -10, boxShadow: "0px 20px 40px rgba(207, 175, 137, 0.2)" }}
     transition="all 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+    position="relative"
+    display="block"
+    h="400px"
+    w="100%"
+    borderRadius="24px"
     overflow="hidden"
-    borderRadius="12px"
-    boxShadow="lg"
-    bg="rgba(255, 255, 255, 0.05)"
-    backdropFilter="blur(10px)"
-    border="1px solid rgba(255,255,255,0.1)"
-    maxW="100%"
+    role="group"
   >
-    <Box position="relative" overflow="hidden" borderRadius="12px">
-      <Image src={image} alt={title} objectFit="cover" w="100%" h="250px" />
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        w="100%"
-        h="100%"
-        bg="rgba(0, 0, 0, 0.4)"
-      />
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      w="100%"
+      h="100%"
+      zIndex={0}
+      _groupHover={{ transform: "scale(1.05)" }}
+      transition="transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+    >
+      <Image fallback={<Skeleton w="100%" h="100%" startColor="rgba(255,255,255,0.05)" endColor="rgba(255,255,255,0.15)" />} src={image} alt={title} objectFit="cover" w="100%" h="100%" />
+      <Box position="absolute" top={0} left={0} w="100%" h="100%" bg="linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%)" />
+      <Box position="absolute" top={0} left={0} w="100%" h="100%" bg="rgba(0,0,0,0.2)" transition="all 0.4s ease" _groupHover={{ bg: "rgba(0,0,0,0.4)" }} />
     </Box>
     <Flex
-      direction="column"
-      align="center"
-      justify="space-between"
+      position="relative"
+      zIndex={1}
+      h="100%"
+      flexDir="column"
+      justify="flex-end"
       p={8}
-      mt={-4}
-      borderRadius="12px"
     >
+      <Flex gap={3} mb={4} opacity={0.9} transform="translateY(20px)" transition="all 0.5s cubic-bezier(0.16, 1, 0.3, 1)" _groupHover={{ transform: "translateY(0)" }}>
+        <Box bg="rgba(255,255,255,0.15)" backdropFilter="blur(10px)" px={4} py={1.5} borderRadius="full" border="1px solid rgba(255,255,255,0.2)">
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="12px" fontWeight="600" color="white" textTransform="uppercase" letterSpacing="0.05em">
+            {date}
+          </Text>
+        </Box>
+        <Box bg="rgba(207, 175, 137, 0.2)" backdropFilter="blur(10px)" px={4} py={1.5} borderRadius="full" border="1px solid rgba(207, 175, 137, 0.3)">
+          <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="12px" fontWeight="600" color="#CFAF89" textTransform="uppercase" letterSpacing="0.05em">
+            {price}
+          </Text>
+        </Box>
+      </Flex>
+
       <Text
         fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-        fontSize={{ base: "lg", md: "xl" }}
-        color="#CFAF89"
+        fontSize={{ base: "24px", md: "28px" }}
+        color="#FFFFFF"
         fontWeight="300"
+        lineHeight="1.2"
         mb={4}
-        textAlign="center"
+        transform="translateY(20px)"
+        transition="all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s"
+        _groupHover={{ transform: "translateY(0)" }}
       >
         {title}
       </Text>
-      <Flex justify="space-between" w="100%" px={4} fontFamily="'Proxima Nova', 'Inter', sans-serif">
-        <Text color="rgba(255, 255, 255, 0.6)">{price}</Text>
-        <Text color="rgba(255, 255, 255, 0.6)">{date}</Text>
+      <Flex align="center" gap={2} opacity={0} transform="translateY(20px)" transition="all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s" _groupHover={{ opacity: 1, transform: "translateY(0)" }}>
+        <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontSize="14px" fontWeight="600" color="#CFAF89" textTransform="uppercase" letterSpacing="0.1em">
+          Apply Now
+        </Text>
+        <Box w="24px" h="1px" bg="#CFAF89" transition="width 0.3s ease" _groupHover={{ w: "40px" }} />
       </Flex>
     </Flex>
+    <Box position="absolute" top={0} left={0} w="100%" h="100%" borderRadius="24px" border="1px solid rgba(255,255,255,0.1)" pointerEvents="none" transition="all 0.4s ease" _groupHover={{ border: "1px solid rgba(207, 175, 137, 0.5)", boxShadow: "inset 0 0 40px rgba(207, 175, 137, 0.2)" }} />
   </GridItem>
 );
-
-// Competition Section component
 const CompetitionSection: FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-
-  // Triple the competitions to create a seamless infinite loop illusion
   const displayCompetitions = [...competitions, ...competitions, ...competitions];
 
   useEffect(() => {
@@ -133,7 +147,7 @@ const CompetitionSection: FC = () => {
       if (scrollRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
         const singleSetWidth = scrollWidth / 3;
-        
+
         if (scrollLeft >= singleSetWidth * 2 - clientWidth) {
           scrollRef.current.scrollTo({ left: scrollLeft - singleSetWidth, behavior: "auto" });
           requestAnimationFrame(() => {
@@ -172,8 +186,6 @@ const CompetitionSection: FC = () => {
         >
           Our Past <span style={{ color: "#CFAF89" }}>Competitions</span>
         </Text>
-        
-        {/* Mobile Swipe Text */}
         <Text
           display={{ base: "block", md: "none" }}
           fontSize="15px"
@@ -187,8 +199,6 @@ const CompetitionSection: FC = () => {
         >
           ← Swipe to explore →
         </Text>
-
-        {/* Desktop Grid */}
         <Grid
           ref={gridRef}
           templateColumns="repeat(3, 1fr)"
@@ -200,8 +210,6 @@ const CompetitionSection: FC = () => {
             <CompetitionCard key={i} {...competition} isInView={gridInView} />
           ))}
         </Grid>
-
-        {/* Mobile Carousel */}
         <Flex
           ref={scrollRef}
           w="100%"
@@ -230,9 +238,6 @@ const CompetitionSection: FC = () => {
             </Box>
           ))}
         </Flex>
-
-
-        {/* Coming Soon Text */}
         <Text
           mt={{ base: 10, md: 16 }}
           fontFamily="'Cinzel', serif"

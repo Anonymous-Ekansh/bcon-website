@@ -1,25 +1,17 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { api } from "~/utils/api";
 import "~/styles/globals.css";
-import theme from "../theme"; // Import custom theme
+import theme from "../theme";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+const MyApp: AppType = ({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps,
 }) => {
   return (
-    <SessionProvider session={session}>
-      <ChakraProvider theme={theme}>
-        {/* <ColorModeScript initialColorMode={theme.config.initialColorMode} /> */}
-
-        {/* Rendering the component */}
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </SessionProvider>
+    <ChakraProvider theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
   );
 };
 
-export default api.withTRPC(MyApp);
+export default MyApp;

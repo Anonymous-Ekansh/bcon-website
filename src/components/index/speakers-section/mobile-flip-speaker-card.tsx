@@ -33,7 +33,6 @@ export default function MobileFlipSpeakerCard({ name, designation, description, 
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Front Face */}
         <Box
           position="absolute"
           w="100%"
@@ -54,7 +53,6 @@ export default function MobileFlipSpeakerCard({ name, designation, description, 
                </Text>
             </Flex>
           )}
-          {/* Gradient Overlay */}
           <Box
             position="absolute"
             bottom="0"
@@ -84,8 +82,6 @@ export default function MobileFlipSpeakerCard({ name, designation, description, 
             </Flex>
           </Flex>
         </Box>
-
-        {/* Back Face */}
         <Box
           position="absolute"
           w="100%"

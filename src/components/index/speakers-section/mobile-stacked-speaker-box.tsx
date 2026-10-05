@@ -17,20 +17,12 @@ function MobileStackedSpeakerBox({
   image,
 }: MobileStackedSpeakerBoxProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Track the card's scroll progress relative to the top of the screen
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 100px", "end start"], 
-    // "start 100px" means when the top of the card hits 100px from top of viewport (which is near its sticky position)
-    // "end start" means when the bottom of the card leaves the top of the viewport
   });
-
-  // As it sticks and we continue scrolling, scale it down and fade it to create depth under the next card
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
-
-  // Truncate description to keep it visually punchy
   const shortDescription = description.length > 90 ? description.substring(0, 90) + "..." : description;
 
   return (
@@ -51,7 +43,6 @@ function MobileStackedSpeakerBox({
         boxShadow="0px 20px 40px rgba(0,0,0,0.4)"
         backdropFilter="blur(10px)"
       >
-        {/* Speaker Image */}
         <GridItem as={Flex} flexDir="column" alignItems="center">
           {image ? (
             <Image
@@ -84,8 +75,6 @@ function MobileStackedSpeakerBox({
             </Flex>
           )}
         </GridItem>
-
-        {/* Speaker Details */}
         <GridItem mt={2}>
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"

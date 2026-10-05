@@ -37,8 +37,6 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
       
       {!isShortPage && <ScrollBackground />}
       <Box className="grain-overlay" />
-      
-      {/* On short pages, we apply a static gradient to the main container so it physically scrolls with the document */}
       <Box 
         as="main" 
         position="relative" 

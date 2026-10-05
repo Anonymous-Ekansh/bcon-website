@@ -7,18 +7,12 @@ import SpeakersContainer from "./speakers-container";
 
 function SpeakersSection() {
   const container = useRef(null);
-
-  // Set up scroll-based animations
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "end start"],
   });
-
-  // Create transform for fade-in-up effect
   const fadeInUp = useTransform(scrollYProgress, [0.3, 0.6], [50, 0]);
   const fadeInOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1]);
-
-  // Create delayed transforms for subtitle
   const subtitleFadeInUp = useTransform(scrollYProgress, [0.5, 0.8], [50, 0]);
   const subtitleFadeInOpacity = useTransform(
     scrollYProgress,

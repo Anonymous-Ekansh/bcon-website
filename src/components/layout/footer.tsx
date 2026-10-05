@@ -13,7 +13,7 @@ function Footer() {
       href: "https://in.linkedin.com/company/snioe-business-conclave",
       label: "LinkedIn",
     },
-    { icon: FaEnvelope, href: "mailto:inspiria@snu.edu.in", label: "Email" },
+    { icon: FaEnvelope, href: "mailto:inspiria.scs@snu.edu.in", label: "Email" },
   ];
 
   return (
@@ -26,7 +26,6 @@ function Footer() {
         mx="auto"
         px={{ base: 4, md: 10 }}
       >
-        {/* Tagline Section */}
         <Flex
           justifyContent="flex-start"
           textAlign="left"
@@ -43,8 +42,6 @@ function Footer() {
             Building Tomorrow<Text as="span" color="#CFAF89">.</Text>
           </Text>
         </Flex>
-
-        {/* Social Media Section */}
         <Flex gap={6} justifyContent={{ base: "center", md: "flex-end" }} w={{ base: "100%", md: "auto" }}>
           {socialMedia.map(({ icon, href, label }, i) => (
             <IconButton
@@ -62,8 +59,6 @@ function Footer() {
           ))}
         </Flex>
       </Flex>
-
-      {/* Copyright Section */}
       <Flex justifyContent="center" mt={8} px={{ base: 4, md: 0 }}>
         <Text fontSize="sm" color="gray.500" textAlign="center" fontFamily="'Proxima Nova', 'Inter', sans-serif">
           © 2026 Business Conclave, Shiv Nadar University. All Rights Reserved.

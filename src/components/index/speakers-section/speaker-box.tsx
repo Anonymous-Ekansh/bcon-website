@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Text, Skeleton, Box } from "@chakra-ui/react";
 import {
   motion,
   useScroll,
@@ -58,6 +58,8 @@ function SpeakerBox({
     }
   }, [lineImg]);
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <>
       <Grid
@@ -87,21 +89,27 @@ function SpeakerBox({
               style={{ borderRadius: "10px" }}
             >
               {image ? (
-                <Image
-                  width={250}
-                  height={320}
-                  alt={name}
-                  src={image}
-                  style={{
-                    borderRadius: "10px",
-                    boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
-                    objectFit: "cover",
-                    width: "100%",
-                    maxWidth: "250px",
-                    height: "auto",
-                    aspectRatio: "250/320",
-                  }}
-                />
+                <Box position="relative" w="250px" h="320px" borderRadius="10px" overflow="hidden">
+                  {!imageLoaded && <Skeleton position="absolute" inset={0} w="100%" h="100%" startColor="rgba(255,255,255,0.05)" endColor="rgba(255,255,255,0.15)" />}
+                  <Image
+                    width={250}
+                    height={320}
+                    alt={name}
+                    src={image}
+                    onLoad={() => setImageLoaded(true)}
+                    style={{
+                      borderRadius: "10px",
+                      boxShadow: "0px 4px 25px 2px rgba(0,0,0,0.25)",
+                      objectFit: "cover",
+                      width: "100%",
+                      maxWidth: "250px",
+                      height: "auto",
+                      aspectRatio: "250/320",
+                      opacity: imageLoaded ? 1 : 0,
+                      transition: "opacity 0.4s ease",
+                    }}
+                  />
+                </Box>
               ) : (
                 <Flex
                   w="250px"
@@ -137,8 +145,6 @@ function SpeakerBox({
           <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" fontWeight={300} color="rgba(255,255,255,0.8)" mt={6} textAlign={["center", "left"]}>{description}</Text>
         </GridItem>
       </Grid>
-
-      {/* SVG Line Growing Animation */}
       {svgContent ? (
         <Flex
           as={motion.div}

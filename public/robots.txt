@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://bcon.rishabhj.in
+Host: https://www.businessconclave.in
 
 # Sitemaps
-Sitemap: https://bcon.rishabhj.in/sitemap.xml
+Sitemap: https://www.businessconclave.in/sitemap.xml

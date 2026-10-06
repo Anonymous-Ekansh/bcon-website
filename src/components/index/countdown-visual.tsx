@@ -220,7 +220,7 @@ const CountdownVisual = () => {
       </Flex>
       <Button
         as={Link}
-        href="/register"
+        href="https://forms.rishabhj.in/bcon"
         bg={GOLD}
         color="#12081F"
         fontFamily="'Proxima Nova', 'Inter', sans-serif"

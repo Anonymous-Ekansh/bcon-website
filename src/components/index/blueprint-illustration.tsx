@@ -48,7 +48,7 @@ const BlueprintIllustration = () => {
     setTimeout(() => setShowMsg(true), 420);
     setTimeout(() => {
       const btn = document.querySelector<HTMLElement>(
-        'a[href="/register"]'
+        'a[href="https://forms.rishabhj.in/bcon"]'
       );
       if (btn) {
         btn.style.transition = "box-shadow 0.4s ease";

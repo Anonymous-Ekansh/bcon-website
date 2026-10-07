@@ -124,9 +124,8 @@ const CountdownVisual = () => {
             return (
               <motion.g
                 key={`stair-${i}`}
-                initial={{ y: -80, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{
                   duration: 0.6,
                   delay: i * 0.12,
@@ -161,8 +160,7 @@ const CountdownVisual = () => {
             stroke={GOLD}
             strokeWidth="2"
             initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
+            animate={{ pathLength: 1 }}
             transition={{
               duration: 0.8,
               delay: STAIR_COUNT * 0.12 + 0.2,
@@ -179,7 +177,6 @@ const CountdownVisual = () => {
             animate={{
               opacity: [0.3, 1, 0.5, 1], // Pulsating intensity
             }}
-            viewport={{ once: true, margin: "-50px" }}
             transition={{
               duration: 2.5,
               delay: STAIR_COUNT * 0.12 + 0.6,
@@ -192,8 +189,7 @@ const CountdownVisual = () => {
       </Box>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.0, delay: STAIR_COUNT * 0.12 + 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{ width: "100%" }}
       >

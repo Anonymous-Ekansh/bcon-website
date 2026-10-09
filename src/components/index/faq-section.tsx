@@ -29,6 +29,10 @@ const faqData = [
     answer: "Open to ALL.",
   },
   {
+    question: "What is included in the ticket?",
+    answer: "Your ticket includes access to all speaker talks, lunch, and the evening comedy night.",
+  },
+  {
     question: "Who can I contact with questions?",
     answer: (
       <>

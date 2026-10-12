@@ -16,18 +16,20 @@ type LayoutProps = PropsWithChildren<{
 function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
   const pathname = usePathname();
   const isShortPage = pathname ? ["/login", "/register", "/contact-us"].includes(pathname) : false;
+  const canonicalUrl = new URL(pathname || "/", "https://www.businessconclave.in").toString();
+  const pageTitle = title
+    ? `${title} | Business Conclave SNIoE 2026`
+    : "Business Conclave SNIoE 2026";
 
   return (
     <>
       <Head>
-        <title>
-          {title
-            ? `${title} | Business Conclave SNIoE 2026`
-            : "Business Conclave SNIoE 2026"}
-        </title>
+        <title>{pageTitle}</title>
         <link rel="icon" href="/logo.png" />
-        <meta property="og:title" content={title ? `${title} | Business Conclave SNIoE 2026` : "Business Conclave SNIoE 2026"} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content="Business Conclave SNIoE 2026" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="/logo.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="/logo.png" />

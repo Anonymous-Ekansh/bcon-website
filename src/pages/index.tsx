@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "~/components/layout";
 import HeroSection from "~/components/index/hero-section";
 import AboutSection from "~/components/index/about-section";
+import SpeakerRevealSection from "~/components/index/speaker-reveal-section";
 import SpeakersSection from "~/components/index/speakers-section";
 import EventsSection from "~/components/index/events-section";
 import CompSection from "~/components/index/comp-section";
@@ -13,6 +14,7 @@ function HomePage() {
     <Layout title="Home" childrenHaveNavbar={true}>
       <HeroSection />
       <AboutSection />
+      <SpeakerRevealSection />
       <SpeakersSection />
       <EventsSection />
       <CompSection />

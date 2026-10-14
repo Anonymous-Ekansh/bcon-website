@@ -38,7 +38,7 @@ const SPEAKERS: SpeakerItem[] = [
     image: "/images/landing/speakers/harsh_kumar.png",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
-    fontSize: { base: "32px", sm: "40px", md: "48px" },
+    fontSize: { base: "42px", sm: "56px", md: "56px" },
     letterSpacing: "normal",
   },
   {
@@ -51,7 +51,7 @@ const SPEAKERS: SpeakerItem[] = [
     image: "/images/landing/speakers/kaustubh_agarwal.jpg",
     objectPosition: "top center",
     fontFamily: "'Cabin Sketch', cursive, sans-serif",
-    fontSize: { base: "36px", sm: "46px", md: "56px" },
+    fontSize: { base: "42px", sm: "56px", md: "64px" },
     letterSpacing: "0.02em",
   },
 ];
@@ -162,7 +162,7 @@ export default function SpeakerRevealSection() {
 
     const interval = setInterval(() => {
       paginate(1);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [mounted, isPaused]);
@@ -721,24 +721,7 @@ export default function SpeakerRevealSection() {
                         opacity={isBoxHovered ? 1 : 0.85}
                         transition="opacity 0.3s ease"
                       >
-                        <Text
-                          fontFamily="'Proxima Nova', sans-serif"
-                          fontSize="9px"
-                          fontWeight="700"
-                          letterSpacing="0.18em"
-                          color="#CFAF89"
-                          textTransform="uppercase"
-                        >
-                          SPEC //{active.id === "harsh-kumar" ? "01" : "02"} • SNIoE
-                        </Text>
-                        <Text
-                          fontFamily="monospace"
-                          fontSize="8.5px"
-                          letterSpacing="0.08em"
-                          color="rgba(255, 255, 255, 0.7)"
-                        >
-                          28.53°N 77.39°E
-                        </Text>
+
                       </Flex>
 
                       <ChakraImage
@@ -772,15 +755,7 @@ export default function SpeakerRevealSection() {
                       >
                         {active.category}
                       </Text>
-                      <Text
-                        fontFamily="monospace"
-                        fontSize="10px"
-                        color={isBoxHovered ? "#CFAF89" : "rgba(207, 175, 137, 0.6)"}
-                        letterSpacing="0.12em"
-                        transition="color 0.3s ease"
-                      >
-                        {"// REF 0"}{currentIndex + 1}
-                      </Text>
+
                     </Flex>
 
                     <Box mb={2}>
@@ -835,7 +810,7 @@ export default function SpeakerRevealSection() {
                         textTransform="uppercase"
                         fontWeight="600"
                       >
-                        OFFICIAL HEADLINER • 14 NOVEMBER 2026
+                        14 NOVEMBER 2026
                       </Text>
                     </Flex>
                   </Flex>

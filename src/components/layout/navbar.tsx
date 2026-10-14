@@ -43,7 +43,6 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -55,7 +54,6 @@ function Navbar() {
     };
   }, [isOpen]);
 
-  // Handle escape key to close menu
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -90,7 +88,6 @@ function Navbar() {
 
   return (
     <>
-      {/* ── Fixed Main Navigation Bar ── */}
       <Box
         as="header"
         position="fixed"
@@ -114,7 +111,6 @@ function Navbar() {
           px={{ base: 4, sm: 6, md: 8, lg: 10 }}
           transition="padding 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
         >
-          {/* Logo with micro-hover scaling */}
           <Box
             cursor="pointer"
             onClick={() => router.push("/")}
@@ -131,7 +127,6 @@ function Navbar() {
             />
           </Box>
 
-          {/* ── Desktop Navigation Links (Visible on lg and up) ── */}
           <Flex
             display={{ base: "none", lg: "flex" }}
             flex="1"
@@ -194,7 +189,6 @@ function Navbar() {
             ))}
           </Flex>
 
-          {/* ── Desktop Action Button (Visible on lg and up) ── */}
           <Flex display={{ base: "none", lg: "flex" }} gap={5} alignItems="center" zIndex="10">
             <Button
               as="a"
@@ -221,9 +215,7 @@ function Navbar() {
             </Button>
           </Flex>
 
-          {/* ── Mobile Right Actions (Visible on base to lg) ── */}
           <Flex display={{ base: "flex", lg: "none" }} alignItems="center" gap={2.5}>
-            {/* Quick Register Pill for mobile */}
             <Button
               as="a"
               href="https://forms.rishabhj.in/bcon"
@@ -246,7 +238,6 @@ function Navbar() {
               Register
             </Button>
 
-            {/* Custom Luxury Mobile Hamburger / Close Button */}
             <Box
               as="button"
               aria-label={isOpen ? "Close Menu" : "Open Menu"}
@@ -298,7 +289,6 @@ function Navbar() {
         </Flex>
       </Box>
 
-      {/* ── Full-Screen Editorial Mobile Navigation Drawer ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -317,7 +307,6 @@ function Navbar() {
               overflowY: "auto",
             }}
           >
-            {/* Ambient Blueprint Glow Orbs inside mobile drawer */}
             <Box
               position="absolute"
               top="-10%"
@@ -341,7 +330,6 @@ function Navbar() {
               pointerEvents="none"
             />
 
-            {/* Blueprint Grid Watermark */}
             <Box
               position="absolute"
               inset="0"
@@ -351,13 +339,11 @@ function Navbar() {
               opacity={0.7}
             />
 
-            {/* Corner Registration Crosshairs */}
             <Box position="absolute" top="16px" left="16px" color="rgba(207, 175, 137, 0.4)" fontSize="11px" fontFamily="monospace" pointerEvents="none">+</Box>
             <Box position="absolute" top="16px" right="16px" color="rgba(207, 175, 137, 0.4)" fontSize="11px" fontFamily="monospace" pointerEvents="none">+</Box>
             <Box position="absolute" bottom="16px" left="16px" color="rgba(207, 175, 137, 0.4)" fontSize="11px" fontFamily="monospace" pointerEvents="none">+</Box>
             <Box position="absolute" bottom="16px" right="16px" color="rgba(207, 175, 137, 0.4)" fontSize="11px" fontFamily="monospace" pointerEvents="none">+</Box>
 
-            {/* Mobile Drawer Content Container */}
             <Flex
               direction="column"
               minH="100%"
@@ -369,7 +355,6 @@ function Navbar() {
               justify="space-between"
             >
               <Box>
-                {/* Event Status Live Pill */}
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -405,7 +390,6 @@ function Navbar() {
                   </Flex>
                 </motion.div>
 
-                {/* Staggered Navigation Items List */}
                 <Flex direction="column" gap={1}>
                   {navItems.map((item, index) => (
                     <motion.div
@@ -485,14 +469,12 @@ function Navbar() {
                 </Flex>
               </Box>
 
-              {/* Bottom Actions inside Mobile Drawer */}
               <motion.div
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
                 <Box pt={6}>
-                  {/* Primary Full-Width Glowing Register Button */}
                   <Button
                     as="a"
                     href="https://forms.rishabhj.in/bcon"
@@ -520,7 +502,6 @@ function Navbar() {
                     <FiArrowRight size={18} />
                   </Button>
 
-                  {/* University & Venue Info Tag */}
                   <Text
                     fontFamily="'Proxima Nova', sans-serif"
                     fontSize="11.5px"
@@ -532,7 +513,6 @@ function Navbar() {
                     Shiv Nadar University • Greater Noida, Delhi NCR
                   </Text>
 
-                  {/* Social & Contact Icons */}
                   <Flex justify="center" align="center" gap={6} pt={2}>
                     <Box
                       as="a"

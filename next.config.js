@@ -21,6 +21,17 @@ const config = {
   },
   transpilePackages: ["geist"],
 
+  async redirects() {
+    return [
+      {
+        source: "/sitemap-0.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+        locale: false,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

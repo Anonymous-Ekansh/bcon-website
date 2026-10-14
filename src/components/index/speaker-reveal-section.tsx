@@ -56,7 +56,6 @@ const SPEAKERS: SpeakerItem[] = [
   },
 ];
 
-// ── Entire Box Directional Slide Variants (Left / Right onto next speaker) ──
 const entireBoxVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
@@ -110,7 +109,6 @@ export default function SpeakerRevealSection() {
     setMounted(true);
   }, []);
 
-  // ── Scroll Parallax & Up/Down Reveal Animations ──
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -118,7 +116,6 @@ export default function SpeakerRevealSection() {
 
   const springConfig = { stiffness: 95, damping: 20, mass: 0.75 };
 
-  // Subheadline scroll reveal transformations
   const subheadlineY = useTransform(scrollYProgress, [0, 0.26, 0.74, 1], [70, 0, 0, -45]);
   const subheadlineOpacity = useTransform(scrollYProgress, [0, 0.16, 0.84, 1], [0, 1, 1, 0.2]);
   const subheadlineScale = useTransform(scrollYProgress, [0, 0.26, 0.74, 1], [0.85, 1, 1, 0.92]);
@@ -126,7 +123,6 @@ export default function SpeakerRevealSection() {
   const smoothSubheadlineOpacity = useSpring(subheadlineOpacity, springConfig);
   const smoothSubheadlineScale = useSpring(subheadlineScale, springConfig);
 
-  // Main headline scroll reveal transformations
   const titleY = useTransform(scrollYProgress, [0, 0.3, 0.72, 1], [95, 0, 0, -60]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2, 0.82, 1], [0, 1, 1, 0.2]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3, 0.72, 1], [0.85, 1, 1, 0.94]);
@@ -134,13 +130,11 @@ export default function SpeakerRevealSection() {
   const smoothTitleOpacity = useSpring(titleOpacity, springConfig);
   const smoothTitleScale = useSpring(titleScale, springConfig);
 
-  // Tabs scroll reveal transformations
   const tabsY = useTransform(scrollYProgress, [0, 0.34, 0.7, 1], [60, 0, 0, -40]);
   const tabsOpacity = useTransform(scrollYProgress, [0, 0.24, 0.8, 1], [0, 1, 1, 0.3]);
   const smoothTabsY = useSpring(tabsY, springConfig);
   const smoothTabsOpacity = useSpring(tabsOpacity, springConfig);
 
-  // ENTIRE BOX scroll reveal transformations (Dramatic 3D elevation, scale, rotateX)
   const boxScrollY = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [150, 0, 0, -90]);
   const boxScrollScale = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [0.86, 1, 1, 0.92]);
   const boxScrollRotateX = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [14, 0, 0, -10]);
@@ -163,7 +157,6 @@ export default function SpeakerRevealSection() {
     setCurrentIndex(targetIndex);
   };
 
-  // ── Auto-revolving between guests every 3 seconds (pauses ONLY on box hover) ──
   useEffect(() => {
     if (!mounted || isPaused) return;
 
@@ -174,7 +167,6 @@ export default function SpeakerRevealSection() {
     return () => clearInterval(interval);
   }, [mounted, isPaused]);
 
-  // ── Keyboard arrow navigation (Left / Right keys) ──
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") paginate(-1);
@@ -184,7 +176,6 @@ export default function SpeakerRevealSection() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // ── Horizontal trackpad / wheel swipe listener ──
   const handleWheel = (e: React.WheelEvent) => {
     if (Math.abs(e.deltaX) > 40) {
       const now = Date.now();
@@ -195,20 +186,18 @@ export default function SpeakerRevealSection() {
     }
   };
 
-  // ── Drag / Swipe handler for mouse & touch ──
   const handleDragEnd = (
     _e: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { x: number; y: number }; velocity: { x: number; y: number } }
   ) => {
     const threshold = 60;
     if (info.offset.x < -threshold || info.velocity.x < -300) {
-      paginate(1); // Swipe left -> Next speaker box
+      paginate(1);
     } else if (info.offset.x > threshold || info.velocity.x > 300) {
-      paginate(-1); // Swipe right -> Previous speaker box
+      paginate(-1);
     }
   };
 
-  // ── Interactive Mouse 3D Tilt & Cursor Follow Spotlight Handlers ──
   const handleBoxMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -242,7 +231,6 @@ export default function SpeakerRevealSection() {
       zIndex={2}
       onWheel={handleWheel}
     >
-      {/* ── Soft Ambient Blueprint Glow ── */}
       <Box
         position="absolute"
         top="8%"
@@ -265,7 +253,6 @@ export default function SpeakerRevealSection() {
         position="relative"
         zIndex={1}
       >
-        {/* ── Prominent Sub-Headline with Scroll-Driven Reveal ── */}
         <motion.div
           style={{
             y: smoothSubheadlineY,
@@ -290,7 +277,6 @@ export default function SpeakerRevealSection() {
           </Flex>
         </motion.div>
 
-        {/* ── Large Cinematic Title with Scroll-Driven Reveal ── */}
         <motion.div
           style={{
             y: smoothTitleY,
@@ -320,7 +306,6 @@ export default function SpeakerRevealSection() {
           </Text>
         </motion.div>
 
-        {/* ── Switcher Navigation Tabs with Scroll-Driven Reveal ── */}
         <motion.div
           style={{
             y: smoothTabsY,
@@ -367,7 +352,6 @@ export default function SpeakerRevealSection() {
                     transform: "translateY(-1.5px)",
                   }}
                 >
-                  {/* Sliding Fluid Background Pill */}
                   {isSelected && mounted && (
                     <motion.div
                       layoutId="minimalActiveTab"
@@ -403,7 +387,6 @@ export default function SpeakerRevealSection() {
               );
             })}
 
-            {/* ── Guest 03 (Permanently Locked • Coming Soon • Unclickable) ── */}
             <Box
               py={2.5}
               px={{ base: 4, sm: 6 }}
@@ -441,7 +424,6 @@ export default function SpeakerRevealSection() {
             </Box>
           </Flex>
 
-          {/* ── Progress Bar & Left/Right Controls ── */}
           <Flex align="center" gap={4} mb={{ base: 6, md: 8 }}>
             <Box
               as="button"
@@ -497,7 +479,6 @@ export default function SpeakerRevealSection() {
           </Flex>
         </motion.div>
 
-        {/* ── ENTIRE BOX UP/DOWN SCROLL REVEAL (Interactive 3D Spring Motion on Scroll) ── */}
         <motion.div
           style={{
             y: smoothBoxY,
@@ -512,7 +493,6 @@ export default function SpeakerRevealSection() {
             borderRadius: "32px",
           }}
         >
-          {/* ── ENTIRE BOX DIRECTIONAL TRANSITION (Slides Left / Right onto next speaker) ── */}
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={active.id}
@@ -532,7 +512,6 @@ export default function SpeakerRevealSection() {
               }}
               whileTap={{ cursor: "grabbing" }}
             >
-              {/* ── The Entire Box (Interactive 3D Hover Tilt & Cursor Spotlight Follow) ── */}
               <Box
                 role="group"
                 w="100%"
@@ -563,7 +542,6 @@ export default function SpeakerRevealSection() {
                 onMouseEnter={handleBoxMouseEnter}
                 onMouseLeave={handleBoxMouseLeave}
               >
-                {/* Dynamic Specular Golden Spotlight Sheen following mouse cursor */}
                 <Box
                   position="absolute"
                   inset={0}
@@ -574,7 +552,6 @@ export default function SpeakerRevealSection() {
                   zIndex={1}
                 />
 
-                {/* Top Radiant Gold Highlight Line */}
                 <Box
                   position="absolute"
                   top={0}
@@ -587,7 +564,6 @@ export default function SpeakerRevealSection() {
                   zIndex={2}
                 />
 
-                {/* Subtle blueprint grid watermark inside the box */}
                 <Box
                   position="absolute"
                   inset={0}
@@ -599,7 +575,6 @@ export default function SpeakerRevealSection() {
                   zIndex={0}
                 />
 
-                {/* Blueprint Corner Registration Crosshairs (+) with hover glow */}
                 <Box
                   position="absolute"
                   top="12px"
@@ -664,7 +639,6 @@ export default function SpeakerRevealSection() {
                   position="relative"
                   zIndex={2}
                 >
-                  {/* ── Left Column: Clean High-Res Portrait (Elevates on hover) ── */}
                   <Flex direction="column" align="center">
                     <Box
                       position="relative"
@@ -682,7 +656,6 @@ export default function SpeakerRevealSection() {
                       transform={isBoxHovered ? "scale(1.025) translateY(-3px)" : "none"}
                       transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
                     >
-                      {/* Precision Blueprint Corner Calipers ⌜ ⌝ ⌞ ⌟ */}
                       <Box
                         position="absolute"
                         top="10px"
@@ -736,7 +709,6 @@ export default function SpeakerRevealSection() {
                         transition="transform 0.3s ease"
                       />
 
-                      {/* Top Coordinate HUD Ribbon */}
                       <Flex
                         position="absolute"
                         top="12px"
@@ -769,7 +741,6 @@ export default function SpeakerRevealSection() {
                         </Text>
                       </Flex>
 
-                      {/* Crisp, Sharp, Full-Fidelity Portrait (Centered, No individual image reveal animation) */}
                       <ChakraImage
                         src={active.image}
                         alt={active.name}
@@ -783,9 +754,7 @@ export default function SpeakerRevealSection() {
                     </Box>
                   </Flex>
 
-                  {/* ── Right Column: Clean Editorial Info ── */}
                   <Flex direction="column" justify="center">
-                    {/* Category Tag with Main "Building Tomorrow" Bold Font */}
                     <Flex align="center" gap={2.5} mb={2}>
                       <Box
                         w={isBoxHovered ? "20px" : "14px"}
@@ -810,11 +779,10 @@ export default function SpeakerRevealSection() {
                         letterSpacing="0.12em"
                         transition="color 0.3s ease"
                       >
-                        // REF 0{currentIndex + 1}
+                        {"// REF 0"}{currentIndex + 1}
                       </Text>
                     </Flex>
 
-                    {/* Speaker Name with Custom Bespoke Font */}
                     <Box mb={2}>
                       <Text
                         fontFamily={active.fontFamily}
@@ -828,7 +796,6 @@ export default function SpeakerRevealSection() {
                       </Text>
                     </Box>
 
-                    {/* Title & Role */}
                     <Text
                       fontFamily="'Proxima Nova', 'Inter', sans-serif"
                       fontSize={{ base: "15px", md: "17px" }}
@@ -840,7 +807,6 @@ export default function SpeakerRevealSection() {
                       {active.role}
                     </Text>
 
-                    {/* Clean Description */}
                     <Text
                       fontFamily="'Proxima Nova', 'Inter', sans-serif"
                       fontSize={{ base: "14px", md: "16px" }}
@@ -852,7 +818,6 @@ export default function SpeakerRevealSection() {
                       {active.description}
                     </Text>
 
-                    {/* Blueprint Verification Stamp */}
                     <Flex align="center" gap={2.5} pt={2} opacity={0.88}>
                       <Box
                         w="6px"
@@ -880,7 +845,6 @@ export default function SpeakerRevealSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* ── Subtle swipe / navigation hint ── */}
         <Flex align="center" gap={2} mt={4} opacity={0.5}>
           <Text
             fontFamily="'Proxima Nova', sans-serif"

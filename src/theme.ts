@@ -21,8 +21,11 @@ const colors = {
 };
 
 const fonts = {
-  heading: `'Playfair Display', serif`,
-  body: `'Proxima Nova', 'Inter', sans-serif`,
+  heading: `'Tan Vivre Libre', 'Playfair Display', 'Cormorant Garamond', Georgia, serif`,
+  body: `'Proxima Nova', 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif`,
+  accent: `'Cinzel', serif`,
+  sketch: `'Cabin Sketch', cursive, sans-serif`,
+  display: `'Tan Vivre Libre', 'Playfair Display', serif`,
 };
 
 const theme = extendTheme({

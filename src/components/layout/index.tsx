@@ -43,6 +43,9 @@ function Layout({ title, children, childrenHaveNavbar }: LayoutProps) {
         as="main" 
         position="relative" 
         zIndex={1} 
+        w="100%"
+        maxW="100%"
+        overflowX="clip"
         minH="100vh"
         bg={isShortPage ? "linear-gradient(to bottom, #4A1E75 0%, #2D1147 40%, #1A0A29 100%)" : "transparent"}
       >

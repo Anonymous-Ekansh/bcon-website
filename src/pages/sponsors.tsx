@@ -21,8 +21,8 @@ export default function SponsorsPage() {
     <Layout title="Sponsors">
       <PageHero eyebrow="Built With" heading="Our Sponsors" />
 
-      <Box position="relative" pb={24}>
-        <Flex flexDir="column" alignItems="center" px={{ base: 6, md: 8 }} maxW="1536px" mx="auto" gap={12}>
+      <Box position="relative" pb={24} overflow="hidden">
+        <Flex flexDir="column" alignItems="center" px={{ base: 5, md: 8 }} maxW="1060px" mx="auto" gap={12}>
 
           <Box w="100%">
             <Text fontFamily="'Proxima Nova', 'Inter', sans-serif" color="rgba(255,255,255,0.6)" textAlign="center" mb={6} textTransform="uppercase" letterSpacing="0.1em" fontSize="sm">

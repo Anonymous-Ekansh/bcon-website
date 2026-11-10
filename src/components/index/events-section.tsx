@@ -55,8 +55,8 @@ function DesktopEvents() {
   const containerRef = useRef(null);
 
   return (
-    <Box id="events" mt="15rem" ref={containerRef} bg="transparent">
-      <Flex flexDir="column" align="center" maxW="1000px" mx="auto" py={16}>
+    <Box id="events" mt={{ base: "6rem", md: "10rem" }} ref={containerRef} bg="transparent" overflow="hidden">
+      <Flex flexDir="column" align="center" maxW="920px" mx="auto" py={16} px={{ base: 5, md: 8, lg: 10 }}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -98,8 +98,8 @@ function DesktopEvents() {
               base: "1fr",
               md: i % 2 === 0 ? "1.2fr 1.8fr" : "1.8fr 1.2fr",
             }}
-            gap={16}
-            mb={24}
+            gap={{ base: 8, md: 12 }}
+            mb={20}
             alignItems="center"
           >
             {i % 2 === 0 ? (

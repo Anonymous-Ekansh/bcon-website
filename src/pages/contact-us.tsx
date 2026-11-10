@@ -37,8 +37,8 @@ export default function ContactUsPage() {
     <Layout title="Contact Us">
       <PageHero eyebrow="Get In Touch" heading="Contact Us" />
 
-      <Box position="relative" pb={24}>
-        <Flex flexDir="column" alignItems="center" px={{ base: 6, md: 8 }} maxW="1200px" mx="auto">
+      <Box position="relative" pb={24} overflow="hidden">
+        <Flex flexDir="column" alignItems="center" px={{ base: 5, md: 8 }} maxW="1060px" mx="auto">
 
 
           <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={{ base: 4, md: 6 }} w="100%" mb={{ base: 10, md: 16 }}>

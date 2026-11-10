@@ -21,8 +21,8 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
   const formattedValue = String(value).padStart(2, '0');
 
   return (
-    <Flex direction="column" align="center" mx={{ base: 2, md: 4 }}>
-      <Box h={{ base: "40px", md: "60px", lg: "80px" }} overflow="hidden" position="relative">
+    <Flex direction="column" align="center" mx={{ base: 1.5, sm: 2.5, md: 3.5 }}>
+      <Box h={{ base: "36px", sm: "42px", md: "56px", lg: "68px" }} overflow="hidden" position="relative">
         {isSeconds ? (
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -34,7 +34,7 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
             >
               <Text
                 fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontSize={{ base: "32px", md: "48px", lg: "64px" }}
+                fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }}
                 fontWeight="300"
                 color="#FFFFFF"
                 lineHeight="1"
@@ -46,7 +46,7 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
         ) : (
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "32px", md: "48px", lg: "64px" }}
+            fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }}
             fontWeight="300"
             color="#FFFFFF"
             lineHeight="1"
@@ -57,10 +57,10 @@ const CountdownItem = ({ label, value, isSeconds = false }: { label: string; val
       </Box>
       <Text
         fontFamily="'Proxima Nova', 'Inter', sans-serif"
-        fontSize={{ base: "10px", md: "12px" }}
+        fontSize={{ base: "9px", sm: "10px", md: "11px" }}
         fontWeight="600"
         color={LABEL_COLOR}
-        letterSpacing="0.2em"
+        letterSpacing={{ base: "0.14em", sm: "0.2em" }}
         mt={2}
       >
         {label}
@@ -103,8 +103,8 @@ const CountdownVisual = () => {
   if (!isMounted) return null;
 
   return (
-    <Flex direction="column" align="center" justify="center" w="100%" maxW="600px" mx="auto" minH={{ base: "auto", md: "400px" }} position="relative">
-      <Box mb={8} mt={{ base: -6, md: -8 }} position="relative" w="240px" h="180px">
+    <Flex direction="column" align="center" justify="center" w="100%" maxW="480px" mx="auto" minH="auto" position="relative">
+      <Box mb={3} mt={0} position="relative" w={{ base: "165px", md: "180px", xl: "200px" }} h={{ base: "124px", md: "135px", xl: "150px" }}>
         <Box
           as="svg"
           w="100%"
@@ -193,10 +193,10 @@ const CountdownVisual = () => {
         transition={{ duration: 1.0, delay: STAIR_COUNT * 0.12 + 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{ width: "100%" }}
       >
-        <Flex direction="column" align="center" mt={0} mb={8} w="100%">
+        <Flex direction="column" align="center" mt={0} mb={5} w="100%">
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "20px", md: "24px", lg: "28px" }}
+            fontSize={{ base: "19px", md: "22px", lg: "25px" }}
             fontWeight="300"
             letterSpacing="-0.02em"
             color="#FFFFFF"
@@ -205,13 +205,13 @@ const CountdownVisual = () => {
           </Text>
         </Flex>
       </motion.div>
-      <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={10}>
+      <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={7} w="100%">
         <CountdownItem label="DAYS" value={timeLeft.days} />
-        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }} color={GOLD} lineHeight="1" mx={0.5}>:</Text>
         <CountdownItem label="HOURS" value={timeLeft.hours} />
-        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }} color={GOLD} lineHeight="1" mx={0.5}>:</Text>
         <CountdownItem label="MINUTES" value={timeLeft.minutes} />
-        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "32px", md: "48px", lg: "64px" }} color={GOLD} lineHeight="1" mx={1}>:</Text>
+        <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }} color={GOLD} lineHeight="1" mx={0.5}>:</Text>
         <CountdownItem label="SECONDS" value={timeLeft.seconds} isSeconds={true} />
       </Flex>
       <Button
@@ -220,12 +220,12 @@ const CountdownVisual = () => {
         bg={GOLD}
         color="#12081F"
         fontFamily="'Proxima Nova', 'Inter', sans-serif"
-        fontSize="16px"
+        fontSize={{ base: "14px", md: "15px" }}
         fontWeight="600"
         letterSpacing="0.12em"
         textTransform="uppercase"
-        px={12}
-        py={7}
+        px={{ base: 9, md: 10 }}
+        py={{ base: 6, md: 6 }}
         borderRadius="0"
         clipPath="polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))"
         rightIcon={<FiArrowRight size={22} />}

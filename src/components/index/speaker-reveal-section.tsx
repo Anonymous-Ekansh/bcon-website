@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Box,
   Flex,
@@ -20,12 +20,16 @@ interface SpeakerItem {
   name: string;
   role: string;
   description: string;
+  sessionTime: string;
   image: string;
   objectPosition?: string;
   fontFamily: string;
-  fontSize?: { base: string; sm: string; md: string };
+  fontSize?: { base: string; sm: string; md: string; lg?: string };
   letterSpacing?: string;
+  fontWeight?: number;
 }
+
+const SLIDE_DURATION_SEC = 4;
 
 const SPEAKERS: SpeakerItem[] = [
   {
@@ -35,11 +39,13 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Senior Partner & Member of the Board at Ernst & Young (EY)",
     description:
       "Senior Partner and Board Member at EY leading strategic digital transformation and technology advisory across major global enterprises. Harsh brings over two decades of high-level counsel working directly with corporate boards and global CXOs.",
+    sessionTime: "9:00 AM • 14 November 2026",
     image: "/images/landing/speakers/harsh_kumar.png",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
-    fontSize: { base: "42px", sm: "56px", md: "56px" },
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "52px" },
     letterSpacing: "normal",
+    fontWeight: 300,
   },
   {
     id: "kaustubh-agarwal",
@@ -48,51 +54,145 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Stand-Up Comedian • India’s Got Latent Panelist",
     description:
       "Kaustubh Agarwal is a popular stand-up comedian and breakout panelist on Samay Raina’s India’s Got Latent. An engineer-turned-creator, he is celebrated across India for his sharp wit, authentic deadpan humor, and viral relatable comedy that perfectly bridges corporate hustle with creative passion.",
+    sessionTime: "5:00 PM • 14 November 2026",
     image: "/images/landing/speakers/kaustubh_agarwal.jpg",
     objectPosition: "top center",
     fontFamily: "'Cabin Sketch', cursive, sans-serif",
-    fontSize: { base: "42px", sm: "56px", md: "64px" },
+    fontSize: { base: "30px", sm: "42px", md: "48px", lg: "56px" },
     letterSpacing: "0.02em",
+    fontWeight: 700,
+  },
+  {
+    id: "dovleen-bhatti",
+    category: "Workshop Host",
+    name: "Ms. Dovleen Bhatti",
+    role: "Clarity Coach • Psychologist & NLP Master Practitioner",
+    description:
+      "A certified Life and Career Clarity Coach, applied psychologist, and NLP Master Practitioner dedicated to helping individuals overcome self-doubt and decision fatigue. Drawing from behavioral psychology and structured coaching frameworks, she empowers emerging leaders and professionals to transition from overwhelm to purposeful action.",
+    sessionTime: "10:30 AM • 14 November 2026",
+    image: "/images/landing/speakers/dovleen_bhatti.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
+  },
+  {
+    id: "sana-bhatega",
+    category: "Offbeat Roundtable",
+    name: "Ms. Sana Bhatega",
+    role: "Entrepreneur & EdTech Influencer • 150K+ Followers on Instagram",
+    description:
+      "Entrepreneur, youth mentor, and EdTech creator with a thriving community of over 150K+ followers on Instagram. As the co-founder of The Inquisitive Mind, she has guided thousands of students across India through college admissions, career strategy, and personal brand building in the digital creator economy.",
+    sessionTime: "12:00 PM • 14 November 2026",
+    image: "/images/landing/speakers/sana_bhatega.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
+  },
+  {
+    id: "bikash-jain",
+    category: "Canopy Conversations",
+    name: "Mr. Bikash Jain",
+    role: "General Manager @ Dabur • Ex-Chief Financial Officer @ Hero Cycles",
+    description:
+      "A Chartered Accountant and seasoned corporate finance leader with over two decades of leadership experience across premier consumer and manufacturing enterprises including Dabur, Hero Cycles, GSK, and Coca-Cola. He specializes in strategic financial stewardship, commercial scaling, and operational turnarounds.",
+    sessionTime: "1:30 PM • 14 November 2026",
+    image: "/images/landing/speakers/bikash_jain.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
+  },
+  {
+    id: "tanaya-rao",
+    category: "Canopy Conversations",
+    name: "Ms. Tanaya Rao",
+    role: "Founder @ Ekatran Label",
+    description:
+      "Contemporary visual artist and founder of Ekatran Label, a New Delhi-based sustainable and upcycled fashion brand. An alumna of the College of Art (DU) and Shiv Nadar University, she bridges fine art with circular slow fashion by transforming textile remnants and deadstock into bespoke wearable art.",
+    sessionTime: "2:15 PM • 14 November 2026",
+    image: "/images/landing/speakers/tanaya_rao.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
+  },
+  {
+    id: "saurabh-gupta",
+    category: "Canopy Conversations",
+    name: "Mr. Saurabh Gupta",
+    role: "Consulting Technical Director @ Oracle",
+    description:
+      "Consulting Technical Director at Oracle driving enterprise cloud architecture, large-scale data modernization, and mission-critical technology transformations. With deep expertise in distributed systems and enterprise engineering, he advises organizations on building resilient, future-ready digital infrastructure.",
+    sessionTime: "3:00 PM • 14 November 2026",
+    image: "/images/landing/speakers/saurabh_gupta.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
+  },
+  {
+    id: "amit-verma",
+    category: "Canopy Conversations",
+    name: "Mr. Amit Verma",
+    role: "Director @ KPMG",
+    description:
+      "Director at KPMG advising leading enterprises on business transformation, strategic risk management, and operational excellence. He brings extensive Big Four advisory experience in guiding corporate leadership teams through complex market transitions, governance, and sustainable long-term growth.",
+    sessionTime: "3:45 PM • 14 November 2026",
+    image: "/images/landing/speakers/amit_verma.jpg",
+    objectPosition: "center top",
+    fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
+    fontSize: { base: "28px", sm: "38px", md: "44px", lg: "50px" },
+    letterSpacing: "normal",
+    fontWeight: 300,
   },
 ];
 
 const entireBoxVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? "100%" : "-100%",
+    x: direction > 0 ? "60%" : "-60%",
     opacity: 0,
-    scale: 0.92,
-    rotateY: direction > 0 ? 10 : -10,
-    filter: "blur(8px)",
+    scale: 0.96,
+    filter: "blur(6px)",
   }),
   center: {
     x: 0,
     opacity: 1,
     scale: 1,
-    rotateY: 0,
     filter: "blur(0px)",
     transition: {
-      x: { type: "spring", stiffness: 280, damping: 28, mass: 0.9 },
-      rotateY: { type: "spring", stiffness: 260, damping: 28 },
-      scale: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
-      opacity: { duration: 0.38, ease: "easeOut" },
-      filter: { duration: 0.32 },
+      x: { type: "spring", stiffness: 300, damping: 30, mass: 0.85 },
+      scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+      opacity: { duration: 0.35, ease: "easeOut" },
+      filter: { duration: 0.28 },
     },
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? "-100%" : "100%",
+    x: direction > 0 ? "-60%" : "60%",
     opacity: 0,
-    scale: 0.92,
-    rotateY: direction > 0 ? -10 : 10,
-    filter: "blur(8px)",
+    scale: 0.96,
+    filter: "blur(6px)",
     transition: {
-      x: { type: "spring", stiffness: 280, damping: 28, mass: 0.9 },
-      rotateY: { type: "spring", stiffness: 260, damping: 28 },
-      scale: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
-      opacity: { duration: 0.28, ease: "easeIn" },
-      filter: { duration: 0.25 },
+      x: { type: "spring", stiffness: 300, damping: 30, mass: 0.85 },
+      scale: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+      opacity: { duration: 0.25, ease: "easeIn" },
+      filter: { duration: 0.22 },
     },
   }),
 };
+
+function getInitials(fullName: string): string {
+  const cleaned = fullName.replace(/^(Mr\.|Ms\.|Mrs\.|Dr\.)\s+/i, "").trim();
+  const parts = cleaned.split(/\s+/);
+  if (parts.length === 1) return (parts[0]?.slice(0, 2) ?? "").toUpperCase();
+  return `${parts[0]?.[0] ?? ""}${parts[parts.length - 1]?.[0] ?? ""}`.toUpperCase();
+}
 
 export default function SpeakerRevealSection() {
   const [mounted, setMounted] = useState<boolean>(false);
@@ -100,8 +200,7 @@ export default function SpeakerRevealSection() {
   const [direction, setDirection] = useState<number>(1);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [isBoxHovered, setIsBoxHovered] = useState<boolean>(false);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [boxTilt, setBoxTilt] = useState<{ rx: number; ry: number }>({ rx: 0, ry: 0 });
+  const [imgFailed, setImgFailed] = useState<Record<string, boolean>>({});
   const lastScrollTimeRef = useRef<number>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -130,42 +229,43 @@ export default function SpeakerRevealSection() {
   const smoothTitleOpacity = useSpring(titleOpacity, springConfig);
   const smoothTitleScale = useSpring(titleScale, springConfig);
 
-  const tabsY = useTransform(scrollYProgress, [0, 0.34, 0.7, 1], [60, 0, 0, -40]);
-  const tabsOpacity = useTransform(scrollYProgress, [0, 0.24, 0.8, 1], [0, 1, 1, 0.3]);
-  const smoothTabsY = useSpring(tabsY, springConfig);
-  const smoothTabsOpacity = useSpring(tabsOpacity, springConfig);
+  const controlsY = useTransform(scrollYProgress, [0, 0.34, 0.7, 1], [60, 0, 0, -40]);
+  const controlsOpacity = useTransform(scrollYProgress, [0, 0.24, 0.8, 1], [0, 1, 1, 0.3]);
+  const smoothControlsY = useSpring(controlsY, springConfig);
+  const smoothControlsOpacity = useSpring(controlsOpacity, springConfig);
 
-  const boxScrollY = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [150, 0, 0, -90]);
-  const boxScrollScale = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [0.86, 1, 1, 0.92]);
-  const boxScrollRotateX = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [14, 0, 0, -10]);
+  const boxScrollY = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [120, 0, 0, -70]);
+  const boxScrollScale = useTransform(scrollYProgress, [0, 0.36, 0.65, 1], [0.92, 1, 1, 0.95]);
   const boxScrollOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.15, 1, 1, 0.25]);
   const smoothBoxY = useSpring(boxScrollY, springConfig);
   const smoothBoxScale = useSpring(boxScrollScale, springConfig);
-  const smoothBoxRotateX = useSpring(boxScrollRotateX, springConfig);
   const smoothBoxOpacity = useSpring(boxScrollOpacity, springConfig);
 
   const active = SPEAKERS[currentIndex] ?? SPEAKERS[0]!;
 
-  const paginate = (newDirection: number) => {
+  const paginate = useCallback((newDirection: number) => {
     setDirection(newDirection);
     setCurrentIndex((prev) => (prev + newDirection + SPEAKERS.length) % SPEAKERS.length);
-  };
+  }, []);
 
-  const goToSpeaker = (targetIndex: number) => {
-    if (targetIndex === currentIndex) return;
-    setDirection(targetIndex > currentIndex ? 1 : -1);
-    setCurrentIndex(targetIndex);
-  };
+  const goToSpeaker = useCallback(
+    (targetIndex: number) => {
+      if (targetIndex === currentIndex) return;
+      setDirection(targetIndex > currentIndex ? 1 : -1);
+      setCurrentIndex(targetIndex);
+    },
+    [currentIndex]
+  );
 
   useEffect(() => {
     if (!mounted || isPaused) return;
 
-    const interval = setInterval(() => {
+    const timer = setTimeout(() => {
       paginate(1);
-    }, 5000);
+    }, SLIDE_DURATION_SEC * 1000);
 
-    return () => clearInterval(interval);
-  }, [mounted, isPaused]);
+    return () => clearTimeout(timer);
+  }, [mounted, isPaused, currentIndex, paginate]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -174,7 +274,7 @@ export default function SpeakerRevealSection() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [paginate]);
 
   const handleWheel = (e: React.WheelEvent) => {
     if (Math.abs(e.deltaX) > 40) {
@@ -190,57 +290,52 @@ export default function SpeakerRevealSection() {
     _e: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { x: number; y: number }; velocity: { x: number; y: number } }
   ) => {
-    const threshold = 60;
-    if (info.offset.x < -threshold || info.velocity.x < -300) {
+    const threshold = 45;
+    if (info.offset.x < -threshold || info.velocity.x < -280) {
       paginate(1);
-    } else if (info.offset.x > threshold || info.velocity.x > 300) {
+    } else if (info.offset.x > threshold || info.velocity.x > 280) {
       paginate(-1);
     }
   };
 
-  const handleBoxMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const px = (x / rect.width - 0.5) * 2;
-    const py = (y / rect.height - 0.5) * 2;
-    setBoxTilt({ rx: -py * 4.5, ry: px * 4.5 });
-    setMousePos({ x, y });
-    if (!isBoxHovered) setIsBoxHovered(true);
+  // Only pause / apply hover elevation for fine mouse pointers so touch taps never freeze autoplay
+  const handleBoxPointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") {
+      setIsPaused(true);
+      setIsBoxHovered(true);
+    }
   };
 
-  const handleBoxMouseEnter = () => {
-    setIsPaused(true);
-    setIsBoxHovered(true);
+  const handleBoxPointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") {
+      setIsPaused(false);
+      setIsBoxHovered(false);
+    }
   };
 
-  const handleBoxMouseLeave = () => {
-    setIsPaused(false);
-    setIsBoxHovered(false);
-    setBoxTilt({ rx: 0, ry: 0 });
-  };
+  const showFallbackPortrait = !active.image || Boolean(imgFailed[active.id]);
 
   return (
     <Box
       ref={sectionRef}
       id="speaker-reveal"
       position="relative"
-      py={{ base: 14, sm: 20, md: 28 }}
-      px={{ base: 4, sm: 8, md: 12 }}
+      py={{ base: 12, sm: 18, md: 28 }}
+      px={{ base: 4, sm: 6, md: 10, lg: 12 }}
       overflow="hidden"
       zIndex={2}
       onWheel={handleWheel}
     >
       <Box
         position="absolute"
-        top="8%"
+        top="12%"
         left="50%"
         transform="translateX(-50%)"
-        w={{ base: "320px", md: "850px" }}
-        h={{ base: "320px", md: "500px" }}
+        w={{ base: "300px", sm: "500px", md: "880px" }}
+        h={{ base: "300px", sm: "400px", md: "520px" }}
         borderRadius="full"
-        bg="radial-gradient(circle, rgba(207, 175, 137, 0.14) 0%, rgba(45, 17, 71, 0.3) 50%, transparent 75%)"
-        filter="blur(80px)"
+        bg="radial-gradient(circle, rgba(207, 175, 137, 0.11) 0%, rgba(45, 17, 71, 0.28) 55%, transparent 75%)"
+        filter="blur(90px)"
         pointerEvents="none"
         zIndex={0}
       />
@@ -248,7 +343,7 @@ export default function SpeakerRevealSection() {
       <Flex
         direction="column"
         align="center"
-        maxW="1100px"
+        maxW="960px"
         mx="auto"
         position="relative"
         zIndex={1}
@@ -258,14 +353,20 @@ export default function SpeakerRevealSection() {
             y: smoothSubheadlineY,
             opacity: smoothSubheadlineOpacity,
             scale: smoothSubheadlineScale,
+            maxWidth: "100%",
           }}
         >
-          <Flex align="center" gap={3} mb={3.5}>
-            <Box w={{ base: "20px", md: "32px" }} h="1px" bg="rgba(207, 175, 137, 0.45)" />
+          <Flex align="center" justify="center" gap={{ base: 2, sm: 3 }} mb={3.5}>
+            <Box
+              w={{ base: "14px", sm: "22px", md: "32px" }}
+              h="1px"
+              bg="rgba(207, 175, 137, 0.4)"
+              flexShrink={0}
+            />
             <Text
               fontFamily="'Cinzel', serif"
-              fontSize={{ base: "11px", md: "13px" }}
-              letterSpacing={{ base: "0.26em", md: "0.34em" }}
+              fontSize={{ base: "10px", sm: "11px", md: "13px" }}
+              letterSpacing={{ base: "0.14em", sm: "0.24em", md: "0.34em" }}
               color="#CFAF89"
               textTransform="uppercase"
               textAlign="center"
@@ -273,7 +374,12 @@ export default function SpeakerRevealSection() {
             >
               14 November 2026 • G-Block Auditorium
             </Text>
-            <Box w={{ base: "20px", md: "32px" }} h="1px" bg="rgba(207, 175, 137, 0.45)" />
+            <Box
+              w={{ base: "14px", sm: "22px", md: "32px" }}
+              h="1px"
+              bg="rgba(207, 175, 137, 0.4)"
+              flexShrink={0}
+            />
           </Flex>
         </motion.div>
 
@@ -286,12 +392,12 @@ export default function SpeakerRevealSection() {
         >
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "38px", sm: "52px", md: "68px" }}
+            fontSize={{ base: "34px", sm: "48px", md: "66px" }}
             fontWeight={300}
             color="#FFFFFF"
             textAlign="center"
             lineHeight="1.1"
-            mb={{ base: 7, md: 10 }}
+            mb={{ base: 5, sm: 6, md: 8 }}
             letterSpacing="-0.01em"
           >
             Speaker{" "}
@@ -301,15 +407,16 @@ export default function SpeakerRevealSection() {
               fontStyle="italic"
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
             >
-              Reveal
+              Lineup
             </Box>
           </Text>
         </motion.div>
 
+        {/* Navigation Controls (Left / Segmented Progress Pills / Right) */}
         <motion.div
           style={{
-            y: smoothTabsY,
-            opacity: smoothTabsOpacity,
+            y: smoothControlsY,
+            opacity: smoothControlsOpacity,
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -317,180 +424,163 @@ export default function SpeakerRevealSection() {
           }}
         >
           <Flex
-            wrap="wrap"
-            justify="center"
             align="center"
-            gap={{ base: 2, sm: 3 }}
-            mb={4}
+            justify="center"
+            gap={{ base: 2.5, sm: 5 }}
+            mb={{ base: 5, sm: 6, md: 8 }}
             w="100%"
-            maxW="640px"
           >
-            {SPEAKERS.map((speaker, idx) => {
-              const isSelected = idx === currentIndex;
-
-              return (
-                <Box
-                  key={speaker.id}
-                  as="button"
-                  onClick={() => goToSpeaker(idx)}
-                  position="relative"
-                  py={2.5}
-                  px={{ base: 4, sm: 6 }}
-                  borderRadius="full"
-                  fontSize={{ base: "12px", md: "13.5px" }}
-                  fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                  fontWeight="700"
-                  letterSpacing="0.08em"
-                  textTransform="uppercase"
-                  color={isSelected ? "#FFFFFF" : "rgba(255, 255, 255, 0.6)"}
-                  display="flex"
-                  alignItems="center"
-                  gap={2.5}
-                  transition="all 0.25s ease"
-                  _hover={{
-                    color: "#FFFFFF",
-                    transform: "translateY(-1.5px)",
-                  }}
-                >
-                  {isSelected && mounted && (
-                    <motion.div
-                      layoutId="minimalActiveTab"
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundColor: "rgba(207, 175, 137, 0.16)",
-                        border: "1px solid rgba(207, 175, 137, 0.55)",
-                        borderRadius: "9999px",
-                        boxShadow: "0 4px 25px rgba(207, 175, 137, 0.22)",
-                        zIndex: -1,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 420,
-                        damping: 34,
-                      }}
-                    />
-                  )}
-
-                  <Box as="span" fontSize="10px" opacity={0.6} fontFamily="'Proxima Nova', sans-serif">
-                    0{idx + 1}
-                  </Box>
-                  <Box as="span">{speaker.category}</Box>
-                  <Box
-                    w="5px"
-                    h="5px"
-                    borderRadius="full"
-                    bg={isSelected ? "#CFAF89" : "rgba(255, 255, 255, 0.3)"}
-                    boxShadow={isSelected ? "0 0 8px #CFAF89" : "none"}
-                  />
-                </Box>
-              );
-            })}
-
-            <Box
-              py={2.5}
-              px={{ base: 4, sm: 6 }}
-              borderRadius="full"
-              border="1px dashed rgba(255, 255, 255, 0.14)"
-              bg="rgba(255, 255, 255, 0.02)"
-              color="rgba(255, 255, 255, 0.35)"
-              fontSize={{ base: "12px", md: "13.5px" }}
-              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-              fontWeight="700"
-              letterSpacing="0.08em"
-              textTransform="uppercase"
-              display="flex"
-              alignItems="center"
-              gap={2.5}
-              cursor="not-allowed"
-              userSelect="none"
-              opacity={0.6}
-              aria-disabled="true"
-            >
-              <Box as="span" fontSize="10px" opacity={0.5} fontFamily="'Proxima Nova', sans-serif">
-                03
-              </Box>
-              <Box as="span">Guest 03</Box>
-              <Box
-                as="span"
-                fontSize="11.5px"
-                color="#CFAF89"
-                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontWeight="700"
-                letterSpacing="0.08em"
-              >
-                [ Coming Soon ]
-              </Box>
-            </Box>
-          </Flex>
-
-          <Flex align="center" gap={4} mb={{ base: 6, md: 8 }}>
             <Box
               as="button"
+              type="button"
+              role="group"
               aria-label="Previous speaker"
               onClick={() => paginate(-1)}
-              color="#CFAF89"
-              fontSize="20px"
-              p={1.5}
+              flexShrink={0}
+              w={{ base: "38px", sm: "42px", md: "46px" }}
+              h={{ base: "38px", sm: "42px", md: "46px" }}
               borderRadius="full"
-              opacity={0.75}
-              _hover={{ opacity: 1, transform: "scale(1.15) translateX(-2px)", bg: "rgba(207, 175, 137, 0.1)" }}
-              transition="all 0.2s ease"
+              bg="rgba(255, 255, 255, 0.045)"
+              border="1px solid rgba(255, 255, 255, 0.12)"
+              color="rgba(255, 255, 255, 0.85)"
+              backdropFilter="blur(12px)"
+              boxShadow="0 8px 20px rgba(0, 0, 0, 0.28)"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              transition="all 0.28s cubic-bezier(0.16, 1, 0.3, 1)"
+              _hover={{
+                bg: "rgba(207, 175, 137, 0.14)",
+                borderColor: "rgba(207, 175, 137, 0.45)",
+                color: "#CFAF89",
+                transform: "translateY(-1px) scale(1.06)",
+                boxShadow: "0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(207, 175, 137, 0.15)",
+              }}
+              _active={{
+                transform: "scale(0.95)",
+              }}
               cursor="pointer"
             >
-              ←
+              <Box
+                as="svg"
+                viewBox="0 0 24 24"
+                w={{ base: "17px", md: "19px" }}
+                h={{ base: "17px", md: "19px" }}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transition="transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
+                _groupHover={{ transform: "translateX(-2px)" }}
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </Box>
             </Box>
-            <Box
-              w="80px"
-              h="2.5px"
-              bg="rgba(207, 175, 137, 0.15)"
-              borderRadius="full"
-              overflow="hidden"
-            >
-              {mounted && (
-                <motion.div
-                  key={`${currentIndex}-${isPaused}`}
-                  initial={{ width: "0%" }}
-                  animate={isPaused ? { width: "0%" } : { width: "100%" }}
-                  transition={{ duration: 3, ease: "linear" }}
-                  style={{
-                    height: "100%",
-                    background: "linear-gradient(90deg, #CFAF89, #FFF)",
-                    boxShadow: "0 0 10px #CFAF89",
-                  }}
-                />
-              )}
-            </Box>
+
+            <Flex align="center" gap={{ base: 1.5, sm: 2 }} px={{ base: 1, sm: 2 }}>
+              {SPEAKERS.map((item, idx) => {
+                const isCurrent = idx === currentIndex;
+                return (
+                  <Box
+                    key={item.id}
+                    as="button"
+                    type="button"
+                    aria-label={`Go to ${item.name}`}
+                    onClick={() => goToSpeaker(idx)}
+                    w={isCurrent ? { base: "24px", sm: "38px" } : { base: "7px", sm: "10px" }}
+                    h="4px"
+                    borderRadius="full"
+                    bg="rgba(255, 255, 255, 0.16)"
+                    overflow="hidden"
+                    position="relative"
+                    transition="width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease"
+                    _hover={{
+                      bg: "rgba(255, 255, 255, 0.32)",
+                    }}
+                    cursor="pointer"
+                  >
+                    {mounted && (
+                      <motion.div
+                        initial={{ width: "0%" }}
+                        animate={{
+                          width: isCurrent && !isPaused ? "100%" : "0%",
+                        }}
+                        transition={
+                          isCurrent && !isPaused
+                            ? { duration: SLIDE_DURATION_SEC, ease: "linear" }
+                            : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                        }
+                        style={{
+                          height: "100%",
+                          borderRadius: "9999px",
+                          background: "linear-gradient(90deg, #CFAF89, #FFFFFF)",
+                        }}
+                      />
+                    )}
+                  </Box>
+                );
+              })}
+            </Flex>
+
             <Box
               as="button"
+              type="button"
+              role="group"
               aria-label="Next speaker"
               onClick={() => paginate(1)}
-              color="#CFAF89"
-              fontSize="20px"
-              p={1.5}
+              flexShrink={0}
+              w={{ base: "38px", sm: "42px", md: "46px" }}
+              h={{ base: "38px", sm: "42px", md: "46px" }}
               borderRadius="full"
-              opacity={0.75}
-              _hover={{ opacity: 1, transform: "scale(1.15) translateX(2px)", bg: "rgba(207, 175, 137, 0.1)" }}
-              transition="all 0.2s ease"
+              bg="rgba(255, 255, 255, 0.045)"
+              border="1px solid rgba(255, 255, 255, 0.12)"
+              color="rgba(255, 255, 255, 0.85)"
+              backdropFilter="blur(12px)"
+              boxShadow="0 8px 20px rgba(0, 0, 0, 0.28)"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              transition="all 0.28s cubic-bezier(0.16, 1, 0.3, 1)"
+              _hover={{
+                bg: "rgba(207, 175, 137, 0.14)",
+                borderColor: "rgba(207, 175, 137, 0.45)",
+                color: "#CFAF89",
+                transform: "translateY(-1px) scale(1.06)",
+                boxShadow: "0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(207, 175, 137, 0.15)",
+              }}
+              _active={{
+                transform: "scale(0.95)",
+              }}
               cursor="pointer"
             >
-              →
+              <Box
+                as="svg"
+                viewBox="0 0 24 24"
+                w={{ base: "17px", md: "19px" }}
+                h={{ base: "17px", md: "19px" }}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transition="transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
+                _groupHover={{ transform: "translateX(2px)" }}
+              >
+                <path d="M9 18l6-6-6-6" />
+              </Box>
             </Box>
           </Flex>
         </motion.div>
 
+        {/* Main Speaker Panel */}
         <motion.div
           style={{
             y: smoothBoxY,
             scale: smoothBoxScale,
-            rotateX: smoothBoxRotateX,
             opacity: smoothBoxOpacity,
-            perspective: 1400,
-            transformStyle: "preserve-3d",
             width: "100%",
-            maxWidth: "980px",
-            overflow: "hidden",
-            borderRadius: "32px",
+            maxWidth: "880px",
           }}
         >
           <AnimatePresence mode="wait" custom={direction}>
@@ -502,8 +592,9 @@ export default function SpeakerRevealSection() {
               animate="center"
               exit="exit"
               drag="x"
+              dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.25}
+              dragElastic={0.2}
               onDragEnd={handleDragEnd}
               style={{
                 width: "100%",
@@ -515,257 +606,200 @@ export default function SpeakerRevealSection() {
               <Box
                 role="group"
                 w="100%"
-                borderRadius={{ base: "24px", md: "32px" }}
+                minH={{ base: "540px", sm: "560px", md: "420px" }}
+                display="flex"
+                alignItems="center"
+                borderRadius={{ base: "22px", sm: "26px", md: "30px" }}
                 bg={
                   isBoxHovered
-                    ? "linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(207, 175, 137, 0.04) 100%)"
-                    : "linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(207, 175, 137, 0.02) 100%)"
+                    ? "linear-gradient(145deg, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0.025) 100%)"
+                    : "linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 100%)"
                 }
                 border="1px solid"
-                borderColor={isBoxHovered ? "rgba(207, 175, 137, 0.65)" : "rgba(207, 175, 137, 0.3)"}
-                p={{ base: 5, sm: 8, md: 10 }}
+                borderColor={
+                  isBoxHovered
+                    ? "rgba(255, 255, 255, 0.16)"
+                    : "rgba(255, 255, 255, 0.08)"
+                }
+                p={{ base: 5, sm: 7, md: 9, lg: 10 }}
                 boxShadow={
                   isBoxHovered
-                    ? "0 35px 85px rgba(0, 0, 0, 0.8), 0 0 50px rgba(207, 175, 137, 0.24), inset 0 0 25px rgba(207, 175, 137, 0.05)"
-                    : "0 30px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(207, 175, 137, 0.1)"
+                    ? "0 36px 80px rgba(0, 0, 0, 0.65), 0 12px 32px rgba(0, 0, 0, 0.4)"
+                    : "0 24px 60px rgba(0, 0, 0, 0.5)"
                 }
-                backdropFilter="blur(20px)"
+                backdropFilter="blur(24px)"
                 position="relative"
                 overflow="hidden"
                 transform={
                   isBoxHovered
-                    ? `perspective(1000px) rotateX(${boxTilt.rx}deg) rotateY(${boxTilt.ry}deg) translateY(-5px)`
-                    : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)"
+                    ? "translateY(-6px) scale(1.01)"
+                    : "translateY(0px) scale(1)"
                 }
-                transition="transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease"
-                onMouseMove={handleBoxMouseMove}
-                onMouseEnter={handleBoxMouseEnter}
-                onMouseLeave={handleBoxMouseLeave}
+                transition="transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease, border-color 0.32s ease, background 0.32s ease"
+                onPointerEnter={handleBoxPointerEnter}
+                onPointerLeave={handleBoxPointerLeave}
               >
-                <Box
-                  position="absolute"
-                  inset={0}
-                  pointerEvents="none"
-                  opacity={isBoxHovered ? 1 : 0}
-                  transition="opacity 0.35s ease"
-                  background={`radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(207, 175, 137, 0.14), transparent 65%)`}
-                  zIndex={1}
-                />
-
-                <Box
-                  position="absolute"
-                  top={0}
-                  left="12%"
-                  right="12%"
-                  h="1px"
-                  bg="linear-gradient(90deg, transparent, #CFAF89, transparent)"
-                  opacity={isBoxHovered ? 1 : 0.35}
-                  transition="opacity 0.35s ease"
-                  zIndex={2}
-                />
-
-                <Box
-                  position="absolute"
-                  inset={0}
-                  backgroundImage="radial-gradient(rgba(207, 175, 137, 0.08) 1px, transparent 1px)"
-                  backgroundSize="24px 24px"
-                  pointerEvents="none"
-                  opacity={isBoxHovered ? 0.9 : 0.6}
-                  transition="opacity 0.35s ease"
-                  zIndex={0}
-                />
-
-                <Box
-                  position="absolute"
-                  top="12px"
-                  left="14px"
-                  color={isBoxHovered ? "#CFAF89" : "rgba(207, 175, 137, 0.5)"}
-                  transform={isBoxHovered ? "scale(1.2)" : "scale(1)"}
-                  transition="all 0.3s ease"
-                  fontSize="12px"
-                  fontFamily="monospace"
-                  pointerEvents="none"
-                  zIndex={3}
-                >
-                  +
-                </Box>
-                <Box
-                  position="absolute"
-                  top="12px"
-                  right="14px"
-                  color={isBoxHovered ? "#CFAF89" : "rgba(207, 175, 137, 0.5)"}
-                  transform={isBoxHovered ? "scale(1.2)" : "scale(1)"}
-                  transition="all 0.3s ease"
-                  fontSize="12px"
-                  fontFamily="monospace"
-                  pointerEvents="none"
-                  zIndex={3}
-                >
-                  +
-                </Box>
-                <Box
-                  position="absolute"
-                  bottom="12px"
-                  left="14px"
-                  color={isBoxHovered ? "#CFAF89" : "rgba(207, 175, 137, 0.5)"}
-                  transform={isBoxHovered ? "scale(1.2)" : "scale(1)"}
-                  transition="all 0.3s ease"
-                  fontSize="12px"
-                  fontFamily="monospace"
-                  pointerEvents="none"
-                  zIndex={3}
-                >
-                  +
-                </Box>
-                <Box
-                  position="absolute"
-                  bottom="12px"
-                  right="14px"
-                  color={isBoxHovered ? "#CFAF89" : "rgba(207, 175, 137, 0.5)"}
-                  transform={isBoxHovered ? "scale(1.2)" : "scale(1)"}
-                  transition="all 0.3s ease"
-                  fontSize="12px"
-                  fontFamily="monospace"
-                  pointerEvents="none"
-                  zIndex={3}
-                >
-                  +
-                </Box>
-
                 <Grid
-                  templateColumns={{ base: "1fr", md: "320px 1fr" }}
-                  gap={{ base: 7, md: 10 }}
+                  w="100%"
+                  templateColumns={{ base: "1fr", md: "250px 1fr", lg: "285px 1fr" }}
+                  gap={{ base: 5, sm: 7, md: 8, lg: 10 }}
                   alignItems="center"
                   position="relative"
                   zIndex={2}
                 >
+                  {/* Speaker Portrait */}
                   <Flex direction="column" align="center">
                     <Box
                       position="relative"
-                      w={{ base: "230px", sm: "270px", md: "300px" }}
-                      h={{ base: "285px", sm: "335px", md: "375px" }}
-                      borderRadius="22px"
+                      w={{ base: "195px", sm: "235px", md: "250px", lg: "285px" }}
+                      h={{ base: "242px", sm: "292px", md: "312px", lg: "355px" }}
+                      borderRadius={{ base: "18px", md: "20px" }}
                       overflow="hidden"
+                      bg="rgba(255, 255, 255, 0.03)"
                       border="1px solid"
-                      borderColor={isBoxHovered ? "rgba(207, 175, 137, 0.8)" : "rgba(207, 175, 137, 0.55)"}
+                      borderColor={
+                        isBoxHovered
+                          ? "rgba(255, 255, 255, 0.16)"
+                          : "rgba(255, 255, 255, 0.08)"
+                      }
                       boxShadow={
                         isBoxHovered
-                          ? "0 25px 55px rgba(207, 175, 137, 0.32), 0 0 35px rgba(207, 175, 137, 0.2)"
-                          : "0 20px 45px rgba(207, 175, 137, 0.22), 0 0 25px rgba(207, 175, 137, 0.1)"
+                          ? "0 24px 50px rgba(0, 0, 0, 0.6)"
+                          : "0 16px 36px rgba(0, 0, 0, 0.45)"
                       }
-                      transform={isBoxHovered ? "scale(1.025) translateY(-3px)" : "none"}
+                      transform={
+                        isBoxHovered
+                          ? "scale(1.03) translateY(-4px)"
+                          : "scale(1) translateY(0px)"
+                      }
                       transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
                     >
-                      <Box
-                        position="absolute"
-                        top="10px"
-                        left="10px"
-                        w="10px"
-                        h="10px"
-                        borderTop="1.5px solid #CFAF89"
-                        borderLeft="1.5px solid #CFAF89"
-                        pointerEvents="none"
-                        zIndex={6}
-                        transform={isBoxHovered ? "scale(1.15)" : "scale(1)"}
-                        transition="transform 0.3s ease"
-                      />
-                      <Box
-                        position="absolute"
-                        top="10px"
-                        right="10px"
-                        w="10px"
-                        h="10px"
-                        borderTop="1.5px solid #CFAF89"
-                        borderRight="1.5px solid #CFAF89"
-                        pointerEvents="none"
-                        zIndex={6}
-                        transform={isBoxHovered ? "scale(1.15)" : "scale(1)"}
-                        transition="transform 0.3s ease"
-                      />
-                      <Box
-                        position="absolute"
-                        bottom="10px"
-                        left="10px"
-                        w="10px"
-                        h="10px"
-                        borderBottom="1.5px solid #CFAF89"
-                        borderLeft="1.5px solid #CFAF89"
-                        pointerEvents="none"
-                        zIndex={6}
-                        transform={isBoxHovered ? "scale(1.15)" : "scale(1)"}
-                        transition="transform 0.3s ease"
-                      />
-                      <Box
-                        position="absolute"
-                        bottom="10px"
-                        right="10px"
-                        w="10px"
-                        h="10px"
-                        borderBottom="1.5px solid #CFAF89"
-                        borderRight="1.5px solid #CFAF89"
-                        pointerEvents="none"
-                        zIndex={6}
-                        transform={isBoxHovered ? "scale(1.15)" : "scale(1)"}
-                        transition="transform 0.3s ease"
-                      />
-
-                      <Flex
-                        position="absolute"
-                        top="12px"
-                        left="22px"
-                        right="22px"
-                        justify="space-between"
-                        align="center"
-                        zIndex={5}
-                        pointerEvents="none"
-                        opacity={isBoxHovered ? 1 : 0.85}
-                        transition="opacity 0.3s ease"
-                      >
-
-                      </Flex>
-
-                      <ChakraImage
-                        src={active.image}
-                        alt={active.name}
-                        w="100%"
-                        h="100%"
-                        objectFit="cover"
-                        objectPosition={active.objectPosition ?? "center top"}
-                        loading="eager"
-                        draggable={false}
-                      />
+                      {!showFallbackPortrait ? (
+                        <ChakraImage
+                          src={active.image}
+                          alt={active.name}
+                          w="100%"
+                          h="100%"
+                          objectFit="cover"
+                          objectPosition={active.objectPosition ?? "center top"}
+                          loading="eager"
+                          draggable={false}
+                          onError={() =>
+                            setImgFailed((prev) => ({ ...prev, [active.id]: true }))
+                          }
+                        />
+                      ) : (
+                        <Flex
+                          w="100%"
+                          h="100%"
+                          direction="column"
+                          align="center"
+                          justify="center"
+                          position="relative"
+                          bg="linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(45, 17, 71, 0.55) 100%)"
+                          p={5}
+                          userSelect="none"
+                        >
+                          <Box
+                            position="absolute"
+                            w="160px"
+                            h="160px"
+                            borderRadius="full"
+                            bg="radial-gradient(circle, rgba(207, 175, 137, 0.16) 0%, transparent 70%)"
+                            filter="blur(24px)"
+                            pointerEvents="none"
+                          />
+                          <Flex
+                            w={{ base: "72px", sm: "84px" }}
+                            h={{ base: "72px", sm: "84px" }}
+                            borderRadius="full"
+                            bg="rgba(255, 255, 255, 0.04)"
+                            border="1px solid rgba(255, 255, 255, 0.1)"
+                            align="center"
+                            justify="center"
+                            mb={3.5}
+                          >
+                            <Text
+                              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+                              fontSize={{ base: "26px", sm: "32px" }}
+                              fontWeight={300}
+                              color="#CFAF89"
+                              letterSpacing="0.06em"
+                            >
+                              {getInitials(active.name)}
+                            </Text>
+                          </Flex>
+                          <Text
+                            fontFamily="'Cinzel', serif"
+                            fontSize="9.5px"
+                            letterSpacing="0.2em"
+                            color="rgba(255, 255, 255, 0.45)"
+                            textTransform="uppercase"
+                            textAlign="center"
+                          >
+                            {active.category}
+                          </Text>
+                        </Flex>
+                      )}
                     </Box>
                   </Flex>
 
-                  <Flex direction="column" justify="center">
-                    <Flex align="center" gap={2.5} mb={2}>
+                  {/* Speaker Info */}
+                  <Flex
+                    direction="column"
+                    justify="center"
+                    align={{ base: "center", md: "flex-start" }}
+                    textAlign={{ base: "center", md: "left" }}
+                    minW={0}
+                  >
+                    <Flex
+                      align="center"
+                      justify={{ base: "center", md: "space-between" }}
+                      w="100%"
+                      mb={{ base: 2.5, md: 3 }}
+                      gap={3}
+                      flexWrap="wrap"
+                    >
                       <Box
-                        w={isBoxHovered ? "20px" : "14px"}
-                        h="1.5px"
-                        bg="#CFAF89"
-                        transition="width 0.3s ease"
-                      />
-                      <Text
-                        fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                        fontWeight="700"
-                        fontSize={{ base: "15px", md: "18px" }}
-                        letterSpacing="0.14em"
-                        color="#CFAF89"
-                        textTransform="uppercase"
+                        px={{ base: 3, sm: 3.5 }}
+                        py={1}
+                        borderRadius="full"
+                        bg="rgba(207, 175, 137, 0.1)"
+                        border="1px solid rgba(207, 175, 137, 0.22)"
                       >
-                        {active.category}
-                      </Text>
+                        <Text
+                          fontFamily="'Cinzel', serif"
+                          fontWeight="600"
+                          fontSize={{ base: "10.5px", sm: "11px", md: "12px" }}
+                          letterSpacing="0.16em"
+                          color="#CFAF89"
+                          textTransform="uppercase"
+                        >
+                          {active.category}
+                        </Text>
+                      </Box>
 
+                      <Text
+                        display={{ base: "none", md: "block" }}
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                        fontSize="12px"
+                        letterSpacing="0.14em"
+                        color="rgba(255, 255, 255, 0.4)"
+                        fontWeight="500"
+                      >
+                        0{currentIndex + 1} / 0{SPEAKERS.length}
+                      </Text>
                     </Flex>
 
-                    <Box mb={2}>
+                    <Box mb={2} w="100%">
                       <Text
                         fontFamily={active.fontFamily}
                         fontSize={active.fontSize}
                         letterSpacing={active.letterSpacing}
-                        fontWeight={active.id === "kaustubh-agarwal" ? 700 : 300}
+                        fontWeight={active.fontWeight ?? 300}
                         color="#FFFFFF"
                         lineHeight="1.15"
+                        wordBreak="break-word"
                       >
                         {active.name}
                       </Text>
@@ -773,10 +807,10 @@ export default function SpeakerRevealSection() {
 
                     <Text
                       fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                      fontSize={{ base: "15px", md: "17px" }}
+                      fontSize={{ base: "14px", sm: "15.5px", md: "16.5px" }}
                       fontWeight="500"
-                      color="rgba(207, 175, 137, 0.9)"
-                      mb={4}
+                      color="rgba(207, 175, 137, 0.92)"
+                      mb={{ base: 3, md: 4 }}
                       lineHeight="1.45"
                     >
                       {active.role}
@@ -784,33 +818,43 @@ export default function SpeakerRevealSection() {
 
                     <Text
                       fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                      fontSize={{ base: "14px", md: "16px" }}
+                      fontSize={{ base: "13.5px", sm: "14.5px", md: "15.5px", lg: "16px" }}
                       fontWeight={300}
-                      color="rgba(255, 255, 255, 0.85)"
-                      lineHeight="1.75"
-                      mb={5}
+                      color="rgba(255, 255, 255, 0.82)"
+                      lineHeight={{ base: "1.68", md: "1.78" }}
+                      mb={{ base: 4, md: 5 }}
                     >
                       {active.description}
                     </Text>
 
-                    <Flex align="center" gap={2.5} pt={2} opacity={0.88}>
-                      <Box
-                        w="6px"
-                        h="6px"
-                        borderRadius="full"
-                        bg="#4ade80"
-                        boxShadow={isBoxHovered ? "0 0 14px #4ade80" : "0 0 10px #4ade80"}
-                        transition="box-shadow 0.3s ease"
-                      />
+                    <Flex
+                      align="center"
+                      justify={{ base: "space-between", md: "flex-start" }}
+                      gap={3}
+                      pt={3}
+                      w="100%"
+                      borderTop="1px solid rgba(255, 255, 255, 0.07)"
+                    >
                       <Text
                         fontFamily="'Cinzel', serif"
-                        fontSize="11.5px"
-                        color="#CFAF89"
-                        letterSpacing="0.12em"
+                        fontSize={{ base: "10.5px", sm: "11.5px" }}
+                        color="rgba(207, 175, 137, 0.85)"
+                        letterSpacing="0.14em"
                         textTransform="uppercase"
                         fontWeight="600"
                       >
-                        14 NOVEMBER 2026
+                        {active.sessionTime}
+                      </Text>
+
+                      <Text
+                        display={{ base: "block", md: "none" }}
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                        fontSize="11px"
+                        letterSpacing="0.12em"
+                        color="rgba(255, 255, 255, 0.45)"
+                        fontWeight="500"
+                      >
+                        0{currentIndex + 1} / 0{SPEAKERS.length}
                       </Text>
                     </Flex>
                   </Flex>
@@ -820,15 +864,16 @@ export default function SpeakerRevealSection() {
           </AnimatePresence>
         </motion.div>
 
-        <Flex align="center" gap={2} mt={4} opacity={0.5}>
+        <Flex align="center" gap={2} mt={{ base: 4, md: 5 }} opacity={0.45}>
           <Text
             fontFamily="'Proxima Nova', sans-serif"
-            fontSize="11px"
-            letterSpacing="0.1em"
-            color="rgba(207, 175, 137, 0.75)"
+            fontSize={{ base: "10px", sm: "11px" }}
+            letterSpacing="0.12em"
+            color="rgba(255, 255, 255, 0.7)"
             textTransform="uppercase"
+            textAlign="center"
           >
-            ← Swipe or use arrow keys to navigate guests →
+            Swipe or use arrow keys to navigate speakers
           </Text>
         </Flex>
       </Flex>

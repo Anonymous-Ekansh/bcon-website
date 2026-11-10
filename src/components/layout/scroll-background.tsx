@@ -14,7 +14,7 @@ const ScrollBackground = () => {
     <Box
       position="fixed"
       inset="0"
-      w="100vw"
+      w="100%"
       h="100vh"
       zIndex={0}
       pointerEvents="none"

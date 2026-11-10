@@ -173,9 +173,10 @@ const CompetitionSection: FC = () => {
       id="competitions"
       bg="transparent"
       py={{ base: 8, md: 16 }}
-      px={{ base: 4, md: 8 }}
+      px={{ base: 5, md: 8 }}
+      overflow="hidden"
     >
-      <Flex direction="column" maxW="60rem" mx="auto" align="center">
+      <Flex direction="column" maxW="56rem" mx="auto" align="center">
         <Text
           fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
           fontSize={{ base: "3xl", md: "5xl" }}

@@ -105,10 +105,11 @@ function Navbar() {
           as="nav"
           alignItems="center"
           justify="space-between"
-          maxW="1536px"
+          maxW="1400px"
           mx="auto"
-          py={scrolled ? { base: 2.5, md: 3 } : { base: 3.5, md: 5 }}
-          px={{ base: 4, sm: 6, md: 8, lg: 10 }}
+          py={scrolled ? { base: 2.5, md: 3 } : { base: 3, md: 3.5 }}
+          px={{ base: 4, sm: 6, md: 8, lg: 6, xl: 10 }}
+          gap={{ base: 3, lg: 3, xl: 6 }}
           transition="padding 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
         >
           <Box
@@ -118,10 +119,11 @@ function Navbar() {
             _hover={{ transform: "scale(1.04)" }}
             display="flex"
             alignItems="center"
+            flexShrink={0}
           >
             <Image
               alt="Business Conclave × Shiv Nadar University"
-              h={{ base: "32px", sm: "38px", md: "46px" }}
+              h={{ base: "28px", sm: "34px", lg: "30px", xl: "38px" }}
               src="/images/bcon-x-snu-navbar.png"
               objectFit="contain"
             />
@@ -133,18 +135,21 @@ function Navbar() {
             justify="center"
             alignItems="center"
             fontFamily="'Proxima Nova', 'Inter', sans-serif"
-            gap={{ lg: 7, xl: 9 }}
+            gap={{ lg: 3, xl: 6 }}
+            px={{ lg: 2, xl: 4 }}
           >
             {navItems.map(({ title, href, tag }, i) => (
               <ChakraLink
                 key={i}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                fontSize="14.5px"
+                fontSize={{ lg: "11px", xl: "13px" }}
                 fontWeight="500"
-                color="rgba(255, 255, 255, 0.82)"
-                letterSpacing="0.06em"
+                color="rgba(255, 255, 255, 0.85)"
+                letterSpacing={{ lg: "0.03em", xl: "0.05em" }}
                 textTransform="uppercase"
+                whiteSpace="nowrap"
+                flexShrink={0}
                 position="relative"
                 display="flex"
                 alignItems="center"
@@ -171,7 +176,7 @@ function Navbar() {
                 {tag && (
                   <Box
                     as="span"
-                    fontSize="9px"
+                    fontSize={{ lg: "7.5px", xl: "8.5px" }}
                     fontFamily="'Cinzel', serif"
                     fontWeight="700"
                     color="#CFAF89"
@@ -180,7 +185,8 @@ function Navbar() {
                     px={1.5}
                     py={0.5}
                     borderRadius="full"
-                    letterSpacing="0.08em"
+                    letterSpacing="0.06em"
+                    whiteSpace="nowrap"
                   >
                     {tag}
                   </Box>
@@ -189,7 +195,7 @@ function Navbar() {
             ))}
           </Flex>
 
-          <Flex display={{ base: "none", lg: "flex" }} gap={5} alignItems="center" zIndex="10">
+          <Flex display={{ base: "none", lg: "flex" }} gap={4} alignItems="center" zIndex="10" flexShrink={0}>
             <Button
               as="a"
               href="https://forms.rishabhj.in/bcon"
@@ -198,11 +204,12 @@ function Navbar() {
               color="#2D1147"
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
               fontWeight="700"
-              fontSize="14.5px"
+              fontSize={{ lg: "12px", xl: "13.5px" }}
               letterSpacing="0.04em"
-              px={7}
-              py={5}
+              px={{ lg: 4, xl: 6 }}
+              h={{ lg: "36px", xl: "42px" }}
               borderRadius="full"
+              whiteSpace="nowrap"
               boxShadow="0 4px 20px rgba(207, 175, 137, 0.25)"
               _hover={{
                 bg: "white",

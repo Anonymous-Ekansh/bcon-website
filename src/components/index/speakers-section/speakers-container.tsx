@@ -16,10 +16,10 @@ function SpeakersContainer({ limit, useCarouselOnMobile = true }: SpeakersContai
     <Flex
       display={useCarouselOnMobile ? { base: "none", md: "flex" } : "flex"}
       flexDir="column"
-      maxW="60rem"
+      maxW="54rem"
       mx="auto"
       mt={4}
-      px={4}
+      px={{ base: 5, md: 8 }}
       position="relative"
     >
       {displayedSpeakers.map((speaker, i) => (

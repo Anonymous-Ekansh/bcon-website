@@ -207,7 +207,7 @@ const HeroSection = () => {
   return (
     <Box
       position="relative"
-      w="100vw"
+      w="100%"
       minH="100vh"
       overflow="hidden"
       bg="transparent"
@@ -220,27 +220,27 @@ const HeroSection = () => {
         justify="space-between"
         position="relative"
         zIndex="10"
-        minH="calc(100vh - 100px)"
-        maxW="1440px"
+        minH="100vh"
+        maxW="1240px"
         mx="auto"
-        px={{ base: 6, md: 12, lg: 20 }}
-        pt={{ base: "5rem", md: "6rem" }}
-        pb={{ base: 16, md: 20 }}
-        gap={{ base: 12, lg: 8 }}
+        px={{ base: 5, sm: 8, md: 10, lg: 10, xl: 14 }}
+        pt={{ base: "5rem", md: "5.5rem", lg: "5.25rem", xl: "6rem" }}
+        pb={{ base: 10, md: 8, lg: 6 }}
+        gap={{ base: 6, lg: 8 }}
       >
-        <Flex direction="column" justify="center" flex="1" maxW={{ base: "100%", md: "600px", lg: "700px", xl: "800px" }}>
+        <Flex direction="column" justify="center" flex="1" maxW={{ base: "100%", md: "520px", lg: "540px", xl: "620px" }}>
         <Box
           as={motion.div}
           variants={eyebrowVariant}
           initial="hidden"
           animate={controls}
-          mb={{ base: 6, md: 8 }}
+          mb={{ base: 2.5, md: 3 }}
           alignSelf={{ base: "center", lg: "flex-start" }}
         >
           <Image 
             src="/images/snioe-inspiria.png" 
             alt="SNIoE &times; Inspiria Presents" 
-            h={{ base: "100px", md: "120px", lg: "150px", xl: "180px" }}
+            h={{ base: "60px", sm: "70px", md: "78px", lg: "74px", xl: "96px" }}
             maxW="100%"
             objectFit="contain"
             objectPosition={{ base: "center", lg: "left center" }}
@@ -251,10 +251,10 @@ const HeroSection = () => {
           variants={dividerVariant}
           initial="hidden"
           animate={controls}
-          w={{ base: "60px", md: "90px" }}
+          w={{ base: "60px", md: "80px" }}
           h="1px"
           bg={GOLD}
-          mb={{ base: 6, md: 8 }}
+          mb={{ base: 2.5, md: 3 }}
           mx={{ base: "auto", lg: 0 }}
           transformOrigin={{ base: "center", lg: "left" }}
         />
@@ -263,15 +263,15 @@ const HeroSection = () => {
           variants={headlineVariant}
           initial="hidden"
           animate={controls}
-          mb={{ base: 4, md: 6 }}
-          ml={{ base: "0", lg: "-10px", xl: "-12px" }}
+          mb={{ base: 2.5, md: 3.5 }}
+          ml={{ base: "0", lg: "-3px", xl: "-5px" }}
           textAlign={{ base: "center", lg: "left" }}
         >
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "42px", sm: "56px", md: "96px", lg: "120px", xl: "140px" }}
+            fontSize={{ base: "38px", sm: "48px", md: "62px", lg: "66px", xl: "86px" }}
             fontWeight="300"
-            lineHeight="0.9"
+            lineHeight="0.92"
             color="#FFFFFF"
             letterSpacing="-0.02em"
             whiteSpace="nowrap"
@@ -280,9 +280,9 @@ const HeroSection = () => {
           </Text>
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-            fontSize={{ base: "42px", sm: "56px", md: "96px", lg: "120px", xl: "140px" }}
+            fontSize={{ base: "38px", sm: "48px", md: "62px", lg: "66px", xl: "86px" }}
             fontWeight="300"
-            lineHeight="0.9"
+            lineHeight="0.92"
             color="#FFFFFF"
             letterSpacing="-0.02em"
             whiteSpace="nowrap"
@@ -304,12 +304,12 @@ const HeroSection = () => {
           initial="hidden"
           animate={controls}
           fontFamily="'Proxima Nova', 'Inter', sans-serif"
-          fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+          fontSize={{ base: "13.5px", md: "14.5px", lg: "15px", xl: "16px" }}
           fontWeight="300"
           color="rgba(255, 255, 255, 0.7)"
-          maxW="520px"
-          lineHeight="1.7"
-          mb={{ base: 8, md: 10 }}
+          maxW="460px"
+          lineHeight="1.6"
+          mb={{ base: 4, md: 5 }}
           textAlign={{ base: "center", lg: "left" }}
           mx={{ base: "auto", lg: 0 }}
         >
@@ -323,12 +323,12 @@ const HeroSection = () => {
           animate={controls}
           align="center"
           justifyContent={{ base: "center", lg: "flex-start" }}
-          gap={4}
+          gap={3}
           display={{ base: "none", md: "flex" }}
         >
           <Text
             fontFamily="'Cinzel', serif"
-            fontSize={{ base: "28px", md: "36px" }}
+            fontSize={{ base: "22px", md: "24px", lg: "26px", xl: "30px" }}
             fontWeight="500"
             color={GOLD}
             letterSpacing="0.08em"
@@ -336,14 +336,14 @@ const HeroSection = () => {
             2026
           </Text>
           <Text
-            fontSize={{ base: "14px", md: "16px" }}
+            fontSize={{ base: "14px", md: "15px" }}
             color="rgba(207, 175, 137, 0.8)"
           >
             -
           </Text>
           <Text
             fontFamily="'Proxima Nova', 'Inter', sans-serif"
-            fontSize={{ base: "11px", md: "12px" }}
+            fontSize={{ base: "10.5px", md: "11.5px" }}
             fontWeight="500"
             textTransform="uppercase"
             color="rgba(255, 255, 255, 0.6)"

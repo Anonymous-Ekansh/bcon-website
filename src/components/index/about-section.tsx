@@ -45,7 +45,7 @@ const AboutSection: FC = () => {
           </Text>
         </motion.div>
 
-        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={12} maxW="1200px" w="100%">
+        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={{ base: 8, lg: 10 }} maxW="1060px" w="100%">
           <GridItem>
             <motion.div
               initial={{ opacity: 0, y: 30 }}

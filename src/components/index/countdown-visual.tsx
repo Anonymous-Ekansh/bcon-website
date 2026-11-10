@@ -3,7 +3,7 @@ import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiCalendar } from "react-icons/fi";
 
 const GOLD = "#CFAF89";
 const GOLD_DARK = "#B08A30";
@@ -193,7 +193,7 @@ const CountdownVisual = () => {
         transition={{ duration: 1.0, delay: STAIR_COUNT * 0.12 + 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{ width: "100%" }}
       >
-        <Flex direction="column" align="center" mt={0} mb={5} w="100%">
+        <Flex direction="column" align="center" mt={0} mb={3.5} w="100%">
           <Text
             fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
             fontSize={{ base: "19px", md: "22px", lg: "25px" }}
@@ -205,7 +205,7 @@ const CountdownVisual = () => {
           </Text>
         </Flex>
       </motion.div>
-      <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={7} w="100%">
+      <Flex align="flex-start" justify="center" zIndex="1" position="relative" mb={5} w="100%">
         <CountdownItem label="DAYS" value={timeLeft.days} />
         <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }} color={GOLD} lineHeight="1" mx={0.5}>:</Text>
         <CountdownItem label="HOURS" value={timeLeft.hours} />
@@ -214,33 +214,95 @@ const CountdownVisual = () => {
         <Text fontFamily="'Tan Vivre Libre', 'Playfair Display', serif" fontSize={{ base: "28px", sm: "34px", md: "44px", lg: "56px" }} color={GOLD} lineHeight="1" mx={0.5}>:</Text>
         <CountdownItem label="SECONDS" value={timeLeft.seconds} isSeconds={true} />
       </Flex>
-      <Button
-        as={Link}
-        href="https://forms.rishabhj.in/bcon"
-        bg={GOLD}
-        color="#12081F"
-        fontFamily="'Proxima Nova', 'Inter', sans-serif"
-        fontSize={{ base: "14px", md: "15px" }}
-        fontWeight="600"
-        letterSpacing="0.12em"
-        textTransform="uppercase"
-        px={{ base: 9, md: 10 }}
-        py={{ base: 6, md: 6 }}
-        borderRadius="0"
-        clipPath="polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))"
-        rightIcon={<FiArrowRight size={22} />}
-        _hover={{
-          bg: "#E8C87A",
-          transform: "translateY(-3px)",
-          boxShadow: "0px 15px 35px rgba(207, 175, 137, 0.3)"
-        }}
-        _active={{
-          transform: "translateY(0px)",
-        }}
-        transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-      >
-        Register Now
-      </Button>
+      <Flex direction="column" align="center" gap={3} w={{ base: "236px", sm: "248px", md: "256px" }} mx="auto">
+        <Button
+          as={Link}
+          href="https://forms.rishabhj.in/bcon"
+          target="_blank"
+          w="100%"
+          h={{ base: "48px", md: "52px" }}
+          bg={GOLD}
+          color="#12081F"
+          fontFamily="'Proxima Nova', 'Inter', sans-serif"
+          fontSize={{ base: "13.5px", md: "14.5px" }}
+          fontWeight="700"
+          letterSpacing="0.14em"
+          textTransform="uppercase"
+          borderRadius="0"
+          clipPath="polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))"
+          rightIcon={<FiArrowRight size={18} />}
+          _hover={{
+            bg: "#E8C87A",
+            transform: "translateY(-2px)",
+            boxShadow: "0px 15px 35px rgba(207, 175, 137, 0.3)",
+          }}
+          _active={{
+            transform: "translateY(0px)",
+          }}
+          transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+        >
+          Register Now
+        </Button>
+
+        <Box
+          as={Link}
+          href="/itinerary"
+          role="group"
+          w="100%"
+          p="1px"
+          bg="linear-gradient(135deg, rgba(207, 175, 137, 0.85) 0%, rgba(207, 175, 137, 0.28) 50%, rgba(207, 175, 137, 0.85) 100%)"
+          clipPath="polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))"
+          transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+          _hover={{
+            bg: GOLD,
+            transform: "translateY(-2px)",
+            filter: "drop-shadow(0px 10px 24px rgba(207, 175, 137, 0.24))",
+          }}
+          _active={{
+            transform: "translateY(0px)",
+          }}
+        >
+          <Flex
+            w="100%"
+            h={{ base: "42px", md: "44px" }}
+            bg="rgba(26, 9, 43, 0.9)"
+            clipPath="polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))"
+            align="center"
+            justify="center"
+            gap={2.5}
+            px={5}
+            transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+            _groupHover={{
+              bg: "rgba(42, 16, 68, 0.92)",
+            }}
+          >
+            <FiCalendar size={14} color={GOLD} />
+            <Text
+              as="span"
+              fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              fontSize={{ base: "12px", md: "12.5px" }}
+              fontWeight="600"
+              letterSpacing="0.15em"
+              textTransform="uppercase"
+              color={GOLD}
+              transition="color 0.3s ease"
+              _groupHover={{ color: "#FFFFFF" }}
+            >
+              Event Itinerary
+            </Text>
+            <Box
+              as="span"
+              display="inline-flex"
+              alignItems="center"
+              color={GOLD}
+              transition="transform 0.3s ease, color 0.3s ease"
+              _groupHover={{ transform: "translateX(3px)", color: "#FFFFFF" }}
+            >
+              <FiArrowRight size={14} />
+            </Box>
+          </Flex>
+        </Box>
+      </Flex>
     </Flex>
   );
 };

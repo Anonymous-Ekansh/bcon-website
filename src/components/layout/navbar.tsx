@@ -8,7 +8,7 @@ import {
   Text,
   Link as ChakraLink,
 } from "@chakra-ui/react";
-import { FiArrowRight, FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiArrowRight, FiCalendar, FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -496,7 +496,7 @@ function Navbar() {
                     letterSpacing="0.04em"
                     borderRadius="full"
                     boxShadow="0 10px 30px rgba(207, 175, 137, 0.35)"
-                    mb={4}
+                    mb={3}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -507,6 +507,32 @@ function Navbar() {
                   >
                     <span>Register for Conclave</span>
                     <FiArrowRight size={18} />
+                  </Button>
+
+                  <Button
+                    onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLDivElement>, "/itinerary")}
+                    w="100%"
+                    h="46px"
+                    bg="rgba(207, 175, 137, 0.08)"
+                    color="#CFAF89"
+                    border="1px solid rgba(207, 175, 137, 0.45)"
+                    fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                    fontWeight="600"
+                    fontSize="13.5px"
+                    letterSpacing="0.08em"
+                    textTransform="uppercase"
+                    borderRadius="full"
+                    mb={4}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={2}
+                    _hover={{ bg: "rgba(207, 175, 137, 0.16)", color: "#FFFFFF" }}
+                    _active={{ transform: "scale(0.98)" }}
+                    transition="all 0.25s ease"
+                  >
+                    <FiCalendar size={15} />
+                    <span>Event Itinerary • 14 Nov</span>
                   </Button>
 
                   <Text

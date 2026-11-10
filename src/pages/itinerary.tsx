@@ -568,12 +568,22 @@ export default function ItineraryPage() {
               A curated full-day convergence of keynote sessions, hands-on workshops, candid fireside panels, and live entertainment.
             </Text>
             <Flex
+              as="a"
+              href="https://maps.app.goo.gl/4mspRRssrjY563N9A"
+              target="_blank"
+              rel="noopener noreferrer"
               align="center"
               justify="center"
               gap={2}
-              color="rgba(207, 175, 137, 0.75)"
+              color="rgba(207, 175, 137, 0.8)"
               fontSize="12.5px"
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              transition="all 0.25s ease"
+              _hover={{
+                color: "#CFAF89",
+                textDecoration: "underline",
+                textUnderlineOffset: "4px",
+              }}
             >
               <FiMapPin size={13} />
               <Text>G-Block, Shiv Nadar University</Text>

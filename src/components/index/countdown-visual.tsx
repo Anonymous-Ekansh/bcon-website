@@ -276,7 +276,6 @@ const CountdownVisual = () => {
               bg: "rgba(42, 16, 68, 0.92)",
             }}
           >
-            <FiCalendar size={14} color={GOLD} />
             <Text
               as="span"
               fontFamily="'Proxima Nova', 'Inter', sans-serif"

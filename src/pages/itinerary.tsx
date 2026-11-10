@@ -261,7 +261,7 @@ function SessionVisual({
         templateColumns="repeat(2, 1fr)"
         gap={{ base: 2, sm: 2.5, md: 3 }}
         w="100%"
-        maxW={{ base: "270px", sm: "300px", md: "335px" }}
+        maxW={{ base: "260px", sm: "290px", md: "335px" }}
         mx="auto"
         p={{ base: 2, sm: 2.5, md: 3 }}
         borderRadius={{ base: "16px", sm: "18px" }}
@@ -304,7 +304,7 @@ function SessionVisual({
               <Flex w="100%" h="100%" align="center" justify="center">
                 <Text
                   fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                  fontSize={{ base: "20px", sm: "24px" }}
+                  fontSize={{ base: "18px", sm: "22px" }}
                   color="rgba(207, 175, 137, 0.5)"
                 >
                   {sp.name
@@ -318,19 +318,19 @@ function SessionVisual({
             <Box
               position="absolute"
               inset="0"
-              bg="linear-gradient(to top, rgba(12, 4, 22, 0.92) 0%, rgba(12, 4, 22, 0.22) 45%, transparent 100%)"
+              bg="linear-gradient(to top, rgba(12, 4, 22, 0.94) 0%, rgba(12, 4, 22, 0.25) 45%, transparent 100%)"
               pointerEvents="none"
             />
             <Box
               position="absolute"
-              bottom="8px"
-              left="8px"
-              right="8px"
+              bottom={{ base: "6px", sm: "8px" }}
+              left={{ base: "6px", sm: "8px" }}
+              right={{ base: "6px", sm: "8px" }}
               pointerEvents="none"
             >
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                fontSize={{ base: "10.5px", sm: "11px" }}
+                fontSize={{ base: "9.5px", sm: "11px" }}
                 fontWeight="600"
                 color="#FFFFFF"
                 lineHeight="1.2"
@@ -340,7 +340,7 @@ function SessionVisual({
               </Text>
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                fontSize={{ base: "9px", sm: "9.5px" }}
+                fontSize={{ base: "8px", sm: "9.5px" }}
                 color="#CFAF89"
                 lineHeight="1.2"
                 noOfLines={1}
@@ -361,8 +361,8 @@ function SessionVisual({
         <Box
           position="relative"
           w={{ base: "100%", sm: "240px", md: "260px" }}
-          maxW={{ base: "230px", sm: "250px", md: "260px" }}
-          h={{ base: "285px", sm: "310px", md: "325px" }}
+          maxW={{ base: "210px", sm: "240px", md: "260px" }}
+          h={{ base: "255px", sm: "295px", md: "325px" }}
           borderRadius={{ base: "16px", sm: "18px" }}
           overflow="hidden"
           bg="rgba(22, 8, 38, 0.92)"
@@ -395,7 +395,7 @@ function SessionVisual({
             <Flex w="100%" h="100%" align="center" justify="center">
               <Text
                 fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontSize={{ base: "40px", sm: "48px" }}
+                fontSize={{ base: "36px", sm: "44px" }}
                 color="rgba(207, 175, 137, 0.4)"
                 fontWeight="300"
               >
@@ -410,19 +410,19 @@ function SessionVisual({
           <Box
             position="absolute"
             inset="0"
-            bg="linear-gradient(to top, rgba(14, 5, 26, 0.9) 0%, rgba(14, 5, 26, 0.15) 45%, transparent 100%)"
+            bg="linear-gradient(to top, rgba(14, 5, 26, 0.92) 0%, rgba(14, 5, 26, 0.18) 45%, transparent 100%)"
             pointerEvents="none"
           />
           <Box
             position="absolute"
-            bottom={{ base: "12px", sm: "14px" }}
-            left={{ base: "12px", sm: "14px" }}
-            right={{ base: "12px", sm: "14px" }}
+            bottom={{ base: "10px", sm: "14px" }}
+            left={{ base: "10px", sm: "14px" }}
+            right={{ base: "10px", sm: "14px" }}
             pointerEvents="none"
           >
             <Text
               fontFamily="'Cinzel', serif"
-              fontSize={{ base: "9px", sm: "9.5px" }}
+              fontSize={{ base: "8.5px", sm: "9.5px" }}
               letterSpacing="0.16em"
               color="#CFAF89"
               textTransform="uppercase"
@@ -432,7 +432,7 @@ function SessionVisual({
             </Text>
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-              fontSize={{ base: "16.5px", sm: "18px" }}
+              fontSize={{ base: "15.5px", sm: "18px" }}
               color="#FFFFFF"
               fontWeight="300"
               lineHeight="1.2"
@@ -474,18 +474,18 @@ function ItinerarySessionCard({
     restDelta: 0.001,
   });
 
-  const cardY = useTransform(smoothProgress, [0, 0.28, 0.78, 1], [42, 0, 0, -24]);
+  const cardY = useTransform(smoothProgress, [0, 0.25, 0.85, 1], [28, 0, 0, -16]);
   const cardOpacity = useTransform(
     smoothProgress,
-    [0, 0.2, 0.85, 1],
-    [0.08, 1, 1, 0.35]
+    [0, 0.18, 0.9, 1],
+    [0.15, 1, 1, 0.4]
   );
   const cardScale = useTransform(
     smoothProgress,
-    [0, 0.28, 0.78, 1],
-    [0.96, 1, 1, 0.98]
+    [0, 0.25, 0.85, 1],
+    [0.97, 1, 1, 0.985]
   );
-  const visualParallaxY = useTransform(smoothProgress, [0, 0.5, 1], [18, 0, -18]);
+  const visualParallaxY = useTransform(smoothProgress, [0, 0.5, 1], [14, 0, -14]);
 
   return (
     <motion.div
@@ -505,19 +505,30 @@ function ItinerarySessionCard({
         }}
         gap={{ base: 5, sm: 6, md: hasVisual ? 10 : 0, lg: hasVisual ? 14 : 0 }}
         alignItems="center"
-        bg="linear-gradient(145deg, rgba(40, 15, 64, 0.78) 0%, rgba(22, 8, 38, 0.88) 100%)"
+        bg="linear-gradient(145deg, rgba(42, 16, 68, 0.82) 0%, rgba(20, 7, 34, 0.92) 100%)"
+        backdropFilter="blur(20px)"
         p={{ base: 4, sm: 6, md: 8 }}
-        borderRadius={{ base: "18px", sm: "22px" }}
-        border="1px solid rgba(207, 175, 137, 0.16)"
-        boxShadow="0 18px 45px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
-        mb={{ base: 5, md: 0 }}
+        borderRadius={{ base: "18px", sm: "24px" }}
+        border="1px solid rgba(207, 175, 137, 0.2)"
+        boxShadow="0 18px 45px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
+        mb={{ base: 3, md: 0 }}
         position="relative"
         zIndex={2}
+        overflow="hidden"
         transition="border-color 0.35s ease, box-shadow 0.35s ease"
+        _before={{
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: "24px",
+          right: "24px",
+          h: "1px",
+          bg: "linear-gradient(90deg, transparent, rgba(207, 175, 137, 0.5), transparent)",
+        }}
         _hover={{
-          borderColor: "rgba(207, 175, 137, 0.34)",
+          borderColor: "rgba(207, 175, 137, 0.45)",
           boxShadow:
-            "0 24px 55px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(207, 175, 137, 0.15)",
+            "0 24px 55px rgba(0, 0, 0, 0.55), 0 0 25px rgba(207, 175, 137, 0.12), inset 0 1px 0 rgba(207, 175, 137, 0.25)",
         }}
       >
         {/* Visual Column */}
@@ -546,6 +557,38 @@ function ItinerarySessionCard({
             maxW={hasVisual ? "100%" : "38rem"}
             mx={hasVisual ? 0 : "auto"}
           >
+            {/* Non-Visual Session Icon Emblem (e.g., Lunch & Networking) */}
+            {!hasVisual && (
+              <Flex
+                align="center"
+                justify="center"
+                w={{ base: "52px", sm: "60px" }}
+                h={{ base: "52px", sm: "60px" }}
+                borderRadius="full"
+                bg="linear-gradient(145deg, rgba(50, 18, 80, 0.95) 0%, rgba(22, 8, 38, 0.98) 100%)"
+                border="1.5px solid rgba(207, 175, 137, 0.5)"
+                boxShadow="0 8px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(207, 175, 137, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)"
+                mb={3.5}
+              >
+                <Box
+                  as="svg"
+                  w={{ base: "22px", sm: "26px" }}
+                  h={{ base: "22px", sm: "26px" }}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#CFAF89"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                  <line x1="6" y1="1" x2="6" y2="4" />
+                  <line x1="10" y1="1" x2="10" y2="4" />
+                  <line x1="14" y1="1" x2="14" y2="4" />
+                </Box>
+              </Flex>
+            )}
             {/* Editorial Session Header + Bold Time Pill */}
             <Flex
               wrap="wrap"
@@ -761,6 +804,42 @@ export default function ItineraryPage() {
 
   return (
     <Layout title="Event Itinerary | Business Conclave">
+      {/* Background Ambient Glows */}
+      <Box
+        position="fixed"
+        top="-10%"
+        left="50%"
+        transform="translateX(-50%)"
+        w={{ base: "320px", md: "600px" }}
+        h={{ base: "320px", md: "400px" }}
+        borderRadius="full"
+        bg="radial-gradient(circle, rgba(207, 175, 137, 0.08) 0%, transparent 70%)"
+        pointerEvents="none"
+        zIndex={0}
+      />
+      <Box
+        position="fixed"
+        top="40%"
+        left="-5%"
+        w={{ base: "280px", md: "500px" }}
+        h={{ base: "280px", md: "500px" }}
+        borderRadius="full"
+        bg="radial-gradient(circle, rgba(120, 40, 180, 0.12) 0%, transparent 70%)"
+        pointerEvents="none"
+        zIndex={0}
+      />
+      <Box
+        position="fixed"
+        bottom="10%"
+        right="-5%"
+        w={{ base: "280px", md: "500px" }}
+        h={{ base: "280px", md: "500px" }}
+        borderRadius="full"
+        bg="radial-gradient(circle, rgba(207, 175, 137, 0.07) 0%, transparent 70%)"
+        pointerEvents="none"
+        zIndex={0}
+      />
+
       <motion.div
         style={{
           scaleX,
@@ -797,68 +876,57 @@ export default function ItineraryPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Flex align="center" justify="center" gap={{ base: 2.5, sm: 3.5 }} mb={5}>
-              <Box
-                display={{ base: "none", sm: "block" }}
-                w={{ sm: "24px", md: "36px" }}
-                h="1px"
-                bg="linear-gradient(90deg, transparent, rgba(207, 175, 137, 0.7))"
-              />
+            <Flex justify="center" mb={{ base: 4, sm: 5 }}>
               <Flex
                 align="center"
-                gap={2.5}
-                px={{ base: 4, sm: 5 }}
-                py={2}
+                gap={{ base: 2, sm: 2.5 }}
+                px={{ base: 3.5, sm: 5 }}
+                py={{ base: 1.5, sm: 2 }}
                 borderRadius="full"
-                bg="linear-gradient(135deg, rgba(207, 175, 137, 0.16) 0%, rgba(207, 175, 137, 0.06) 100%)"
-                border="1px solid rgba(207, 175, 137, 0.45)"
-                boxShadow="0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12)"
+                bg="linear-gradient(180deg, rgba(46, 17, 72, 0.96) 0%, rgba(20, 7, 34, 0.98) 100%)"
+                border="1.5px solid rgba(207, 175, 137, 0.65)"
+                boxShadow="0 6px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(207, 175, 137, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25)"
+                backdropFilter="blur(20px)"
+                maxW="92vw"
+                transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                _hover={{
+                  transform: "translateY(-1px)",
+                  borderColor: "#CFAF89",
+                  boxShadow:
+                    "0 8px 30px rgba(0, 0, 0, 0.6), 0 0 26px rgba(207, 175, 137, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)",
+                }}
               >
-                <Box
-                  as="svg"
-                  w="13px"
-                  h="13px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#CFAF89"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                {/* Luminous Pulsing Gold Beacon */}
+                <Flex
+                  align="center"
+                  justify="center"
+                  position="relative"
+                  w="8px"
+                  h="8px"
                   flexShrink={0}
                 >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </Box>
+                  <Box
+                    position="absolute"
+                    w="8px"
+                    h="8px"
+                    borderRadius="full"
+                    bg="#21ff11ed"
+                    opacity={0.8}
+                  />
+                </Flex>
+
                 <Text
                   textTransform="uppercase"
-                  fontSize={{ base: "10.5px", sm: "11.5px", md: "12px" }}
+                  fontSize={{ base: "9.5px", sm: "10.5px", md: "11px" }}
                   fontWeight="800"
-                  letterSpacing={{ base: "0.18em", sm: "0.24em" }}
+                  letterSpacing={{ base: "0.14em", sm: "0.18em" }}
                   color="#CFAF89"
                   fontFamily="'Cinzel', serif"
+                  whiteSpace="nowrap"
                 >
-                  14 November 2026
-                </Text>
-                <Box w="1px" h="11px" bg="rgba(207, 175, 137, 0.4)" />
-                <Text
-                  textTransform="uppercase"
-                  fontSize={{ base: "10px", sm: "11px" }}
-                  fontWeight="700"
-                  letterSpacing={{ base: "0.14em", sm: "0.18em" }}
-                  color="#FFFFFF"
-                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                >
-                  Official Lineup
+                  Official Schedule
                 </Text>
               </Flex>
-              <Box
-                display={{ base: "none", sm: "block" }}
-                w={{ sm: "24px", md: "36px" }}
-                h="1px"
-                bg="linear-gradient(90deg, rgba(207, 175, 137, 0.7), transparent)"
-              />
             </Flex>
           </motion.div>
 
@@ -905,16 +973,17 @@ export default function ItineraryPage() {
               align="center"
               justify="center"
               gap={2}
-              px={4}
-              py={1.5}
+              px={{ base: 3.5, sm: 4 }}
+              py={{ base: 1.5, sm: 2 }}
               borderRadius="full"
               bg="rgba(255, 255, 255, 0.03)"
-              border="1px solid rgba(207, 175, 137, 0.25)"
+              border="1px solid rgba(207, 175, 137, 0.3)"
               color="#CFAF89"
-              fontSize="12.5px"
+              fontSize={{ base: "11.5px", sm: "12.5px" }}
               fontWeight="600"
               letterSpacing="0.04em"
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              maxW="92vw"
               transition="all 0.25s ease"
               _hover={{
                 bg: "rgba(207, 175, 137, 0.12)",
@@ -923,8 +992,10 @@ export default function ItineraryPage() {
                 transform: "translateY(-1px)",
               }}
             >
-              <FiMapPin size={13} color="#CFAF89" />
-              <Text as="span">G-Block, Shiv Nadar University, Delhi-NCR</Text>
+              <FiMapPin size={13} color="#CFAF89" style={{ flexShrink: 0 }} />
+              <Text as="span" lineHeight="1.3">
+                G-Block, Shiv Nadar University, Delhi-NCR
+              </Text>
               <Box
                 as="svg"
                 w="12px"
@@ -936,6 +1007,7 @@ export default function ItineraryPage() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 opacity={0.75}
+                flexShrink={0}
                 transition="transform 0.2s ease"
                 _groupHover={{ transform: "translate(2px, -2px)", opacity: 1 }}
               >
@@ -952,7 +1024,7 @@ export default function ItineraryPage() {
           flexDir="column"
           maxW="56rem"
           mx="auto"
-          px={{ base: 5, sm: 6, md: 8 }}
+          px={{ base: 3.5, sm: 6, md: 8 }}
           position="relative"
         >
           {ITINERARY_SESSIONS.map((session, i) => {
@@ -968,7 +1040,34 @@ export default function ItineraryPage() {
                 />
 
                 {i < ITINERARY_SESSIONS.length - 1 && (
-                  <ConnectorCurve flip={i % 2 === 1} index={i} />
+                  <>
+                    <ConnectorCurve flip={i % 2 === 1} index={i} />
+                    <Flex
+                      display={{ base: "flex", md: "none" }}
+                      direction="column"
+                      align="center"
+                      my={3}
+                    >
+                      <Box
+                        w="1.5px"
+                        h="22px"
+                        bg="linear-gradient(180deg, rgba(207, 175, 137, 0.5) 0%, rgba(207, 175, 137, 0.1) 100%)"
+                      />
+                      <Box
+                        w="5px"
+                        h="5px"
+                        borderRadius="full"
+                        bg="#CFAF89"
+                        boxShadow="0 0 8px #CFAF89"
+                        my={0.5}
+                      />
+                      <Box
+                        w="1.5px"
+                        h="22px"
+                        bg="linear-gradient(180deg, rgba(207, 175, 137, 0.1) 0%, rgba(207, 175, 137, 0.5) 100%)"
+                      />
+                    </Flex>
+                  </>
                 )}
               </React.Fragment>
             );
@@ -988,9 +1087,21 @@ export default function ItineraryPage() {
             w="100%"
             p={{ base: 7, sm: 9 }}
             borderRadius="24px"
-            bg="linear-gradient(145deg, rgba(40, 15, 64, 0.82) 0%, rgba(22, 8, 38, 0.92) 100%)"
-            border="1px solid rgba(207, 175, 137, 0.24)"
-            boxShadow="0 20px 50px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
+            bg="linear-gradient(145deg, rgba(44, 17, 72, 0.85) 0%, rgba(20, 7, 35, 0.95) 100%)"
+            backdropFilter="blur(20px)"
+            border="1px solid rgba(207, 175, 137, 0.28)"
+            boxShadow="0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
+            position="relative"
+            overflow="hidden"
+            _before={{
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: "24px",
+              right: "24px",
+              h: "1.5px",
+              bg: "linear-gradient(90deg, transparent, rgba(207, 175, 137, 0.65), transparent)",
+            }}
           >
             <Text
               fontFamily="'Cinzel', serif"

@@ -259,19 +259,19 @@ function SessionVisual({
     return (
       <Grid
         templateColumns="repeat(2, 1fr)"
-        gap={{ base: 2.5, sm: 3 }}
+        gap={{ base: 2, sm: 2.5, md: 3 }}
         w="100%"
-        maxW={{ base: "310px", sm: "335px" }}
+        maxW={{ base: "270px", sm: "300px", md: "335px" }}
         mx="auto"
-        p={{ base: 2.5, sm: 3 }}
-        borderRadius="18px"
+        p={{ base: 2, sm: 2.5, md: 3 }}
+        borderRadius={{ base: "16px", sm: "18px" }}
         bg="linear-gradient(145deg, rgba(36, 14, 58, 0.92) 0%, rgba(20, 7, 35, 0.96) 100%)"
-        border="1px solid rgba(207, 175, 137, 0.18)"
+        border="1px solid rgba(207, 175, 137, 0.22)"
         boxShadow="0px 18px 40px rgba(0, 0, 0, 0.4)"
         transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease"
         _hover={{
           transform: "translateY(-4px)",
-          borderColor: "rgba(207, 175, 137, 0.4)",
+          borderColor: "rgba(207, 175, 137, 0.45)",
         }}
       >
         {speakers.map((sp) => (
@@ -304,7 +304,7 @@ function SessionVisual({
               <Flex w="100%" h="100%" align="center" justify="center">
                 <Text
                   fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                  fontSize="24px"
+                  fontSize={{ base: "20px", sm: "24px" }}
                   color="rgba(207, 175, 137, 0.5)"
                 >
                   {sp.name
@@ -330,7 +330,7 @@ function SessionVisual({
             >
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                fontSize="11px"
+                fontSize={{ base: "10.5px", sm: "11px" }}
                 fontWeight="600"
                 color="#FFFFFF"
                 lineHeight="1.2"
@@ -340,7 +340,7 @@ function SessionVisual({
               </Text>
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                fontSize="9.5px"
+                fontSize={{ base: "9px", sm: "9.5px" }}
                 color="#CFAF89"
                 lineHeight="1.2"
                 noOfLines={1}
@@ -357,20 +357,21 @@ function SessionVisual({
   if (speakers.length === 1 && speakers[0]) {
     const sp = speakers[0];
     return (
-      <Flex flexDir="column" alignItems="center">
+      <Flex flexDir="column" alignItems="center" w="100%">
         <Box
           position="relative"
-          w={{ base: "235px", sm: "255px", md: "260px" }}
-          h={{ base: "295px", sm: "320px", md: "325px" }}
-          borderRadius="16px"
+          w={{ base: "100%", sm: "240px", md: "260px" }}
+          maxW={{ base: "230px", sm: "250px", md: "260px" }}
+          h={{ base: "285px", sm: "310px", md: "325px" }}
+          borderRadius={{ base: "16px", sm: "18px" }}
           overflow="hidden"
           bg="rgba(22, 8, 38, 0.92)"
-          border="1px solid rgba(207, 175, 137, 0.22)"
+          border="1.5px solid rgba(207, 175, 137, 0.28)"
           boxShadow="0px 14px 34px rgba(0, 0, 0, 0.42)"
           transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease"
           _hover={{
             transform: "translateY(-5px) scale(1.015)",
-            borderColor: "rgba(207, 175, 137, 0.5)",
+            borderColor: "rgba(207, 175, 137, 0.55)",
             boxShadow: "0px 22px 44px rgba(0, 0, 0, 0.55)",
           }}
         >
@@ -394,7 +395,7 @@ function SessionVisual({
             <Flex w="100%" h="100%" align="center" justify="center">
               <Text
                 fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontSize="48px"
+                fontSize={{ base: "40px", sm: "48px" }}
                 color="rgba(207, 175, 137, 0.4)"
                 fontWeight="300"
               >
@@ -414,14 +415,14 @@ function SessionVisual({
           />
           <Box
             position="absolute"
-            bottom="14px"
-            left="14px"
-            right="14px"
+            bottom={{ base: "12px", sm: "14px" }}
+            left={{ base: "12px", sm: "14px" }}
+            right={{ base: "12px", sm: "14px" }}
             pointerEvents="none"
           >
             <Text
               fontFamily="'Cinzel', serif"
-              fontSize="9.5px"
+              fontSize={{ base: "9px", sm: "9.5px" }}
               letterSpacing="0.16em"
               color="#CFAF89"
               textTransform="uppercase"
@@ -431,7 +432,7 @@ function SessionVisual({
             </Text>
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-              fontSize="18px"
+              fontSize={{ base: "16.5px", sm: "18px" }}
               color="#FFFFFF"
               fontWeight="300"
               lineHeight="1.2"
@@ -502,14 +503,14 @@ function ItinerarySessionCard({
           base: "1fr",
           md: hasVisual ? (isEven ? "1fr 1.65fr" : "1.65fr 1fr") : "1fr",
         }}
-        gap={{ base: 6, md: hasVisual ? 10 : 0, lg: hasVisual ? 14 : 0 }}
+        gap={{ base: 5, sm: 6, md: hasVisual ? 10 : 0, lg: hasVisual ? 14 : 0 }}
         alignItems="center"
         bg="linear-gradient(145deg, rgba(40, 15, 64, 0.78) 0%, rgba(22, 8, 38, 0.88) 100%)"
-        p={{ base: 6, sm: 7, md: 8 }}
-        borderRadius="22px"
-        border="1px solid rgba(207, 175, 137, 0.14)"
+        p={{ base: 4, sm: 6, md: 8 }}
+        borderRadius={{ base: "18px", sm: "22px" }}
+        border="1px solid rgba(207, 175, 137, 0.16)"
         boxShadow="0 18px 45px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
-        mb={{ base: 6, md: 0 }}
+        mb={{ base: 5, md: 0 }}
         position="relative"
         zIndex={2}
         transition="border-color 0.35s ease, box-shadow 0.35s ease"
@@ -519,6 +520,7 @@ function ItinerarySessionCard({
             "0 24px 55px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(207, 175, 137, 0.15)",
         }}
       >
+        {/* Visual Column */}
         {hasVisual && (
           <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
             <motion.div
@@ -529,6 +531,7 @@ function ItinerarySessionCard({
           </GridItem>
         )}
 
+        {/* Content Column */}
         <GridItem order={{ base: 1, md: isEven ? 1 : 0 }}>
           <Flex
             direction="column"
@@ -543,6 +546,7 @@ function ItinerarySessionCard({
             maxW={hasVisual ? "100%" : "38rem"}
             mx={hasVisual ? 0 : "auto"}
           >
+            {/* Editorial Session Header + Bold Time Pill */}
             <Flex
               wrap="wrap"
               align="center"
@@ -550,25 +554,25 @@ function ItinerarySessionCard({
                 base: "center",
                 md: hasVisual ? "flex-start" : "center",
               }}
-              gap={3}
-              mb={3.5}
+              gap={{ base: 2, sm: 3 }}
+              mb={{ base: 2.5, sm: 3.5 }}
             >
               <Flex align="center" gap={2}>
                 <Text
                   fontFamily="'Cinzel', serif"
-                  fontSize="12px"
+                  fontSize={{ base: "11px", sm: "12px" }}
                   fontWeight="800"
                   letterSpacing="0.14em"
                   color="#CFAF89"
                 >
                   {session.number}
                 </Text>
-                <Box w="14px" h="1px" bg="rgba(207, 175, 137, 0.5)" />
+                <Box w="12px" h="1px" bg="rgba(207, 175, 137, 0.5)" />
                 <Text
                   fontFamily="'Cinzel', serif"
-                  fontSize="11px"
+                  fontSize={{ base: "10px", sm: "11px" }}
                   fontWeight="700"
-                  letterSpacing="0.18em"
+                  letterSpacing="0.16em"
                   color="#CFAF89"
                   textTransform="uppercase"
                 >
@@ -588,14 +592,14 @@ function ItinerarySessionCard({
                 gap={1.5}
                 px={3}
                 py={1}
-                borderRadius="6px"
-                bg="rgba(207, 175, 137, 0.1)"
-                border="1px solid rgba(207, 175, 137, 0.3)"
+                borderRadius="full"
+                bg="rgba(207, 175, 137, 0.12)"
+                border="1px solid rgba(207, 175, 137, 0.35)"
               >
                 <Box
                   as="svg"
-                  w="12px"
-                  h="12px"
+                  w="11px"
+                  h="11px"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#CFAF89"
@@ -609,20 +613,22 @@ function ItinerarySessionCard({
                 </Box>
                 <Text
                   fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                  fontSize="11.5px"
+                  fontSize={{ base: "10.5px", sm: "11.5px" }}
                   fontWeight="700"
-                  letterSpacing="0.09em"
+                  letterSpacing="0.08em"
                   color="#FFFFFF"
+                  whiteSpace="nowrap"
                 >
                   {session.time}
                 </Text>
               </Flex>
             </Flex>
 
+            {/* Session Title */}
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
               fontWeight={300}
-              fontSize={{ base: "26px", sm: "30px", md: "34px" }}
+              fontSize={{ base: "24px", sm: "28px", md: "34px" }}
               color="#CFAF89"
               lineHeight="1.15"
               mb={2}
@@ -630,12 +636,13 @@ function ItinerarySessionCard({
               {session.title}
             </Text>
 
+            {/* Single Speaker Highlight */}
             {speakers.length === 1 && speakers[0] && (
               <Box mb={3}>
                 <Text
                   fontFamily="'Proxima Nova', 'Inter', sans-serif"
                   fontWeight={600}
-                  fontSize={{ base: "16px", md: "18px" }}
+                  fontSize={{ base: "15.5px", md: "18px" }}
                   color="#FFFFFF"
                 >
                   {speakers[0].name}
@@ -643,7 +650,7 @@ function ItinerarySessionCard({
                 <Text
                   fontFamily="'Proxima Nova', 'Inter', sans-serif"
                   fontWeight={400}
-                  fontSize={{ base: "13.5px", md: "14.5px" }}
+                  fontSize={{ base: "13px", md: "14.5px" }}
                   color="rgba(207, 175, 137, 0.85)"
                 >
                   {speakers[0].role}
@@ -651,11 +658,12 @@ function ItinerarySessionCard({
               </Box>
             )}
 
+            {/* Accent Label for Non-Speaker Sessions (Lunch) */}
             {session.accentLabel && (
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
                 fontWeight={500}
-                fontSize={{ base: "14px", md: "15.5px" }}
+                fontSize={{ base: "13.5px", md: "15px" }}
                 color="rgba(255, 255, 255, 0.78)"
                 mb={3}
               >
@@ -663,17 +671,19 @@ function ItinerarySessionCard({
               </Text>
             )}
 
+            {/* Description */}
             <Text
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
               fontWeight={300}
-              fontSize={{ base: "14px", sm: "15px", md: "15.5px" }}
+              fontSize={{ base: "13.5px", sm: "14.5px", md: "15.5px" }}
               color="rgba(255, 255, 255, 0.8)"
-              lineHeight="1.75"
+              lineHeight={{ base: "1.65", md: "1.75" }}
               mb={speakers.length > 1 ? 5 : 0}
             >
               {session.description}
             </Text>
 
+            {/* Multi-Speaker Roster (Canopy Conversations) */}
             {speakers.length > 1 && (
               <Box
                 w="100%"
@@ -693,7 +703,7 @@ function ItinerarySessionCard({
                 </Text>
                 <Grid
                   templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
-                  gap={2.5}
+                  gap={{ base: 2, sm: 2.5 }}
                   w="100%"
                 >
                   {speakers.map((sp) => (
@@ -701,7 +711,7 @@ function ItinerarySessionCard({
                       key={sp.name}
                       direction="column"
                       align={{ base: "center", md: "flex-start" }}
-                      p={2.5}
+                      p={{ base: 2, sm: 2.5 }}
                       borderRadius="12px"
                       bg="rgba(255, 255, 255, 0.035)"
                       border="1px solid rgba(255, 255, 255, 0.07)"
@@ -713,7 +723,7 @@ function ItinerarySessionCard({
                     >
                       <Text
                         fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                        fontSize="13.5px"
+                        fontSize={{ base: "12.5px", sm: "13.5px" }}
                         fontWeight="600"
                         color="#FFFFFF"
                       >
@@ -721,7 +731,7 @@ function ItinerarySessionCard({
                       </Text>
                       <Text
                         fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                        fontSize="11.5px"
+                        fontSize={{ base: "11px", sm: "11.5px" }}
                         color="rgba(207, 175, 137, 0.85)"
                         lineHeight="1.35"
                       >

@@ -63,7 +63,7 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
     accentLabel: "Special Institutional Address",
     description:
       "An inspiring leadership address setting the vision for Business Conclave 2026 — welcoming industry luminaries, delegates, and aspiring student entrepreneurs to draft the blueprints of tomorrow.",
-    eventImage: "public/images/landing/speakers/steve_ismail.jpg",
+    eventImage: "/images/landing/speakers/steve_ismail.jpg",
   },
   {
     id: "keynote-2",
@@ -90,11 +90,11 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
       {
         name: "Ms. Dovleen Bhatti",
         role: "Clarity Coach • Psychologist & NLP Master Practitioner",
-        image: "public/images/landing/speakers/dovleen_bhatti.jpg",
+        image: "/images/landing/speakers/dovleen_bhatti.jpg",
         objectPosition: "center top",
       },
     ],
-    eventImage: "public/images/landing/speakers/dovleen_bhatti.jpg",
+    eventImage: "/images/landing/speakers/dovleen_bhatti.jpg",
   },
   {
     id: "lunch",

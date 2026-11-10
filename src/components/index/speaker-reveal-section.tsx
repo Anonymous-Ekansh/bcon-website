@@ -39,7 +39,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Senior Partner & Member of the Board at Ernst & Young (EY)",
     description:
       "Senior Partner and Board Member at EY leading strategic digital transformation and technology advisory across major global enterprises. Harsh brings over two decades of high-level counsel working directly with corporate boards and global CXOs.",
-    sessionTime: "10:15 AM – 11:00 AM • 14 November 2026",
+    sessionTime: "10:30 AM - 11:30 AM • 14 November 2026",
     image: "/images/landing/speakers/harsh_kumar.png",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -54,7 +54,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Stand-Up Comedian • India’s Got Latent Panelist",
     description:
       "Kaustubh Agarwal is a popular stand-up comedian and breakout panelist on Samay Raina’s India’s Got Latent. An engineer-turned-creator, he is celebrated across India for his sharp wit, authentic deadpan humor, and viral relatable comedy that perfectly bridges corporate hustle with creative passion.",
-    sessionTime: "6:00 PM – 7:00 PM • 14 November 2026",
+    sessionTime: "5:30 PM Onwards • 14 November 2026",
     image: "/images/landing/speakers/kaustubh_agarwal.jpg",
     objectPosition: "top center",
     fontFamily: "'Cabin Sketch', cursive, sans-serif",
@@ -69,7 +69,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Clarity Coach • Psychologist & NLP Master Practitioner",
     description:
       "A certified Life and Career Clarity Coach, applied psychologist, and NLP Master Practitioner dedicated to helping individuals overcome self-doubt and decision fatigue. Drawing from behavioral psychology and structured coaching frameworks, she empowers emerging leaders and professionals to transition from overwhelm to purposeful action.",
-    sessionTime: "12:15 PM – 1:15 PM • 14 November 2026",
+    sessionTime: "11:30 AM – 12:30 PM • 14 November 2026",
     image: "/images/landing/speakers/dovleen_bhatti.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -84,7 +84,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Entrepreneur & EdTech Influencer • 150K+ Followers on Instagram",
     description:
       "Entrepreneur, youth mentor, and EdTech creator with a thriving community of over 150K+ followers on Instagram. As the co-founder of The Inquisitive Mind, she has guided thousands of students across India through college admissions, career strategy, and personal brand building in the digital creator economy.",
-    sessionTime: "4:45 PM – 5:45 PM • 14 November 2026",
+    sessionTime: "2:15 PM – 3:00 PM • 14 November 2026",
     image: "/images/landing/speakers/sana_bhatega.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -99,7 +99,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "General Manager @ Dabur • Ex-Chief Financial Officer @ Hero Cycles",
     description:
       "A Chartered Accountant and seasoned corporate finance leader with over two decades of leadership experience across premier consumer and manufacturing enterprises including Dabur, Hero Cycles, GSK, and Coca-Cola. He specializes in strategic financial stewardship, commercial scaling, and operational turnarounds.",
-    sessionTime: "2:45 PM – 4:15 PM • 14 November 2026",
+    sessionTime: "3:30 PM - 5:00 PM • 14 November 2026",
     image: "/images/landing/speakers/bikash_jain.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -114,7 +114,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Founder @ Ekatran Label",
     description:
       "Contemporary visual artist and founder of Ekatran Label, a New Delhi-based sustainable and upcycled fashion brand. An alumna of the College of Art (DU) and Shiv Nadar University, she bridges fine art with circular slow fashion by transforming textile remnants and deadstock into bespoke wearable art.",
-    sessionTime: "2:45 PM – 4:15 PM • 14 November 2026",
+    sessionTime: "3:30 PM - 5:00 PM • 14 November 2026",
     image: "/images/landing/speakers/tanaya_rao.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -129,7 +129,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Consulting Technical Director @ Oracle",
     description:
       "Consulting Technical Director at Oracle driving enterprise cloud architecture, large-scale data modernization, and mission-critical technology transformations. With deep expertise in distributed systems and enterprise engineering, he advises organizations on building resilient, future-ready digital infrastructure.",
-    sessionTime: "2:45 PM – 4:15 PM • 14 November 2026",
+    sessionTime: "3:30 PM - 5:00 PM • 14 November 2026",
     image: "/images/landing/speakers/saurabh_gupta.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",
@@ -144,7 +144,7 @@ const SPEAKERS: SpeakerItem[] = [
     role: "Director @ KPMG",
     description:
       "Director at KPMG advising leading enterprises on business transformation, strategic risk management, and operational excellence. He brings extensive Big Four advisory experience in guiding corporate leadership teams through complex market transitions, governance, and sustainable long-term growth.",
-    sessionTime: "2:45 PM – 4:15 PM • 14 November 2026",
+    sessionTime: "3:30 PM - 5:00 PM • 14 November 2026",
     image: "/images/landing/speakers/amit_verma.jpg",
     objectPosition: "center top",
     fontFamily: "'Tan Vivre Libre', 'Playfair Display', serif",

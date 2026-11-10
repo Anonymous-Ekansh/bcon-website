@@ -86,7 +86,7 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
     number: "04",
     title: "Workshop",
     category: "Interactive Masterclass",
-    time: "11:30 PM TO 12:30 PM",
+    time: "11:30 AM TO 12:30 PM",
     description:
       "A hands-on workshop drawing from applied psychology and NLP coaching frameworks to help emerging leaders overcome decision fatigue, build career clarity, and transition into purposeful action.",
     speakers: [

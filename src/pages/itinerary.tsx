@@ -15,7 +15,7 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import { FiClock, FiCalendar, FiArrowRight, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiMapPin } from "react-icons/fi";
 import Layout from "~/components/layout";
 
 interface SessionSpeaker {
@@ -209,7 +209,6 @@ const ConnectorCurve = ({ flip, index }: { flip: boolean; index: number }) => {
           fill="none"
           style={{ transform: flip ? "scaleX(-1)" : "none" }}
         >
-          {/* Subtle static track */}
           <path
             d={CURVE_PATH}
             stroke="rgba(207, 175, 137, 0.12)"
@@ -218,7 +217,6 @@ const ConnectorCurve = ({ flip, index }: { flip: boolean; index: number }) => {
             strokeLinejoin="round"
             strokeDasharray="28 28"
           />
-          {/* Scroll-driven animated gold stroke */}
           <motion.path
             d={CURVE_PATH}
             stroke={`url(#${gradId})`}
@@ -521,7 +519,6 @@ function ItinerarySessionCard({
             "0 24px 55px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(207, 175, 137, 0.15)",
         }}
       >
-        {/* Visual Column */}
         {hasVisual && (
           <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
             <motion.div
@@ -532,7 +529,6 @@ function ItinerarySessionCard({
           </GridItem>
         )}
 
-        {/* Content Column */}
         <GridItem order={{ base: 1, md: isEven ? 1 : 0 }}>
           <Flex
             direction="column"
@@ -547,7 +543,6 @@ function ItinerarySessionCard({
             maxW={hasVisual ? "100%" : "38rem"}
             mx={hasVisual ? 0 : "auto"}
           >
-            {/* Editorial Session Header + Bold Time Pill */}
             <Flex
               wrap="wrap"
               align="center"
@@ -624,7 +619,6 @@ function ItinerarySessionCard({
               </Flex>
             </Flex>
 
-            {/* Session Title */}
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
               fontWeight={300}
@@ -636,7 +630,6 @@ function ItinerarySessionCard({
               {session.title}
             </Text>
 
-            {/* Single Speaker Highlight */}
             {speakers.length === 1 && speakers[0] && (
               <Box mb={3}>
                 <Text
@@ -658,7 +651,6 @@ function ItinerarySessionCard({
               </Box>
             )}
 
-            {/* Accent Label for Non-Speaker Sessions (Lunch) */}
             {session.accentLabel && (
               <Text
                 fontFamily="'Proxima Nova', 'Inter', sans-serif"
@@ -671,7 +663,6 @@ function ItinerarySessionCard({
               </Text>
             )}
 
-            {/* Description */}
             <Text
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
               fontWeight={300}
@@ -683,7 +674,6 @@ function ItinerarySessionCard({
               {session.description}
             </Text>
 
-            {/* Multi-Speaker Roster (Canopy Conversations) */}
             {speakers.length > 1 && (
               <Box
                 w="100%"
@@ -757,12 +747,10 @@ export default function ItineraryPage() {
     restDelta: 0.001,
   });
 
-  // Track alternating index specifically for sessions that have speaker visuals
   let visualCounter = 0;
 
   return (
     <Layout title="Event Itinerary | Business Conclave">
-      {/* Top Golden Scroll Progress Bar */}
       <motion.div
         style={{
           scaleX,
@@ -903,7 +891,7 @@ export default function ItineraryPage() {
               target="_blank"
               rel="noopener noreferrer"
               role="group"
-               display="inline-flex"
+              display="inline-flex"
               align="center"
               justify="center"
               gap={2}
@@ -949,7 +937,6 @@ export default function ItineraryPage() {
         </Flex>
       </Box>
 
-      {/* Main Alternating Timeline Container */}
       <Box position="relative" pb={24}>
         <Flex
           flexDir="column"
@@ -978,7 +965,6 @@ export default function ItineraryPage() {
           })}
         </Flex>
 
-        {/* Bottom CTA Card */}
         <Flex
           direction="column"
           align="center"

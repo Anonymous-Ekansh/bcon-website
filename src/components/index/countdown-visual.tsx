@@ -3,7 +3,7 @@ import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { FiArrowRight, FiCalendar } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 
 const GOLD = "#CFAF89";
 const GOLD_DARK = "#B08A30";

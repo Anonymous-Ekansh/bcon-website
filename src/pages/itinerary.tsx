@@ -38,11 +38,38 @@ interface ItinerarySession {
 
 const ITINERARY_SESSIONS: ItinerarySession[] = [
   {
-    id: "keynote-1",
+    id: "arrival",
     number: "01",
+    title: "Arrival",
+    category: "Registrtion and seating",
+    time: "9:30 AM",
+    accentLabel: "",
+    description:
+      "Seating of all members inside the auditorium after collecting delegate passes and kits from the indicated registration desks.",
+  },
+  {
+    id: "steve-sir-speech",
+    number: "02",
+    title: "Lamp Lighting ",
+    category: "Leadership Address",
+    time: "10:00 AM",
+    description:
+      "An inspiring institutional address setting the vision for Business Conclave 2026 drawing from over three decades of distinguished leadership to welcome delegates, industry luminaries, and student entrepreneurs.",
+    speakers: [
+      {
+        name: "Brig. Steve Ismail (Retd.)",
+        role: "Dean of Students, Shiv Nadar University • Sena Medal Awardee",
+        image: "/images/landing/speakers/steve_ismail.jpg",
+        objectPosition: "center top",
+      },
+    ],
+  },
+  {
+    id: "keynote-1",
+    number: "03",
     title: "Keynote Session",
     category: "Opening Keynote",
-    time: "10:15 AM TO 11:00 AM",
+    time: "10:30 AM TO 11:30 AM",
     description:
       "Opening the 2026 Business Conclave with high-level boardroom insights on strategic digital transformation, enterprise advisory, and leadership at global scale.",
     speakers: [
@@ -55,28 +82,11 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
     ],
   },
   {
-    id: "steve-sir-speech",
-    number: "02",
-    title: "Speech by Steve Sir",
-    category: "Leadership Address",
-    time: "11:00 AM TO 11:15 AM",
-    description:
-      "An inspiring institutional address setting the vision for Business Conclave 2026 — drawing from over three decades of distinguished leadership to welcome delegates, industry luminaries, and student entrepreneurs.",
-    speakers: [
-      {
-        name: "Brig. Steve Ismail (Retd.)",
-        role: "Dean of Students, Shiv Nadar University • Sena Medal Awardee",
-        image: "/images/landing/speakers/steve_ismail.jpg",
-        objectPosition: "center top",
-      },
-    ],
-  },
-  {
     id: "workshop",
-    number: "03",
+    number: "04",
     title: "Workshop",
     category: "Interactive Masterclass",
-    time: "12:15 PM TO 1:15 PM",
+    time: "11:30 PM TO 12:30 PM",
     description:
       "A hands-on workshop drawing from applied psychology and NLP coaching frameworks to help emerging leaders overcome decision fatigue, build career clarity, and transition into purposeful action.",
     speakers: [
@@ -90,22 +100,39 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
   },
   {
     id: "lunch",
-    number: "04",
+    number: "05",
     title: "Lunch",
     category: "Break & Networking",
-    time: "1:15 PM TO 2:30 PM",
+    time: "12:30 PM TO 2:00 PM",
     accentLabel: "Networking Interlude",
     description:
       "A midday interlude for delegates, student founders, and guests to recharge and connect over lunch across the conclave grounds before the afternoon sessions commence.",
   },
   {
+    id: "offbeat-roundtable",
+    number: "06",
+    title: "Offbeat Roundtable",
+    category: "Roundtable Discussion",
+    time: "2:15 PM TO 3:00 PM",
+    description:
+      "Dynamic conversations on unconventional career paths and the digital creator economy challenging norms, building authentic personal brands, and reimagining youth mentorship and EdTech.",
+    speakers: [
+      {
+        name: "Ms. Sana Bhatega",
+        role: "Entrepreneur & EdTech Influencer • 150K+ Followers on Instagram",
+        image: "/images/landing/speakers/sana_bhatega.jpg",
+        objectPosition: "center top",
+      },
+    ],
+  },
+  {
     id: "canopy-conversations",
-    number: "05",
+    number: "07",
     title: "Canopy Conversations",
     category: "Open-Air Fireside Panel",
-    time: "2:45 PM TO 4:15 PM",
+    time: "3:30 PM TO 5:00 PM",
     description:
-      "Intimate, candid dialogues with seasoned industry veterans under a relaxed setting — exploring corporate finance, circular sustainable fashion, enterprise cloud architecture, and Big Four transformation.",
+      "Intimate, candid dialogues with seasoned industry veterans under a relaxed setting exploring corporate finance, circular sustainable fashion, enterprise cloud architecture, and Big Four transformation.",
     speakers: [
       {
         name: "Mr. Bikash Jain",
@@ -134,30 +161,13 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
     ],
   },
   {
-    id: "offbeat-roundtable",
-    number: "06",
-    title: "Offbeat Roundtable",
-    category: "Roundtable Discussion",
-    time: "4:45 PM TO 5:45 PM",
-    description:
-      "Dynamic conversations on unconventional career paths and the digital creator economy — challenging norms, building authentic personal brands, and reimagining youth mentorship and EdTech.",
-    speakers: [
-      {
-        name: "Ms. Sana Bhatega",
-        role: "Entrepreneur & EdTech Influencer • 150K+ Followers on Instagram",
-        image: "/images/landing/speakers/sana_bhatega.jpg",
-        objectPosition: "center top",
-      },
-    ],
-  },
-  {
     id: "comedy-set",
-    number: "07",
+    number: "08",
     title: "Comedy Set",
     category: "Closing Live Special",
-    time: "6:00 PM TO 7:00 PM",
+    time: "5:30 PM Onwards",
     description:
-      "Wrapping up Business Conclave 2026 with an electrifying live stand-up comedy set — blending corporate hustle with sharp wit, deadpan humor, and viral storytelling.",
+      "Wrapping up Business Conclave 2026 with an electrifying live stand-up comedy set blending corporate hustle with sharp wit, deadpan humor, and viral storytelling.",
     speakers: [
       {
         name: "Kaustubh Agarwal",

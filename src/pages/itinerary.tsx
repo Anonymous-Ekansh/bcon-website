@@ -26,10 +26,8 @@ interface ItinerarySession {
   title: string;
   category: string;
   time: string;
-  period: "Morning" | "Afternoon" | "Evening";
   description: string;
   speakers?: SessionSpeaker[];
-  eventImage?: string;
   accentLabel?: string;
 }
 
@@ -37,10 +35,9 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
   {
     id: "keynote-1",
     number: "01",
-    title: "Keynote Session 1",
+    title: "Keynote Session",
     category: "Opening Keynote",
     time: "10:15 AM TO 11:00 AM",
-    period: "Morning",
     description:
       "Opening the 2026 Business Conclave with high-level boardroom insights on strategic digital transformation, enterprise advisory, and leadership at global scale.",
     speakers: [
@@ -51,7 +48,6 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
         objectPosition: "center top",
       },
     ],
-    eventImage: "/images/landing/events/keynote-speaker-session.png",
   },
   {
     id: "steve-sir-speech",
@@ -59,31 +55,23 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
     title: "Speech by Steve Sir",
     category: "Leadership Address",
     time: "11:00 AM TO 11:15 AM",
-    period: "Morning",
-    accentLabel: "Special Institutional Address",
     description:
-      "An inspiring leadership address setting the vision for Business Conclave 2026 — welcoming industry luminaries, delegates, and aspiring student entrepreneurs to draft the blueprints of tomorrow.",
-    eventImage: "/images/landing/speakers/steve_ismail.jpg",
-  },
-  {
-    id: "keynote-2",
-    number: "03",
-    title: "Keynote Session 2",
-    category: "Keynote Address",
-    time: "11:15 AM TO 12:00 PM",
-    period: "Morning",
-    accentLabel: "Industry Visionary Session",
-    description:
-      "Join influential leaders as they share perspectives on market trends, disruptive innovation, and the future of modern enterprise across an ever-evolving global business landscape.",
-    eventImage: "/images/landing/events/keynote-speaker-session.png",
+      "An inspiring institutional address setting the vision for Business Conclave 2026 — drawing from over three decades of distinguished leadership to welcome delegates, industry luminaries, and student entrepreneurs.",
+    speakers: [
+      {
+        name: "Brig. Steve Ismail (Retd.)",
+        role: "Dean of Students, Shiv Nadar University • Sena Medal Awardee",
+        image: "/images/landing/speakers/steve_ismail.jpg",
+        objectPosition: "center top",
+      },
+    ],
   },
   {
     id: "workshop",
-    number: "04",
+    number: "03",
     title: "Workshop",
     category: "Interactive Masterclass",
     time: "12:15 PM TO 1:15 PM",
-    period: "Afternoon",
     description:
       "A hands-on workshop drawing from applied psychology and NLP coaching frameworks to help emerging leaders overcome decision fatigue, build career clarity, and transition into purposeful action.",
     speakers: [
@@ -94,27 +82,23 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
         objectPosition: "center top",
       },
     ],
-    eventImage: "/images/landing/speakers/dovleen_bhatti.jpg",
   },
   {
     id: "lunch",
-    number: "05",
+    number: "04",
     title: "Lunch",
     category: "Break & Networking",
     time: "1:15 PM TO 2:30 PM",
-    period: "Afternoon",
     accentLabel: "Networking Interlude",
     description:
-      "A curated midday interlude for attendees, student founders, and guests to recharge and connect over lunch across the conclave grounds before the afternoon panels commence.",
-    eventImage: "/images/landing/events/corporate-gala.png",
+      "A midday interlude for delegates, student founders, and guests to recharge and connect over lunch across the conclave grounds before the afternoon sessions commence.",
   },
   {
     id: "canopy-conversations",
-    number: "06",
+    number: "05",
     title: "Canopy Conversations",
     category: "Open-Air Fireside Panel",
     time: "2:45 PM TO 4:15 PM",
-    period: "Afternoon",
     description:
       "Intimate, candid dialogues with seasoned industry veterans under a relaxed setting — exploring corporate finance, circular sustainable fashion, enterprise cloud architecture, and Big Four transformation.",
     speakers: [
@@ -143,15 +127,13 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
         objectPosition: "center top",
       },
     ],
-    eventImage: "/images/landing/events/canopy-conversations.png",
   },
   {
     id: "offbeat-roundtable",
-    number: "07",
+    number: "06",
     title: "Offbeat Roundtable",
     category: "Roundtable Discussion",
     time: "4:45 PM TO 5:45 PM",
-    period: "Evening",
     description:
       "Dynamic conversations on unconventional career paths and the digital creator economy — challenging norms, building authentic personal brands, and reimagining youth mentorship and EdTech.",
     speakers: [
@@ -162,15 +144,13 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
         objectPosition: "center top",
       },
     ],
-    eventImage: "/images/landing/events/offbeat-roundtable.png",
   },
   {
     id: "comedy-set",
-    number: "08",
+    number: "07",
     title: "Comedy Set",
     category: "Closing Live Special",
     time: "6:00 PM TO 7:00 PM",
-    period: "Evening",
     description:
       "Wrapping up Business Conclave 2026 with an electrifying live stand-up comedy set — blending corporate hustle with sharp wit, deadpan humor, and viral storytelling.",
     speakers: [
@@ -181,7 +161,6 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
         objectPosition: "top center",
       },
     ],
-    eventImage: "/images/landing/events/corporate-gala.png",
   },
 ];
 
@@ -279,7 +258,7 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
                     color="rgba(207, 175, 137, 0.5)"
                   >
                     {sp.name
-                      .replace(/^(Mr\.|Ms\.|Dr\.)\s+/i, "")
+                      .replace(/^(Mr\.|Ms\.|Dr\.|Brig\.)\s+/i, "")
                       .split(" ")
                       .map((n) => n[0])
                       .join("")}
@@ -363,7 +342,7 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
                   fontWeight="300"
                 >
                   {sp.name
-                    .replace(/^(Mr\.|Ms\.|Dr\.)\s+/i, "")
+                    .replace(/^(Mr\.|Ms\.|Dr\.|Brig\.)\s+/i, "")
                     .split(" ")
                     .map((n) => n[0])
                     .join("")}
@@ -402,95 +381,7 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
     );
   }
 
-  return (
-    <Flex flexDir="column" alignItems="center">
-      <motion.div
-        whileHover={{
-          scale: 1.02,
-          y: -4,
-          boxShadow: "0px 20px 40px rgba(207, 175, 137, 0.14)",
-        }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        style={{ borderRadius: "14px" }}
-      >
-        <Box
-          position="relative"
-          w={{ base: "240px", sm: "260px", md: "265px" }}
-          h={{ base: "260px", sm: "285px", md: "300px" }}
-          borderRadius="14px"
-          overflow="hidden"
-          bg="rgba(26, 9, 43, 0.85)"
-          border="1px solid rgba(255, 255, 255, 0.1)"
-          boxShadow="0px 10px 30px rgba(0, 0, 0, 0.35)"
-        >
-          {session.eventImage && !failedImages[session.id] ? (
-            <ChakraImage
-              src={session.eventImage}
-              alt={session.title}
-              w="100%"
-              h="100%"
-              objectFit="cover"
-              filter="brightness(0.82) contrast(1.05)"
-              onError={() =>
-                setFailedImages((prev) => ({ ...prev, [session.id]: true }))
-              }
-            />
-          ) : null}
-          <Box
-            position="absolute"
-            inset="0"
-            bg="linear-gradient(180deg, rgba(20, 7, 35, 0.35) 0%, rgba(16, 5, 28, 0.88) 100%)"
-          />
-          <Flex
-            position="absolute"
-            inset="0"
-            direction="column"
-            justify="space-between"
-            p={5}
-          >
-            <Flex justify="space-between" align="center">
-              <Text
-                fontFamily="'Cinzel', serif"
-                fontSize="11px"
-                fontWeight="700"
-                letterSpacing="0.2em"
-                color="#CFAF89"
-              >
-                SESSION {session.number}
-              </Text>
-              <Box
-                w="8px"
-                h="8px"
-                borderRadius="full"
-                bg="rgba(207, 175, 137, 0.6)"
-              />
-            </Flex>
-            <Box>
-              <Text
-                fontFamily="'Cinzel', serif"
-                fontSize="9.5px"
-                letterSpacing="0.16em"
-                color="#CFAF89"
-                textTransform="uppercase"
-                mb={1}
-              >
-                {session.category}
-              </Text>
-              <Text
-                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontSize="22px"
-                color="#FFFFFF"
-                fontWeight="300"
-                lineHeight="1.2"
-              >
-                {session.title}
-              </Text>
-            </Box>
-          </Flex>
-        </Box>
-      </motion.div>
-    </Flex>
-  );
+  return null;
 }
 
 export default function ItineraryPage() {
@@ -586,7 +477,7 @@ export default function ItineraryPage() {
               }}
             >
               <FiMapPin size={13} />
-              <Text>G-Block, Shiv Nadar University</Text>
+              <Text>G-Block, Shiv Nadar University, Delhi-NCR</Text>
             </Flex>
           </motion.div>
         </Flex>
@@ -604,6 +495,7 @@ export default function ItineraryPage() {
           {ITINERARY_SESSIONS.map((session, i) => {
             const isEven = i % 2 === 0;
             const speakers = session.speakers ?? [];
+            const hasVisual = speakers.length > 0;
 
             return (
               <React.Fragment key={session.id}>
@@ -617,9 +509,13 @@ export default function ItineraryPage() {
                   <Grid
                     templateColumns={{
                       base: "1fr",
-                      md: isEven ? "1fr 1.65fr" : "1.65fr 1fr",
+                      md: hasVisual
+                        ? isEven
+                          ? "1fr 1.65fr"
+                          : "1.65fr 1fr"
+                        : "1fr",
                     }}
-                    gap={{ base: 6, md: 12, lg: 16 }}
+                    gap={{ base: 6, md: hasVisual ? 12 : 0, lg: hasVisual ? 16 : 0 }}
                     alignItems="center"
                     bg={{ base: "rgba(255, 255, 255, 0.03)", md: "rgba(255, 255, 255, 0.02)" }}
                     p={{ base: 6, sm: 7, md: 8 }}
@@ -635,23 +531,36 @@ export default function ItineraryPage() {
                       boxShadow: "0 24px 60px rgba(0, 0, 0, 0.42)",
                     }}
                   >
-                    {/* Visual Column */}
-                    <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
-                      <SessionVisual session={session} />
-                    </GridItem>
+                    {/* Visual Column (Only rendered when session has speaker images) */}
+                    {hasVisual && (
+                      <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
+                        <SessionVisual session={session} />
+                      </GridItem>
+                    )}
 
                     {/* Content Column */}
                     <GridItem order={{ base: 1, md: isEven ? 1 : 0 }}>
                       <Flex
                         direction="column"
-                        align={{ base: "center", md: "flex-start" }}
-                        textAlign={{ base: "center", md: "left" }}
+                        align={{
+                          base: "center",
+                          md: hasVisual ? "flex-start" : "center",
+                        }}
+                        textAlign={{
+                          base: "center",
+                          md: hasVisual ? "left" : "center",
+                        }}
+                        maxW={hasVisual ? "100%" : "38rem"}
+                        mx={hasVisual ? 0 : "auto"}
                       >
                         {/* Session Number + Time Badge */}
                         <Flex
                           wrap="wrap"
                           align="center"
-                          justify={{ base: "center", md: "flex-start" }}
+                          justify={{
+                            base: "center",
+                            md: hasVisual ? "flex-start" : "center",
+                          }}
                           gap={2.5}
                           mb={3}
                         >
@@ -730,7 +639,7 @@ export default function ItineraryPage() {
                           </Box>
                         )}
 
-                        {/* Accent Label for Non-Speaker / Multi-Speaker Sessions */}
+                        {/* Accent Label for Non-Speaker Sessions (e.g., Lunch) */}
                         {session.accentLabel && (
                           <Text
                             fontFamily="'Proxima Nova', 'Inter', sans-serif"
@@ -755,7 +664,7 @@ export default function ItineraryPage() {
                           {session.description}
                         </Text>
 
-                        {/* Multi-Speaker Roster (e.g., Canopy Conversations) */}
+                        {/* Multi-Speaker Roster (Canopy Conversations) */}
                         {speakers.length > 1 && (
                           <Box w="100%" pt={3} borderTop="1px solid rgba(255, 255, 255, 0.08)">
                             <Text
@@ -927,4 +836,3 @@ export default function ItineraryPage() {
     </Layout>
   );
 }
-

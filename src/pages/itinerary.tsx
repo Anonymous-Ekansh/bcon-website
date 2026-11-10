@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Flex,
@@ -8,7 +8,12 @@ import {
   Image as ChakraImage,
   Button,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import Link from "next/link";
 import { FiClock, FiCalendar, FiArrowRight, FiMapPin } from "react-icons/fi";
 import Layout from "~/components/layout";
@@ -164,171 +169,135 @@ const ITINERARY_SESSIONS: ItinerarySession[] = [
   },
 ];
 
-const ConnectorCurve = ({ flip }: { flip: boolean }) => (
-  <Flex
-    display={{ base: "none", md: "flex" }}
-    w="100%"
-    justify="center"
-    my={2}
-    pointerEvents="none"
-    opacity={0.55}
-  >
-    <Box
-      as="svg"
-      w="320px"
-      h="84px"
-      viewBox="0 0 320 84"
-      fill="none"
-      style={{ transform: flip ? "scaleX(-1)" : "none" }}
-    >
-      <motion.path
-        d="M 40 4 C 40 46, 280 38, 280 80"
-        stroke="url(#goldLineGrad)"
-        strokeWidth="1.5"
-        strokeDasharray="5 5"
-        strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0.2 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-      />
-      <circle cx="40" cy="4" r="3" fill="#CFAF89" opacity="0.7" />
-      <circle cx="280" cy="80" r="3" fill="#CFAF89" opacity="0.7" />
-      <defs>
-        <linearGradient id="goldLineGrad" x1="40" y1="4" x2="280" y2="80" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="rgba(207, 175, 137, 0.7)" />
-          <stop offset="50%" stopColor="rgba(198, 100, 219, 0.55)" />
-          <stop offset="100%" stopColor="rgba(207, 175, 137, 0.7)" />
-        </linearGradient>
-      </defs>
-    </Box>
-  </Flex>
-);
+const CURVE_PATH =
+  "M 6 6 C 6 6, 13.7 36.8, 22 59 C 31 83, 45.7 119, 64 136 C 85.5 156, 104.5 166.7, 135.5 163.5 C 181.4 158.8, 234 130.5, 234 130.5 C 234 130.5, 270.3 105.7, 321.5 83.5 C 393.4 52.3, 435.2 26.2, 513.5 25.5 C 547.9 25.2, 568 25.8, 601 35.5 C 628.9 43.7, 645.4 48.6, 661 73 C 676.8 97.5, 684.5 121.9, 684.5 163.5 C 684.5 199.5, 661 262, 661 262";
 
-function SessionVisual({ session }: { session: ItinerarySession }) {
+const ConnectorCurve = ({ flip, index }: { flip: boolean; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.88", "end 0.35"],
+  });
+
+  const smoothLength = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 22,
+    mass: 0.6,
+    restDelta: 0.001,
+  });
+
+  const opacity = useTransform(smoothLength, [0, 0.15, 1], [0.15, 0.85, 0.95]);
+  const gradId = `goldCurveGrad-${index}`;
+
+  return (
+    <Flex
+      ref={ref}
+      display={{ base: "none", md: "flex" }}
+      w="100%"
+      justify="center"
+      my={{ md: -2, lg: -1 }}
+      pointerEvents="none"
+      position="relative"
+      zIndex={1}
+    >
+      <motion.div style={{ opacity, willChange: "opacity" }}>
+        <Box
+          as="svg"
+          w={{ md: "420px", lg: "500px" }}
+          h={{ md: "145px", lg: "170px" }}
+          viewBox="0 0 690 268"
+          fill="none"
+          style={{ transform: flip ? "scaleX(-1)" : "none" }}
+        >
+          {/* Subtle static track */}
+          <path
+            d={CURVE_PATH}
+            stroke="rgba(207, 175, 137, 0.12)"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="28 28"
+          />
+          {/* Scroll-driven animated gold stroke */}
+          <motion.path
+            d={CURVE_PATH}
+            stroke={`url(#${gradId})`}
+            strokeWidth="7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ pathLength: smoothLength }}
+          />
+          <defs>
+            <linearGradient
+              id={gradId}
+              x1="6"
+              y1="6"
+              x2="684"
+              y2="262"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="#CFAF89" stopOpacity="0.95" />
+              <stop offset="50%" stopColor="#E8D8C3" stopOpacity="1" />
+              <stop offset="100%" stopColor="#CFAF89" stopOpacity="0.95" />
+            </linearGradient>
+          </defs>
+        </Box>
+      </motion.div>
+    </Flex>
+  );
+};
+
+function SessionVisual({
+  session,
+  eager,
+}: {
+  session: ItinerarySession;
+  eager: boolean;
+}) {
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const speakers = session.speakers ?? [];
 
   if (speakers.length > 1) {
     return (
-      <motion.div
-        whileHover={{ y: -5 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        style={{ width: "100%" }}
+      <Grid
+        templateColumns="repeat(2, 1fr)"
+        gap={{ base: 2.5, sm: 3 }}
+        w="100%"
+        maxW={{ base: "310px", sm: "335px" }}
+        mx="auto"
+        p={{ base: 2.5, sm: 3 }}
+        borderRadius="18px"
+        bg="linear-gradient(145deg, rgba(36, 14, 58, 0.92) 0%, rgba(20, 7, 35, 0.96) 100%)"
+        border="1px solid rgba(207, 175, 137, 0.18)"
+        boxShadow="0px 18px 40px rgba(0, 0, 0, 0.4)"
+        transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease"
+        _hover={{
+          transform: "translateY(-4px)",
+          borderColor: "rgba(207, 175, 137, 0.4)",
+        }}
       >
-        <Grid
-          templateColumns="repeat(2, 1fr)"
-          gap={{ base: 2.5, sm: 3 }}
-          w="100%"
-          maxW={{ base: "320px", sm: "340px" }}
-          mx="auto"
-          p={{ base: 2.5, sm: 3 }}
-          borderRadius="18px"
-          bg="rgba(255, 255, 255, 0.03)"
-          border="1px solid rgba(255, 255, 255, 0.08)"
-          boxShadow="0px 18px 40px rgba(0, 0, 0, 0.38)"
-        >
-          {speakers.map((sp) => (
-            <Box
-              key={sp.name}
-              position="relative"
-              borderRadius="12px"
-              overflow="hidden"
-              aspectRatio="4/5"
-              bg="rgba(26, 9, 43, 0.9)"
-              border="1px solid rgba(255, 255, 255, 0.07)"
-            >
-              {!failedImages[sp.name] ? (
-                <ChakraImage
-                  src={sp.image}
-                  alt={sp.name}
-                  w="100%"
-                  h="100%"
-                  objectFit="cover"
-                  objectPosition={sp.objectPosition ?? "center top"}
-                  onError={() =>
-                    setFailedImages((prev) => ({ ...prev, [sp.name]: true }))
-                  }
-                />
-              ) : (
-                <Flex w="100%" h="100%" align="center" justify="center">
-                  <Text
-                    fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                    fontSize="24px"
-                    color="rgba(207, 175, 137, 0.5)"
-                  >
-                    {sp.name
-                      .replace(/^(Mr\.|Ms\.|Dr\.|Brig\.)\s+/i, "")
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </Text>
-                </Flex>
-              )}
-              <Box
-                position="absolute"
-                inset="0"
-                bg="linear-gradient(to top, rgba(12, 4, 22, 0.92) 0%, rgba(12, 4, 22, 0.25) 45%, transparent 100%)"
-              />
-              <Box position="absolute" bottom="8px" left="8px" right="8px">
-                <Text
-                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                  fontSize="11px"
-                  fontWeight="600"
-                  color="#FFFFFF"
-                  lineHeight="1.2"
-                  noOfLines={1}
-                >
-                  {sp.name}
-                </Text>
-                <Text
-                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                  fontSize="9.5px"
-                  color="#CFAF89"
-                  lineHeight="1.2"
-                  noOfLines={1}
-                >
-                  {sp.role.split("•")[0]?.trim()}
-                </Text>
-              </Box>
-            </Box>
-          ))}
-        </Grid>
-      </motion.div>
-    );
-  }
-
-  if (speakers.length === 1 && speakers[0]) {
-    const sp = speakers[0];
-    return (
-      <Flex flexDir="column" alignItems="center">
-        <motion.div
-          whileHover={{
-            scale: 1.02,
-            y: -4,
-            boxShadow: "0px 20px 40px rgba(198, 100, 219, 0.16)",
-          }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          style={{ borderRadius: "14px" }}
-        >
+        {speakers.map((sp) => (
           <Box
+            key={sp.name}
             position="relative"
-            w={{ base: "240px", sm: "260px", md: "265px" }}
-            h={{ base: "300px", sm: "325px", md: "330px" }}
-            borderRadius="14px"
+            borderRadius="12px"
             overflow="hidden"
-            bg="rgba(26, 9, 43, 0.85)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            boxShadow="0px 10px 30px rgba(0, 0, 0, 0.35)"
+            aspectRatio="4/5"
+            bg="rgba(22, 8, 38, 0.95)"
+            border="1px solid rgba(255, 255, 255, 0.08)"
           >
             {!failedImages[sp.name] ? (
               <ChakraImage
                 src={sp.image}
                 alt={sp.name}
+                loading={eager ? "eager" : "lazy"}
+                decoding="async"
                 w="100%"
                 h="100%"
                 objectFit="cover"
                 objectPosition={sp.objectPosition ?? "center top"}
+                transition="transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+                _hover={{ transform: "scale(1.05)" }}
                 onError={() =>
                   setFailedImages((prev) => ({ ...prev, [sp.name]: true }))
                 }
@@ -337,9 +306,8 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
               <Flex w="100%" h="100%" align="center" justify="center">
                 <Text
                   fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                  fontSize="48px"
-                  color="rgba(207, 175, 137, 0.4)"
-                  fontWeight="300"
+                  fontSize="24px"
+                  color="rgba(207, 175, 137, 0.5)"
                 >
                   {sp.name
                     .replace(/^(Mr\.|Ms\.|Dr\.|Brig\.)\s+/i, "")
@@ -352,31 +320,128 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
             <Box
               position="absolute"
               inset="0"
-              bg="linear-gradient(to top, rgba(14, 5, 26, 0.88) 0%, rgba(14, 5, 26, 0.15) 45%, transparent 100%)"
+              bg="linear-gradient(to top, rgba(12, 4, 22, 0.92) 0%, rgba(12, 4, 22, 0.22) 45%, transparent 100%)"
+              pointerEvents="none"
             />
-            <Box position="absolute" bottom="14px" left="14px" right="14px">
+            <Box
+              position="absolute"
+              bottom="8px"
+              left="8px"
+              right="8px"
+              pointerEvents="none"
+            >
               <Text
-                fontFamily="'Cinzel', serif"
-                fontSize="9.5px"
-                letterSpacing="0.16em"
-                color="#CFAF89"
-                textTransform="uppercase"
-                mb={0.5}
-              >
-                {session.category}
-              </Text>
-              <Text
-                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                fontSize="18px"
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontSize="11px"
+                fontWeight="600"
                 color="#FFFFFF"
-                fontWeight="300"
                 lineHeight="1.2"
+                noOfLines={1}
               >
                 {sp.name}
               </Text>
+              <Text
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontSize="9.5px"
+                color="#CFAF89"
+                lineHeight="1.2"
+                noOfLines={1}
+              >
+                {sp.role.split("•")[0]?.trim()}
+              </Text>
             </Box>
           </Box>
-        </motion.div>
+        ))}
+      </Grid>
+    );
+  }
+
+  if (speakers.length === 1 && speakers[0]) {
+    const sp = speakers[0];
+    return (
+      <Flex flexDir="column" alignItems="center">
+        <Box
+          position="relative"
+          w={{ base: "235px", sm: "255px", md: "260px" }}
+          h={{ base: "295px", sm: "320px", md: "325px" }}
+          borderRadius="16px"
+          overflow="hidden"
+          bg="rgba(22, 8, 38, 0.92)"
+          border="1px solid rgba(207, 175, 137, 0.22)"
+          boxShadow="0px 14px 34px rgba(0, 0, 0, 0.42)"
+          transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease"
+          _hover={{
+            transform: "translateY(-5px) scale(1.015)",
+            borderColor: "rgba(207, 175, 137, 0.5)",
+            boxShadow: "0px 22px 44px rgba(0, 0, 0, 0.55)",
+          }}
+        >
+          {!failedImages[sp.name] ? (
+            <ChakraImage
+              src={sp.image}
+              alt={sp.name}
+              loading={eager ? "eager" : "lazy"}
+              decoding="async"
+              w="100%"
+              h="100%"
+              objectFit="cover"
+              objectPosition={sp.objectPosition ?? "center top"}
+              transition="transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)"
+              _hover={{ transform: "scale(1.04)" }}
+              onError={() =>
+                setFailedImages((prev) => ({ ...prev, [sp.name]: true }))
+              }
+            />
+          ) : (
+            <Flex w="100%" h="100%" align="center" justify="center">
+              <Text
+                fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+                fontSize="48px"
+                color="rgba(207, 175, 137, 0.4)"
+                fontWeight="300"
+              >
+                {sp.name
+                  .replace(/^(Mr\.|Ms\.|Dr\.|Brig\.)\s+/i, "")
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </Text>
+            </Flex>
+          )}
+          <Box
+            position="absolute"
+            inset="0"
+            bg="linear-gradient(to top, rgba(14, 5, 26, 0.9) 0%, rgba(14, 5, 26, 0.15) 45%, transparent 100%)"
+            pointerEvents="none"
+          />
+          <Box
+            position="absolute"
+            bottom="14px"
+            left="14px"
+            right="14px"
+            pointerEvents="none"
+          >
+            <Text
+              fontFamily="'Cinzel', serif"
+              fontSize="9.5px"
+              letterSpacing="0.16em"
+              color="#CFAF89"
+              textTransform="uppercase"
+              mb={0.5}
+            >
+              {session.category}
+            </Text>
+            <Text
+              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+              fontSize="18px"
+              color="#FFFFFF"
+              fontWeight="300"
+              lineHeight="1.2"
+            >
+              {sp.name}
+            </Text>
+          </Box>
+        </Box>
       </Flex>
     );
   }
@@ -384,10 +449,343 @@ function SessionVisual({ session }: { session: ItinerarySession }) {
   return null;
 }
 
+function ItinerarySessionCard({
+  session,
+  index,
+  visualOrderIndex,
+}: {
+  session: ItinerarySession;
+  index: number;
+  visualOrderIndex: number;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const speakers = session.speakers ?? [];
+  const hasVisual = speakers.length > 0;
+  const isEven = visualOrderIndex % 2 === 0;
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start 0.94", "end 0.08"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 95,
+    damping: 24,
+    mass: 0.65,
+    restDelta: 0.001,
+  });
+
+  const cardY = useTransform(smoothProgress, [0, 0.28, 0.78, 1], [42, 0, 0, -24]);
+  const cardOpacity = useTransform(
+    smoothProgress,
+    [0, 0.2, 0.85, 1],
+    [0.08, 1, 1, 0.35]
+  );
+  const cardScale = useTransform(
+    smoothProgress,
+    [0, 0.28, 0.78, 1],
+    [0.96, 1, 1, 0.98]
+  );
+  const visualParallaxY = useTransform(smoothProgress, [0, 0.5, 1], [18, 0, -18]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      id={session.id}
+      style={{
+        y: cardY,
+        opacity: cardOpacity,
+        scale: cardScale,
+        willChange: "transform, opacity",
+      }}
+    >
+      <Grid
+        templateColumns={{
+          base: "1fr",
+          md: hasVisual ? (isEven ? "1fr 1.65fr" : "1.65fr 1fr") : "1fr",
+        }}
+        gap={{ base: 6, md: hasVisual ? 10 : 0, lg: hasVisual ? 14 : 0 }}
+        alignItems="center"
+        bg="linear-gradient(145deg, rgba(40, 15, 64, 0.78) 0%, rgba(22, 8, 38, 0.88) 100%)"
+        p={{ base: 6, sm: 7, md: 8 }}
+        borderRadius="22px"
+        border="1px solid rgba(207, 175, 137, 0.14)"
+        boxShadow="0 18px 45px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
+        mb={{ base: 6, md: 0 }}
+        position="relative"
+        zIndex={2}
+        transition="border-color 0.35s ease, box-shadow 0.35s ease"
+        _hover={{
+          borderColor: "rgba(207, 175, 137, 0.34)",
+          boxShadow:
+            "0 24px 55px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(207, 175, 137, 0.15)",
+        }}
+      >
+        {/* Visual Column */}
+        {hasVisual && (
+          <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
+            <motion.div
+              style={{ y: visualParallaxY, willChange: "transform" }}
+            >
+              <SessionVisual session={session} eager={index < 2} />
+            </motion.div>
+          </GridItem>
+        )}
+
+        {/* Content Column */}
+        <GridItem order={{ base: 1, md: isEven ? 1 : 0 }}>
+          <Flex
+            direction="column"
+            align={{
+              base: "center",
+              md: hasVisual ? "flex-start" : "center",
+            }}
+            textAlign={{
+              base: "center",
+              md: hasVisual ? "left" : "center",
+            }}
+            maxW={hasVisual ? "100%" : "38rem"}
+            mx={hasVisual ? 0 : "auto"}
+          >
+            {/* Editorial Session Header + Bold Time Pill */}
+            <Flex
+              wrap="wrap"
+              align="center"
+              justify={{
+                base: "center",
+                md: hasVisual ? "flex-start" : "center",
+              }}
+              gap={3}
+              mb={3.5}
+            >
+              <Flex align="center" gap={2}>
+                <Text
+                  fontFamily="'Cinzel', serif"
+                  fontSize="12px"
+                  fontWeight="800"
+                  letterSpacing="0.14em"
+                  color="#CFAF89"
+                >
+                  {session.number}
+                </Text>
+                <Box w="14px" h="1px" bg="rgba(207, 175, 137, 0.5)" />
+                <Text
+                  fontFamily="'Cinzel', serif"
+                  fontSize="11px"
+                  fontWeight="700"
+                  letterSpacing="0.18em"
+                  color="#CFAF89"
+                  textTransform="uppercase"
+                >
+                  {session.category}
+                </Text>
+              </Flex>
+
+              <Box
+                display={{ base: "none", sm: "block" }}
+                w="1px"
+                h="12px"
+                bg="rgba(255, 255, 255, 0.16)"
+              />
+
+              <Flex
+                align="center"
+                gap={1.5}
+                px={3}
+                py={1}
+                borderRadius="6px"
+                bg="rgba(207, 175, 137, 0.1)"
+                border="1px solid rgba(207, 175, 137, 0.3)"
+              >
+                <Box
+                  as="svg"
+                  w="12px"
+                  h="12px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#CFAF89"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  flexShrink={0}
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <polyline points="12 7 12 12 15.5 14" />
+                </Box>
+                <Text
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  fontSize="11.5px"
+                  fontWeight="700"
+                  letterSpacing="0.09em"
+                  color="#FFFFFF"
+                >
+                  {session.time}
+                </Text>
+              </Flex>
+            </Flex>
+
+            {/* Session Title */}
+            <Text
+              fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
+              fontWeight={300}
+              fontSize={{ base: "26px", sm: "30px", md: "34px" }}
+              color="#CFAF89"
+              lineHeight="1.15"
+              mb={2}
+            >
+              {session.title}
+            </Text>
+
+            {/* Single Speaker Highlight */}
+            {speakers.length === 1 && speakers[0] && (
+              <Box mb={3}>
+                <Text
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  fontWeight={600}
+                  fontSize={{ base: "16px", md: "18px" }}
+                  color="#FFFFFF"
+                >
+                  {speakers[0].name}
+                </Text>
+                <Text
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                  fontWeight={400}
+                  fontSize={{ base: "13.5px", md: "14.5px" }}
+                  color="rgba(207, 175, 137, 0.85)"
+                >
+                  {speakers[0].role}
+                </Text>
+              </Box>
+            )}
+
+            {/* Accent Label for Non-Speaker Sessions (Lunch) */}
+            {session.accentLabel && (
+              <Text
+                fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                fontWeight={500}
+                fontSize={{ base: "14px", md: "15.5px" }}
+                color="rgba(255, 255, 255, 0.78)"
+                mb={3}
+              >
+                {session.accentLabel}
+              </Text>
+            )}
+
+            {/* Description */}
+            <Text
+              fontFamily="'Proxima Nova', 'Inter', sans-serif"
+              fontWeight={300}
+              fontSize={{ base: "14px", sm: "15px", md: "15.5px" }}
+              color="rgba(255, 255, 255, 0.8)"
+              lineHeight="1.75"
+              mb={speakers.length > 1 ? 5 : 0}
+            >
+              {session.description}
+            </Text>
+
+            {/* Multi-Speaker Roster (Canopy Conversations) */}
+            {speakers.length > 1 && (
+              <Box
+                w="100%"
+                pt={3}
+                borderTop="1px solid rgba(255, 255, 255, 0.08)"
+              >
+                <Text
+                  fontFamily="'Cinzel', serif"
+                  fontSize="10px"
+                  fontWeight="700"
+                  letterSpacing="0.18em"
+                  color="#CFAF89"
+                  textTransform="uppercase"
+                  mb={3}
+                >
+                  Featured Panelists
+                </Text>
+                <Grid
+                  templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
+                  gap={2.5}
+                  w="100%"
+                >
+                  {speakers.map((sp) => (
+                    <Flex
+                      key={sp.name}
+                      direction="column"
+                      align={{ base: "center", md: "flex-start" }}
+                      p={2.5}
+                      borderRadius="12px"
+                      bg="rgba(255, 255, 255, 0.035)"
+                      border="1px solid rgba(255, 255, 255, 0.07)"
+                      transition="border-color 0.25s ease, transform 0.25s ease"
+                      _hover={{
+                        borderColor: "rgba(207, 175, 137, 0.35)",
+                        transform: "translateY(-2px)",
+                      }}
+                    >
+                      <Text
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                        fontSize="13.5px"
+                        fontWeight="600"
+                        color="#FFFFFF"
+                      >
+                        {sp.name}
+                      </Text>
+                      <Text
+                        fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                        fontSize="11.5px"
+                        color="rgba(207, 175, 137, 0.85)"
+                        lineHeight="1.35"
+                      >
+                        {sp.role}
+                      </Text>
+                    </Flex>
+                  ))}
+                </Grid>
+              </Box>
+            )}
+          </Flex>
+        </GridItem>
+      </Grid>
+    </motion.div>
+  );
+}
+
 export default function ItineraryPage() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 28,
+    restDelta: 0.001,
+  });
+
+  // Track alternating index specifically for sessions that have speaker visuals
+  let visualCounter = 0;
+
   return (
     <Layout title="Event Itinerary | Business Conclave">
-      <Box position="relative" pt={{ base: 28, md: 36 }} pb={{ base: 6, md: 10 }} bg="transparent">
+      {/* Top Golden Scroll Progress Bar */}
+      <motion.div
+        style={{
+          scaleX,
+          transformOrigin: "0%",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "2.5px",
+          background:
+            "linear-gradient(90deg, #CFAF89 0%, #FFF3DF 50%, #CFAF89 100%)",
+          boxShadow: "0 0 12px rgba(207, 175, 137, 0.65)",
+          zIndex: 10002,
+          willChange: "transform",
+        }}
+      />
+
+      <Box
+        position="relative"
+        pt={{ base: 28, md: 36 }}
+        pb={{ base: 8, md: 12 }}
+        bg="transparent"
+      >
         <Flex
           flexDir="column"
           alignItems="center"
@@ -397,38 +795,79 @@ export default function ItineraryPage() {
           textAlign="center"
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Flex
-              align="center"
-              gap={2.5}
-              px={4}
-              py={1.5}
-              mb={4}
-              borderRadius="full"
-              bg="rgba(207, 175, 137, 0.08)"
-              border="1px solid rgba(207, 175, 137, 0.25)"
-            >
-              <FiCalendar size={12} color="#CFAF89" />
-              <Text
-                textTransform="uppercase"
-                fontSize={{ base: "10px", sm: "11px" }}
-                fontWeight="600"
-                letterSpacing="0.24em"
-                color="#CFAF89"
-                fontFamily="'Cinzel', serif"
+            <Flex align="center" justify="center" gap={{ base: 2.5, sm: 3.5 }} mb={5}>
+              <Box
+                display={{ base: "none", sm: "block" }}
+                w={{ sm: "24px", md: "36px" }}
+                h="1px"
+                bg="linear-gradient(90deg, transparent, rgba(207, 175, 137, 0.7))"
+              />
+              <Flex
+                align="center"
+                gap={2.5}
+                px={{ base: 4, sm: 5 }}
+                py={2}
+                borderRadius="full"
+                bg="linear-gradient(135deg, rgba(207, 175, 137, 0.16) 0%, rgba(207, 175, 137, 0.06) 100%)"
+                border="1px solid rgba(207, 175, 137, 0.45)"
+                boxShadow="0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12)"
               >
-                14 November 2026 • Full Day Schedule
-              </Text>
+                <Box
+                  as="svg"
+                  w="13px"
+                  h="13px"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#CFAF89"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  flexShrink={0}
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </Box>
+                <Text
+                  textTransform="uppercase"
+                  fontSize={{ base: "10.5px", sm: "11.5px", md: "12px" }}
+                  fontWeight="800"
+                  letterSpacing={{ base: "0.18em", sm: "0.24em" }}
+                  color="#CFAF89"
+                  fontFamily="'Cinzel', serif"
+                >
+                  14 November 2026
+                </Text>
+                <Box w="1px" h="11px" bg="rgba(207, 175, 137, 0.4)" />
+                <Text
+                  textTransform="uppercase"
+                  fontSize={{ base: "10px", sm: "11px" }}
+                  fontWeight="700"
+                  letterSpacing={{ base: "0.14em", sm: "0.18em" }}
+                  color="#FFFFFF"
+                  fontFamily="'Proxima Nova', 'Inter', sans-serif"
+                >
+                  Official Lineup
+                </Text>
+              </Flex>
+              <Box
+                display={{ base: "none", sm: "block" }}
+                w={{ sm: "24px", md: "36px" }}
+                h="1px"
+                bg="linear-gradient(90deg, rgba(207, 175, 137, 0.7), transparent)"
+              />
             </Flex>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
           >
             <Text
               fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
@@ -443,9 +882,9 @@ export default function ItineraryPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           >
             <Text
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
@@ -454,7 +893,7 @@ export default function ItineraryPage() {
               color="rgba(255, 255, 255, 0.72)"
               maxW="600px"
               lineHeight="1.65"
-              mb={3}
+              mb={4}
             >
               A curated full-day convergence of keynote sessions, hands-on workshops, candid fireside panels, and live entertainment.
             </Text>
@@ -463,264 +902,76 @@ export default function ItineraryPage() {
               href="https://maps.app.goo.gl/4mspRRssrjY563N9A"
               target="_blank"
               rel="noopener noreferrer"
+              role="group"
+               display="inline-flex"
               align="center"
               justify="center"
               gap={2}
-              color="rgba(207, 175, 137, 0.8)"
+              px={4}
+              py={1.5}
+              borderRadius="full"
+              bg="rgba(255, 255, 255, 0.03)"
+              border="1px solid rgba(207, 175, 137, 0.25)"
+              color="#CFAF89"
               fontSize="12.5px"
+              fontWeight="600"
+              letterSpacing="0.04em"
               fontFamily="'Proxima Nova', 'Inter', sans-serif"
               transition="all 0.25s ease"
               _hover={{
-                color: "#CFAF89",
-                textDecoration: "underline",
-                textUnderlineOffset: "4px",
+                bg: "rgba(207, 175, 137, 0.12)",
+                borderColor: "#CFAF89",
+                color: "#FFFFFF",
+                transform: "translateY(-1px)",
               }}
             >
-              <FiMapPin size={13} />
-              <Text>G-Block, Shiv Nadar University, Delhi-NCR</Text>
+              <FiMapPin size={13} color="#CFAF89" />
+              <Text as="span">G-Block, Shiv Nadar University, Delhi-NCR</Text>
+              <Box
+                as="svg"
+                w="12px"
+                h="12px"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity={0.75}
+                transition="transform 0.2s ease"
+                _groupHover={{ transform: "translate(2px, -2px)", opacity: 1 }}
+              >
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </Box>
             </Flex>
           </motion.div>
         </Flex>
       </Box>
 
-      {/* Main Alternating Timeline Container (Matching Past Speakers Layout) */}
+      {/* Main Alternating Timeline Container */}
       <Box position="relative" pb={24}>
         <Flex
           flexDir="column"
-          maxW="58rem"
+          maxW="56rem"
           mx="auto"
           px={{ base: 5, sm: 6, md: 8 }}
           position="relative"
         >
           {ITINERARY_SESSIONS.map((session, i) => {
-            const isEven = i % 2 === 0;
-            const speakers = session.speakers ?? [];
-            const hasVisual = speakers.length > 0;
+            const hasVisual = (session.speakers?.length ?? 0) > 0;
+            const currentVisualOrder = hasVisual ? visualCounter++ : i;
 
             return (
               <React.Fragment key={session.id}>
-                <motion.div
-                  id={session.id}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.18 }}
-                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Grid
-                    templateColumns={{
-                      base: "1fr",
-                      md: hasVisual
-                        ? isEven
-                          ? "1fr 1.65fr"
-                          : "1.65fr 1fr"
-                        : "1fr",
-                    }}
-                    gap={{ base: 6, md: hasVisual ? 12 : 0, lg: hasVisual ? 16 : 0 }}
-                    alignItems="center"
-                    bg={{ base: "rgba(255, 255, 255, 0.03)", md: "rgba(255, 255, 255, 0.02)" }}
-                    p={{ base: 6, sm: 7, md: 8 }}
-                    borderRadius="22px"
-                    border="1px solid rgba(255, 255, 255, 0.07)"
-                    boxShadow="0 20px 50px rgba(0, 0, 0, 0.28)"
-                    backdropFilter="blur(14px)"
-                    mb={{ base: 6, md: 0 }}
-                    position="relative"
-                    transition="border-color 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      borderColor: "rgba(207, 175, 137, 0.28)",
-                      boxShadow: "0 24px 60px rgba(0, 0, 0, 0.42)",
-                    }}
-                  >
-                    {/* Visual Column (Only rendered when session has speaker images) */}
-                    {hasVisual && (
-                      <GridItem order={{ base: 0, md: isEven ? 0 : 1 }}>
-                        <SessionVisual session={session} />
-                      </GridItem>
-                    )}
-
-                    {/* Content Column */}
-                    <GridItem order={{ base: 1, md: isEven ? 1 : 0 }}>
-                      <Flex
-                        direction="column"
-                        align={{
-                          base: "center",
-                          md: hasVisual ? "flex-start" : "center",
-                        }}
-                        textAlign={{
-                          base: "center",
-                          md: hasVisual ? "left" : "center",
-                        }}
-                        maxW={hasVisual ? "100%" : "38rem"}
-                        mx={hasVisual ? 0 : "auto"}
-                      >
-                        {/* Session Number + Time Badge */}
-                        <Flex
-                          wrap="wrap"
-                          align="center"
-                          justify={{
-                            base: "center",
-                            md: hasVisual ? "flex-start" : "center",
-                          }}
-                          gap={2.5}
-                          mb={3}
-                        >
-                          <Box
-                            px={2.5}
-                            py={0.5}
-                            borderRadius="full"
-                            bg="rgba(207, 175, 137, 0.14)"
-                            border="1px solid rgba(207, 175, 137, 0.35)"
-                          >
-                            <Text
-                              fontFamily="'Cinzel', serif"
-                              fontSize="10px"
-                              fontWeight="700"
-                              letterSpacing="0.16em"
-                              color="#CFAF89"
-                              textTransform="uppercase"
-                            >
-                              {session.number} • {session.category}
-                            </Text>
-                          </Box>
-
-                          <Flex
-                            align="center"
-                            gap={1.5}
-                            px={3}
-                            py={0.5}
-                            borderRadius="full"
-                            bg="rgba(255, 255, 255, 0.05)"
-                            border="1px solid rgba(255, 255, 255, 0.1)"
-                          >
-                            <FiClock size={11} color="#CFAF89" />
-                            <Text
-                              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                              fontSize="11.5px"
-                              fontWeight="600"
-                              letterSpacing="0.08em"
-                              color="rgba(255, 255, 255, 0.9)"
-                            >
-                              {session.time}
-                            </Text>
-                          </Flex>
-                        </Flex>
-
-                        {/* Session Title */}
-                        <Text
-                          fontFamily="'Tan Vivre Libre', 'Playfair Display', serif"
-                          fontWeight={300}
-                          fontSize={{ base: "26px", sm: "30px", md: "34px" }}
-                          color="#CFAF89"
-                          lineHeight="1.15"
-                          mb={2}
-                        >
-                          {session.title}
-                        </Text>
-
-                        {/* Single Speaker Highlight */}
-                        {speakers.length === 1 && speakers[0] && (
-                          <Box mb={3}>
-                            <Text
-                              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                              fontWeight={600}
-                              fontSize={{ base: "16px", md: "18px" }}
-                              color="#FFFFFF"
-                            >
-                              {speakers[0].name}
-                            </Text>
-                            <Text
-                              fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                              fontWeight={400}
-                              fontSize={{ base: "13.5px", md: "14.5px" }}
-                              color="rgba(207, 175, 137, 0.85)"
-                            >
-                              {speakers[0].role}
-                            </Text>
-                          </Box>
-                        )}
-
-                        {/* Accent Label for Non-Speaker Sessions (e.g., Lunch) */}
-                        {session.accentLabel && (
-                          <Text
-                            fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                            fontWeight={500}
-                            fontSize={{ base: "14px", md: "15.5px" }}
-                            color="rgba(255, 255, 255, 0.78)"
-                            mb={3}
-                          >
-                            {session.accentLabel}
-                          </Text>
-                        )}
-
-                        {/* Description */}
-                        <Text
-                          fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                          fontWeight={300}
-                          fontSize={{ base: "14px", sm: "15px", md: "15.5px" }}
-                          color="rgba(255, 255, 255, 0.8)"
-                          lineHeight="1.75"
-                          mb={speakers.length > 1 ? 5 : 0}
-                        >
-                          {session.description}
-                        </Text>
-
-                        {/* Multi-Speaker Roster (Canopy Conversations) */}
-                        {speakers.length > 1 && (
-                          <Box w="100%" pt={3} borderTop="1px solid rgba(255, 255, 255, 0.08)">
-                            <Text
-                              fontFamily="'Cinzel', serif"
-                              fontSize="10px"
-                              fontWeight="700"
-                              letterSpacing="0.18em"
-                              color="#CFAF89"
-                              textTransform="uppercase"
-                              mb={3}
-                            >
-                              Featured Panelists
-                            </Text>
-                            <Grid
-                              templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
-                              gap={2.5}
-                              w="100%"
-                            >
-                              {speakers.map((sp) => (
-                                <Flex
-                                  key={sp.name}
-                                  direction="column"
-                                  align={{ base: "center", md: "flex-start" }}
-                                  p={2.5}
-                                  borderRadius="12px"
-                                  bg="rgba(255, 255, 255, 0.03)"
-                                  border="1px solid rgba(255, 255, 255, 0.06)"
-                                >
-                                  <Text
-                                    fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                                    fontSize="13.5px"
-                                    fontWeight="600"
-                                    color="#FFFFFF"
-                                  >
-                                    {sp.name}
-                                  </Text>
-                                  <Text
-                                    fontFamily="'Proxima Nova', 'Inter', sans-serif"
-                                    fontSize="11.5px"
-                                    color="rgba(207, 175, 137, 0.85)"
-                                    lineHeight="1.35"
-                                  >
-                                    {sp.role}
-                                  </Text>
-                                </Flex>
-                              ))}
-                            </Grid>
-                          </Box>
-                        )}
-                      </Flex>
-                    </GridItem>
-                  </Grid>
-                </motion.div>
+                <ItinerarySessionCard
+                  session={session}
+                  index={i}
+                  visualOrderIndex={currentVisualOrder}
+                />
 
                 {i < ITINERARY_SESSIONS.length - 1 && (
-                  <ConnectorCurve flip={!isEven} />
+                  <ConnectorCurve flip={i % 2 === 1} index={i} />
                 )}
               </React.Fragment>
             );
@@ -741,10 +992,9 @@ export default function ItineraryPage() {
             w="100%"
             p={{ base: 7, sm: 9 }}
             borderRadius="24px"
-            bg="rgba(255, 255, 255, 0.025)"
-            border="1px solid rgba(207, 175, 137, 0.22)"
-            boxShadow="0 20px 50px rgba(0, 0, 0, 0.35)"
-            backdropFilter="blur(16px)"
+            bg="linear-gradient(145deg, rgba(40, 15, 64, 0.82) 0%, rgba(22, 8, 38, 0.92) 100%)"
+            border="1px solid rgba(207, 175, 137, 0.24)"
+            boxShadow="0 20px 50px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.06)"
           >
             <Text
               fontFamily="'Cinzel', serif"
